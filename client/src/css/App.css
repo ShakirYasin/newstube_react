@@ -1,0 +1,71 @@
+
+:root{
+  --primary_bg: #E8EAEE;
+  --nav_bg: #060b26;
+  --primary: #303236;
+  --secondary: #879299;
+  --icon_bg: #EDF1F4;
+  --active_element_bg: #5474FF;
+}
+/*   
+  .home,
+  .reports,
+  .products {
+    display: flex;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  } */
+
+
+.primary{
+  color: var(--primary);
+}
+.secondary{
+  color: var(--secondary);
+}
+.icon_bg{
+  color: var(--icon_bg);
+}
+.active_element_bg{
+  color: var(--active_element_bg);
+}
+
+.font_15{
+  font-size: 15px;
+}
+
+.font_14{
+  font-size: 14px;
+}
+
+.font_40{
+  font-size: 40px;
+}
+.font_30{
+  font-size: 30px;
+}
+
+.font_28{
+  font-size: 1.75em;
+}
+.font_22{
+  font-size: 22px;
+}
+
+.font_16{
+  font-size: 16px;
+}
+.bold {
+  font-weight: bold;
+}
+.radius_15{
+  border-radius: 15px;
+}
+
+
+.avatar{
+  border-radius: 50%;
+  margin: 15px;
+}
