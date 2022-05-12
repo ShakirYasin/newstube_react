@@ -71,3 +71,12 @@
   span {
     margin-left: 16px;
   }
+
+  .nav_profile{
+    margin-left: 20px;
+  }
+  .nav_user{
+    width: 40px;
+    height: auto;
+    border-radius: 50%;
+  }

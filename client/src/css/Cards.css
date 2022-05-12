@@ -1,6 +1,42 @@
 /* CardHorzLarge */
 .horz_large_thumb{
     width: 100%;
+    height: 300px;
+    border-radius: 15px;
+}
+.vert_thumb{
+    width: 100%;
+    height: 210px;
+    border-radius: 15px;
+}
+
+.video_card_thumbnail{
+    width: 100%;
+    height: 150px;
+    border-radius: 15px;
+}
+.card_user_thumb{
+    width: 100%;
+    height: 250px;
+    border-radius: 15px;
+}
+.card_user_thumb_full{
+    width: 100%;
     height: auto;
     border-radius: 15px;
+}
+.card_alert{
+    position: fixed !important;
+    top: 25%;
+    right: 50px;
+    animation: from-right 0.1s linear;
+}
+
+@keyframes from-right {
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0);
+    }
 }

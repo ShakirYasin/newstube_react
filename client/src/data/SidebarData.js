@@ -1,7 +1,7 @@
 import React from 'react';
-import {AiFillHome} from 'react-icons/ai';
-import {MdLibraryBooks, MdSubscriptions, MdManageAccounts} from 'react-icons/md';
-import {GiPapers, GiAnticlockwiseRotation} from 'react-icons/gi';
+import { AiFillHome } from 'react-icons/ai';
+import { MdLibraryBooks, MdSubscriptions, MdManageAccounts } from 'react-icons/md';
+import { GiPapers, GiAnticlockwiseRotation } from 'react-icons/gi';
 
 
 export const SidebarData = [
@@ -25,7 +25,7 @@ export const SidebarData = [
   },
   {
     title: 'Subscriptions',
-    path: '/subscription',
+    path: '/subscriptions',
     icon: <MdSubscriptions />,
     cName: 'nav-text'
   },
