@@ -3,6 +3,7 @@
 # dependencies
 /server/node_modules
 /client/node_modules
+node_modules
 /client/.pnp
 /client/.pnp.js
 /.pnp
@@ -17,6 +18,7 @@
 /serer/build
 
 # misc
+.env
 .DS_Store
 .env.local
 .env.development.local

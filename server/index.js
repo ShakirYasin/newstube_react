@@ -1,18 +1,18 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import mongoose from 'mongoose'
-import cors from 'cors'
+const express = require('express');
+const colors = require('colors');
+const dotenv = require('dotenv').config();
+const { errorHandler } = require('./middleware/errorMiddleware');
+const connectDB = require('./config/db');
+const port = process.env.PORT || 5000
 
-const app = express();
+connectDB()
+const app = express()
 
-app.use(bodyParser.json({ limit: '30mb', extended: true }))
-app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
-app.use(cors());
+app.use('/api/posts', require('./routes/postRoutes'))
 
-const CONNECTION_URL = "mongodb+srv://shakir:admin@newstube.svqil.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const PORT = process.env.PORT || 5000;
+app.use(errorHandler)
 
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => app.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`)))
-    .catch((err) => console.log(err.message))
+app.listen(port, () => console.log(`Server started on port ${port}`))
