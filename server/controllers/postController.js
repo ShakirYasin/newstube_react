@@ -1,11 +1,12 @@
 const asyncHandler = require('express-async-handler');
 const Post = require('../models/postModel');
+const User = require('../models/userModel');
 
 // @desc GET Posts 
 // @route GET /api/posts
 // @access Private
 const getPosts = asyncHandler(async (req, res) => {
-    const posts = await Post.find()
+    const posts = await Post.find({ user: req.user.id })
 
     res.status(200).json(posts)
 })
@@ -22,6 +23,7 @@ const setPosts = asyncHandler(async (req, res) => {
     const post = await Post.create({
         title: req.body.title,
         description: req.body.description,
+        user: req.user.id
     })
 
     res.status(200).json(post)
@@ -36,6 +38,20 @@ const updatePosts = asyncHandler(async (req, res) => {
     if (!post) {
         res.status(400)
         throw new Error('Post not found')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    // Check for user
+    if (!user) {
+        res.status(401)
+        throw new Error('User not Found')
+    }
+
+    // Make sure the logged in user matches the goal user
+    if (post.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
     }
 
     const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -53,6 +69,21 @@ const deletePosts = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Post not found')
     }
+
+    const user = await User.findById(req.user.id)
+
+    // Check for user
+    if (!user) {
+        res.status(401)
+        throw new Error('User not Found')
+    }
+
+    // Make sure the logged in user matches the goal user
+    if (post.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+
     await post.remove()
 
     res.status(200).json({ id: req.params.id })
