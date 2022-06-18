@@ -1,7 +1,7 @@
 import React from 'react'
-import NewsGroup from './NewsGroup'
-import News from '../data/News'
-import Users from '../data/Users'
+import NewsGroup from '../NewsGroup'
+import News from '../../data/News'
+import Users from '../../data/Users'
 import { Container } from 'react-bootstrap'
 
 

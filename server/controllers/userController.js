@@ -3,11 +3,45 @@ const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 
+
+// @desc GET Users 
+// @route GET /api/users
+// @access Public
+const getUsers = asyncHandler(async (req, res) => {
+    const users = await User.find({})
+
+    if (users) {
+        res.json(users).status(200)
+    }
+    else {
+        res.status(404)
+        throw new Error('Users Not Found')
+    }
+})
+
+// @desc GET Users 
+// @route GET /api/users
+// @access Public
+const deleteUsers = asyncHandler(async (req, res) => {
+    const users = await User.deleteMany()
+
+    if (users) {
+        res.json(users).status(200)
+    }
+    else {
+        res.status(400)
+        throw new Error('Bad Request')
+    }
+})
+
+
+
+
 // @desc REGISTER Users 
 // @route POST /api/users
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body
+    const { name, email, password, role, isACreator } = req.body
 
     if (!name || !email || !password) {
         res.status(400)
@@ -18,7 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const userExists = await User.findOne({ email })
 
     if (userExists) {
-        res.status(400)
+        res.status(409)
         throw new Error('User already exists')
     }
 
@@ -30,16 +64,12 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        isACreator
     })
 
     if (user) {
-        res.status(201).json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            token: generateToken(user._id)
-        })
+        res.status(201).send('Registration Successful')
     } else {
         res.status(400)
         throw new Error('Invalid user data')
@@ -55,12 +85,18 @@ const loginUser = asyncHandler(async (req, res) => {
     // Check user email
     const user = await User.findOne({ email })
 
+    if (!user) {
+        res.status(404)
+        throw new Error('User not Found')
+    }
+
     if (user && (await bcrypt.compare(password, user.password))) {
         res.json({
             _id: user.id,
             name: user.name,
             email: user.email,
-            token: generateToken(user._id)
+            isACreator: user.isACreator,
+            token: generateToken(user._id, user.name)
         })
     } else {
         res.status(400)
@@ -82,15 +118,17 @@ const getMe = asyncHandler(async (req, res) => {
 })
 
 // Generate JWT
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
+const generateToken = (id, name) => {
+    return jwt.sign({ id, name }, process.env.JWT_SECRET, {
         expiresIn: '30d'
     })
 }
 
 
 module.exports = {
+    getUsers,
     registerUser,
     loginUser,
-    getMe
+    getMe,
+    deleteUsers
 }
