@@ -10,7 +10,22 @@
   --primary-btn: #060b26
 }
 
+
+p,a,span,h1,h2,h3,h4,h5,h6{
+  margin: 0;
+  padding: 0;
+}
+
+a{
+  color: var(--nav_bg) !important;
+}
+
 /* Layout */
+
+body, html{
+  overflow-x: hidden;
+}
+
 .main_divider{
   height: 5px;
   width: 100%;
@@ -26,6 +41,28 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.viewport_h-full{
+  height: 80vh;
+}
+
+.display-fixed{
+  position: fixed !important;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.default-margin{
+  margin-top: 80px;
+}
+
+.width-max-content{
+  width: max-content;
 }
 
 /* Colors */
@@ -97,6 +134,10 @@
   outline: none;
 }
 
+.box-shadow-none:focus, .box-shadow-none:active{
+  box-shadow: none !important;
+}
+
 /* Font Families */
 .montserrat_regular{
   font-family: 'Montserrat Alternates', sans-serif;
@@ -119,11 +160,11 @@
 
 /* Buttons */
 .btn_primary{
-  padding: 0.8rem 2rem;
-  background-color: var(--primary-btn);
-  color: white;
-  border: none;
-  border-radius: 9px;
+  padding: 0.8rem 2rem !important;
+  background-color: var(--primary-btn) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 9px !important;
 }
 .btn_secondary{
   padding: 0.8rem 2rem;
