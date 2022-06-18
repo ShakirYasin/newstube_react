@@ -1,5 +1,23 @@
 .cover_area{
-    background-color: red;
-    height: clamp(400px, 40vh + 1rem, 40vh);
-    /* padding: 20%; */
+    /* background-color: red; */
+    height: clamp(150px, 30vh + 1rem, 35vh);
+    border-bottom: 2px solid rgba(0,0,0,0.06);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.channel--profile-picture{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid black;
+    transform: translateY(75px);
+    background-color: white;
+    overflow: hidden;
+}
+
+.channel--nav{
+    background-color: #CCCCCC;
+    padding-top: 75px;
 }
