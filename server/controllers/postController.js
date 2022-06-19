@@ -6,6 +6,7 @@ const User = require('../models/userModel');
 // @route GET /api/posts
 // @access Private
 const getPosts = asyncHandler(async (req, res) => {
+    console.log(req);
     const posts = await Post.find({ user: req.user.id })
 
     res.status(200).json(posts)

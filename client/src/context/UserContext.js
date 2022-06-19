@@ -21,8 +21,9 @@ export function UserProvider({ children }) {
 
         const value = JSON.parse(localStorage.getItem('user'));
         if (value) {
-            const { name, email, token, isACreator } = value
+            const { _id, name, email, token, isACreator } = value
             setAuth({
+                _id,
                 name,
                 email,
                 token,
