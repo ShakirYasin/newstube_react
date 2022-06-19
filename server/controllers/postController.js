@@ -2,10 +2,20 @@ const asyncHandler = require('express-async-handler');
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
 
+
+// @desc GET AllPosts 
+// @route GET /api/posts
+// @access Public
+const getAllPosts = asyncHandler(async (req, res) => {
+    const posts = await Post.find({})
+
+    res.status(200).json(posts)
+})
+
 // @desc GET Posts 
 // @route GET /api/posts
 // @access Private
-const getPosts = asyncHandler(async (req, res) => {
+const getUserPosts = asyncHandler(async (req, res) => {
     console.log(req);
     const posts = await Post.find({ user: req.user.id })
 
@@ -93,7 +103,8 @@ const deletePosts = asyncHandler(async (req, res) => {
 
 
 module.exports = {
-    getPosts,
+    getAllPosts,
+    getUserPosts,
     setPosts,
     updatePosts,
     deletePosts

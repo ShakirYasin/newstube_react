@@ -53,7 +53,7 @@ const Navbar = () => {
             <Col xs='4' lg='8'>
               <h6 className='color-white py-3 px-4 border border-1 border-light radius_15 w-50 mx-auto d-flex align-items-center'>
                 <BsSearch className='me-3' />
-                <input type="text" value={search} onChange={(e)=>(handleSearch(e.target.value))} className='bg-transparent border-0 w-100 color-white outline_none' placeholder='Search' />
+                <input type="text" value={search} onChange={(e) => (handleSearch(e.target.value))} className='bg-transparent border-0 w-100 color-white outline_none' placeholder='Search' />
               </h6>
             </Col>
             <Col xs='4' lg='2' className='d-flex align-items-center justify-content-end'>
@@ -85,7 +85,7 @@ const Navbar = () => {
             {mainSidebar?.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path}>
+                  <Link to={item.path + auth._id}>
                     {item.icon}
                     <span className='ps-2 color-white'>{item.title}</span>
                   </Link>
