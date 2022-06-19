@@ -15,10 +15,8 @@ import user from "../images/users/user1.jpg";
 
 import NewsContext from "../context/NewsContext";
 
-
-
 const Navbar = () => {
-  const { news } = useContext(NewsContext)
+  const { news } = useContext(NewsContext);
   const { auth, resetAuth, isUserAuthenticated, isCreator } =
     useContext(UserContext);
   const [sidebar, setSidebar] = useState(false);
@@ -39,6 +37,15 @@ const Navbar = () => {
 
   const handleSearch = (value) => {
     setSearch(value);
+    // if(news?[0].title){
+
+    // }
+
+    if (news) {
+      const newNews = news.filter((news) => {
+        console.log(Object.values(news).join(" "));
+      });
+    }
   };
   return (
     <>
