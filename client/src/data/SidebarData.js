@@ -64,7 +64,7 @@ export const creatorSidebar = [
   },
   {
     title: 'Channel',
-    path: '/channel/',
+    path: '/channel',
     icon: <MdLibraryBooks />,
     cName: 'nav-text'
   },

@@ -6,17 +6,17 @@ import AddNewsForm from './AddNewsForm'
 
 
 
-const Content = ({ currentTab, tabs }) => {
+const Content = ({ currentTab, tabs, showAddNewsForm, setShowAddNewsForm }) => {
 
 
-    const [showAddNewsForm, setShowAddNewsForm] = useState(false)
+
     useEffect(() => {
         console.log(currentTab)
         console.log(tabs)
     }, [currentTab, tabs])
 
     return (
-        <div>
+        <div className='py-5'>
             {
                 showAddNewsForm ?
                     <AddNewsForm />
@@ -31,7 +31,7 @@ const Content = ({ currentTab, tabs }) => {
                             </Col>
                         </Row>
                         <Row>
-                            <Col className='py-5'>
+                            <Col xs='12'>
                                 {
                                     tabs.map(singleTab => {
                                         if (singleTab.name === currentTab) {

@@ -23,6 +23,7 @@ const Navbar = () => {
   const showSidebar = () => setSidebar(!sidebar);
   const [mainSidebar, setMainSidebar] = useState(null);
   const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState("");
   const handleSidebar = () => {
     if (isUserAuthenticated() && isCreator()) {
       setMainSidebar(creatorSidebar);
@@ -30,23 +31,38 @@ const Navbar = () => {
       setMainSidebar(SidebarData);
     }
   };
+  const [searchPane, setSearchPane] = useState(false)
+
 
   useEffect(() => {
     handleSidebar();
   }, [isUserAuthenticated(), isCreator()]);
 
   const handleSearch = (value) => {
-    setSearch(value);
-    // if(news?[0].title){
-
-    // }
-
-    if (news) {
+    setSearch(value)
+    if (value && news) {
       const newNews = news.filter((news) => {
-        console.log(Object.values(news).join(" "));
+        if (news.title.toString().toLowerCase().includes(value)) {
+          return news.title
+        }
+        else if (news.description.toString().toLowerCase().includes(value)) {
+          return news.description
+        }
       });
+      setSearchResults(newNews);
     }
   };
+
+  useEffect(() => {
+    if (search.length > 0 && searchResults.length > 0) {
+      setSearchPane(true)
+    }
+    else {
+      setSearchPane(false)
+    }
+    console.log(searchResults)
+  }, [searchResults, search])
+
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
@@ -61,16 +77,33 @@ const Navbar = () => {
               </Link>
             </Col>
             <Col xs="4" lg="8">
-              <h6 className="color-white py-3 px-4 border border-1 border-light radius_15 w-50 mx-auto d-flex align-items-center">
-                <BsSearch className="me-3" />
-                <input
-                  type="text"
-                  value={search}
-                  onChange={(e) => handleSearch(e.target.value)}
-                  className="bg-transparent border-0 w-100 color-white outline_none"
-                  placeholder="Search"
-                />
-              </h6>
+              <div className="position-relative w-50 mx-auto">
+
+                <div className="color-white py-2 px-4 border border-1 border-light radius_15 d-flex align-items-center">
+                  <BsSearch className="me-3" />
+                  <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    className="bg-transparent border-0 w-100 color-white outline_none"
+                    placeholder="Search"
+                  />
+                </div>
+                {
+                  searchPane &&
+                  <div className='search-pane card_box_shadow'>
+                    <ul className="list-unstyled">
+                      {
+                        searchResults.map(result => (
+                          <li>
+                            <p>{result.title} <span className="font_12 secondary">{result.description}</span></p>
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                }
+              </div>
             </Col>
             <Col
               xs="4"
@@ -104,7 +137,7 @@ const Navbar = () => {
             {mainSidebar?.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path + auth._id}>
+                  <Link to={item.path}>
                     {item.icon}
                     <span className="ps-2 color-white">{item.title}</span>
                   </Link>
