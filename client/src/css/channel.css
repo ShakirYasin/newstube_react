@@ -21,3 +21,19 @@
     background-color: #CCCCCC;
     padding-top: 75px;
 }
+
+.add-news{
+    position: relative;
+    overflow: hidden;
+}
+.add-news p{
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.25px;
+    transition: 0.5s ease-in-out;
+    margin-right: -150px !important;
+    z-index: -99;
+}
+.add-news:hover p{
+    margin-right: 15px !important;
+}

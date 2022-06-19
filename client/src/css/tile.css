@@ -1,0 +1,9 @@
+.custom-card{
+    border-radius: 11px !important;
+    border: 0;
+}
+.custom-card .card-img-top{
+    border-top-left-radius: 11px !important;
+    border-top-right-radius: 11px !important;
+    border: 0;
+}
