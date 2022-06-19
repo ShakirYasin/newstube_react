@@ -45,8 +45,10 @@ const Channel = () => {
             }
         ]
     )
+    const [showAddNewsForm, setShowAddNewsForm] = useState(false)
 
     const handleTab = (name) => {
+        setShowAddNewsForm(false)
         setCurrentTab(name)
     }
 
@@ -96,7 +98,7 @@ const Channel = () => {
                         </div>
                         <div className='channel--content'>
                             <Container>
-                                <Content currentTab={currentTab} tabs={tabs} />
+                                <Content currentTab={currentTab} tabs={tabs} showAddNewsForm={showAddNewsForm} setShowAddNewsForm={setShowAddNewsForm} />
                             </Container>
                         </div>
                     </div>
