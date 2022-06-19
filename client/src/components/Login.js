@@ -42,9 +42,9 @@ const Login = () => {
                 }
             )
             // console.log(response.data)
-            const { id, name, token, isACreator } = response.data
+            const { _id, name, token, isACreator } = response.data
             setErrMsg('')
-            setAuth({ name, email, token, isACreator })
+            setAuth({ _id, name, email, token, isACreator })
             setSuccess(true)
             setSuccessMsg('Login Successful...!')
 
