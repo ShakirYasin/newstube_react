@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Col, Container, Row, Nav, Image } from 'react-bootstrap'
 import "../../css/channel.css"
 import { BsSearch } from 'react-icons/bs';
@@ -13,28 +13,35 @@ import user1 from '../../images/users/user1.jpg'
 // import cover_picture from '../../images/users/cover_picture.jpg'
 import Content from './Content';
 
+import NewsContext from '../../context/NewsContext'
+import UserContext from '../../context/UserContext'
 
 
-const Channel = ({ user }) => {
 
+const Channel = () => {
 
+    const { auth } = useContext(UserContext)
+    const { userNews } = useContext(NewsContext)
     const [currentTab, setCurrentTab] = useState('home')
     const [tabs, setTabs] = useState(
         [
             {
                 key: 'home',
                 name: 'home',
-                component: HomeContent
+                component: HomeContent,
+                userNews
             },
             {
                 key: 'collections',
                 name: 'collections',
-                component: CollectionsContent
+                component: CollectionsContent,
+                userNews
             },
             {
                 key: 'about',
                 name: 'about',
-                component: AboutContent
+                component: AboutContent,
+                userInfo: auth
             }
         ]
     )

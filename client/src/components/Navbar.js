@@ -97,7 +97,7 @@ const Navbar = () => {
             {mainSidebar?.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path}>
+                  <Link to={item.path + auth._id}>
                     {item.icon}
                     <span className="ps-2 color-white">{item.title}</span>
                   </Link>

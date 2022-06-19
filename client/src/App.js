@@ -25,7 +25,7 @@ const App = () => {
           <Route path='/subscriptions' element={<Subscriptions />} />
           <Route path='/login' element={!isUserAuthenticated() ? <Login /> : <Navigate replace to='/' />} />
           <Route path='/signup' element={!isUserAuthenticated() ? <Register /> : <Navigate to='/' />} />
-          <Route path='/channel' element={isUserAuthenticated() && isCreator() ? <Channel /> : <Navigate to='/' />} />
+          <Route path='/channel/:id' element={isUserAuthenticated() && isCreator() ? <Channel /> : <Navigate to='/' />} />
         </Routes>
       </div>
     </Router>
