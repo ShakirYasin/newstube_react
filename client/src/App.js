@@ -7,6 +7,7 @@ import './css/App.css'
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Channel from "./components/channel"
+import Accounts from "./components/accounts"
 import UserContext from './context/UserContext'
 
 
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='/news' />
           <Route path='/library' />
           <Route path='/subscriptions' element={<Subscriptions />} />
+          <Route path='/accounts' element={<Accounts />} />
           <Route path='/login' element={!isUserAuthenticated() ? <Login /> : <Navigate replace to='/' />} />
           <Route path='/signup' element={!isUserAuthenticated() ? <Register /> : <Navigate to='/' />} />
           <Route path='/channel/:id' element={isUserAuthenticated() && isCreator() ? <Channel /> : <Navigate to='/' />} />
