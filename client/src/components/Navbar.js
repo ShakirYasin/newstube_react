@@ -92,11 +92,11 @@ const Navbar = () => {
                 {
                   searchPane &&
                   <div className='search-pane card_box_shadow'>
-                    <ul className="list-unstyled">
+                    <ul className="list-unstyled m-0">
                       {
                         searchResults.map(result => (
                           <li>
-                            <p>{result.title} <span className="font_12 secondary">{result.description}</span></p>
+                            <p className="m-0">{result.title} <span className="ms-auto font_12 secondary">{result.description}</span></p>
                           </li>
                         ))
                       }
@@ -137,7 +137,7 @@ const Navbar = () => {
             {mainSidebar?.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path}>
+                  <Link to={item.path === '/channel' ? item.path + '/' + auth._id : item.path}>
                     {item.icon}
                     <span className="ps-2 color-white">{item.title}</span>
                   </Link>
