@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Col, Container, Row, Nav, Image } from 'react-bootstrap'
 import "../../css/channel.css"
 import { BsSearch } from 'react-icons/bs';
@@ -51,6 +51,22 @@ const Channel = () => {
         setShowAddNewsForm(false)
         setCurrentTab(name)
     }
+
+    useEffect(() => {
+        setTabs(prev => (
+            prev.map(tab => {
+                if(tab.key === 'home' || tab.key === 'collections'){
+                    return {
+                        ...tab,
+                        userNews: userNews
+                    }
+                }
+                else{
+                    return tab
+                }
+            })
+        ))
+    }, [userNews])
 
     return (
         <>

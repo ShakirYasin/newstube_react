@@ -13,14 +13,14 @@ export const NewsProvider = ({ children }) => {
     const { auth } = useContext(UserContext)
     const [news, setNews] = useState(null)
     const [userNews, setUserNews] = useState(null)
+    const [newUserPost, setNewUserPost] = useState(null)
 
     async function getAllNews() {
         try {
             const response = await axios.get(NEWS_API,
                 {
                     headers: {
-                        'Content-Type': 'application/json',
-                        authorization: `Bearer ${auth?.token}`
+                        'Content-Type': 'application/json'
                     }
                 }
             )
@@ -53,10 +53,14 @@ export const NewsProvider = ({ children }) => {
         getUserNews()
     }, [auth])
 
+    useEffect(() => {
+        getUserNews()
+    }, [auth, newUserPost])
+
 
 
     return <NewsContext.Provider value={{
-        news, userNews
+        news, userNews, setNewUserPost
     }}>
         {children}
     </NewsContext.Provider>

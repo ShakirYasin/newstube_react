@@ -40,7 +40,7 @@ const Subscriptions = () => {
     }
 
     return (
-        <div className='position-relative my-5'>
+        <div className='position-relative my-5 pt-5'>
             <Container>
                 <h2 className='bold montserrat_regular text-center font_48'>Subscriptions</h2>
                 <Row>
