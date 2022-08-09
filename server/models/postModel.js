@@ -13,6 +13,10 @@ const postSchema = mongoose.Schema({
     description: {
         type: String,
         required: [true, 'Please add a description']
+    },
+    image: {
+        type: String,
+        required: [true, 'Please add an image']
     }
 },
     {

@@ -26,15 +26,27 @@ const getUserPosts = asyncHandler(async (req, res) => {
 // @route SET /api/posts
 // @access Private
 const setPosts = asyncHandler(async (req, res) => {
-    if (!req.body) {
+
+    if (!req.body || !req.user.id) {
         res.status(400)
         throw new Error('Please add all fields')
     }
 
-    if(req.body.isACreator){
+    const user = await User.findById(req.user.id)
+
+    if(!user){
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+    // console.log("Next line is the user")
+    // console.log(user._id)
+
+    if(user.isACreator){
         const post = await Post.create({
             title: req.body.title,
             description: req.body.description,
+            image: req.body.image,
             user: req.user.id
         })
     

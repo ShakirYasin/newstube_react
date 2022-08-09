@@ -108,14 +108,33 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/me
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
-    const { _id, name, email } = await User.findById(req.user.id)
+    const user = await User.findById(req.user.id)
 
     res.status(200).json({
-        id: _id,
-        name,
-        email
+        id: user._id,
+        ...user
     })
 })
+
+
+// @desc    Get user data 
+// @route   GET /api/users/me
+// @access  Private
+const updateMe = asyncHandler(async (req, res) => {
+    const user = await User.findByIdAndUpdate(req.user.id, req.user, (err, doc) => {
+        if(err){
+            throw new Error("Something's wrong in the 'updateMe' function ")
+        }
+    })
+
+    if(!user){
+        throw new Error(`No user with the id of ${req.body.id}`)
+    }
+
+    user.save();
+    res.status(200).res.json(user)
+})
+
 
 // Generate JWT
 const generateToken = (id, name) => {
@@ -130,5 +149,6 @@ module.exports = {
     registerUser,
     loginUser,
     getMe,
+    updateMe,
     deleteUsers
 }

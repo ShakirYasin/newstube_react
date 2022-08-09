@@ -9,10 +9,10 @@ const Tile = ({ news }) => {
         <div className='tile'>
             <Card className='custom-card card_box_shadow'>
                 {
-                    news?.thumbnail ?
-                        <Card.Img variant='top' width='100%' height='50%' src={news?.thumbnail} />
+                    news?.image ?
+                        <Card.Img variant='top' width='100%' height='50%' style={{height: "200px", objectFit: "cover"}} src={news?.image} />
                         :
-                        <Card.Img variant='top' src='https://via.placeholder.com/150x100' width='100%' />
+                        <Card.Img variant='top' src='/placeholder_image.png' width='100%' height='50%' />
                 }
                 <Card.Body>
                     {

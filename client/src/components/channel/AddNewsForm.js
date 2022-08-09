@@ -1,10 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Alert, Button, Form } from 'react-bootstrap'
 import axios from '../axios'
-import FileInput from '../FileInput'
+// import FileInput from '../FileInput'
 
 import UserContext from '../../context/UserContext'
 import NewsContext from '../../context/NewsContext'
+import { ref, uploadBytesResumable, getDownloadURL, put } from "firebase/storage";
+import {v4} from "uuid"
+import storage from "../../firebase";
 
 const NEWS_URL = '/posts/'
 const AddNewsForm = () => {
@@ -12,9 +15,9 @@ const AddNewsForm = () => {
     const {auth} = useContext(UserContext)
     const {setNewUserPost} = useContext(NewsContext)
     const [data, setData] = useState({
-        isACreator: null,
         title: "",
         description: "",
+        image: null,
     });
     const [successMsg, setSuccessMsg] = useState('')
     const [errMsg, setErrMsg] = useState('')
@@ -28,9 +31,9 @@ const AddNewsForm = () => {
         ));
     };
 
-    const handleInputState = (name, value) => {
-        setData((prev) => ({ ...prev, [name]: value }));
-    };
+    // const handleInputState = (name, value) => {
+    //     setData((prev) => ({ ...prev, [name]: value }));
+    // };
 
 
     async function handleSubmit(e){
@@ -53,7 +56,7 @@ const AddNewsForm = () => {
             setData({
                 title: '',
                 description: '',
-                isACreator: null
+                image: '',
             })
         } catch (err) {
             console.log(err?.response)
@@ -77,14 +80,43 @@ const AddNewsForm = () => {
         }
     }
 
-    useEffect(() => {
-        setData(prev => (
-            {
-                ...prev,
-                isACreator: auth?.isACreator
+    const uploadFile = () => {
+        if(data.image == null) return;
+        const imageRef = ref(storage, `/images/${data.image.name + v4()}`);
+        const uploadTask = uploadBytesResumable(imageRef, data.image);
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                case 'paused':
+                    console.log('Upload is paused');
+                    break;
+                case 'running':
+                    console.log('Upload is running');
+                    break;
+                }
+            },
+            (error) => {
+                console.log(error);
+            },
+            () => {
+                alert("Upload Complete")
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    setData(prev => ({
+                        ...prev,
+                        image: url
+                    }))
+                });
             }
-        ))
-    }, [auth, data.title, data.description])
+        );
+    }
+
+    useEffect(() => {
+        console.log(data.image)
+    }, [data])
 
     return (
         <Form onSubmit={(e) => (handleSubmit(e))}>
@@ -118,7 +150,19 @@ const AddNewsForm = () => {
                     type="image"
                     value={data.img}
                 /> */}
-                <Form.Control type='file' />
+                <div className='d-flex gap-5 w-50'>
+                    <Form.Control 
+                        className='flex-shrink-1'
+                        type='file' 
+                        onChange={
+                            (e) => (
+                                setData((prev) => 
+                                    ({...prev, image: e.target.files[0]})
+                                    )
+                                    )}
+                                    />
+                    <Button type="button" onClick={uploadFile} >Upload</Button>
+                </div>
             </Form.Group>
             <Button type='submit' className='btn_primary mt-4'>Submit</Button>
         </Form>
