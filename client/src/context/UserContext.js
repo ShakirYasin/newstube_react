@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
+import axios from '../components/axios';
 
 const UserContext = createContext();
 
@@ -33,6 +34,22 @@ export function UserProvider({ children }) {
 
     }, [newToken])
 
+    const getMe = async () => {
+        try {
+            const response = await axios.get('/me' + auth?._id,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${auth?.token}`
+                    }
+                }
+            )
+            return response.data
+        } catch (error) {
+            throw new Error("Fault in getMe Function 'Client Side'")
+        }
+    }
+
     const setUserAuthInfo = (user) => {
         localStorage.setItem("user", JSON.stringify(user));
         setNewToken(user)
@@ -66,7 +83,8 @@ export function UserProvider({ children }) {
                 setAuth: (userAuthInfo) => setUserAuthInfo(userAuthInfo),
                 isUserAuthenticated,
                 resetAuth,
-                isCreator
+                isCreator,
+                getMe
             }}
         >
             {children}
