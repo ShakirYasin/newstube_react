@@ -5,9 +5,7 @@ import axios from '../axios'
 
 import UserContext from '../../context/UserContext'
 import NewsContext from '../../context/NewsContext'
-import { ref, uploadBytesResumable, getDownloadURL, put } from "firebase/storage";
-import {v4} from "uuid"
-import storage from "../../firebase";
+import {fileUpload} from '../../utils/fileUpload'
 
 const NEWS_URL = '/posts/'
 const AddNewsForm = () => {
@@ -80,38 +78,12 @@ const AddNewsForm = () => {
         }
     }
 
-    const uploadFile = () => {
-        if(data.image == null) return;
-        const imageRef = ref(storage, `/images/${data.image.name + v4()}`);
-        const uploadTask = uploadBytesResumable(imageRef, data.image);
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-                switch (snapshot.state) {
-                case 'paused':
-                    console.log('Upload is paused');
-                    break;
-                case 'running':
-                    console.log('Upload is running');
-                    break;
-                }
-            },
-            (error) => {
-                console.log(error);
-            },
-            () => {
-                alert("Upload Complete")
-                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    setData(prev => ({
-                        ...prev,
-                        image: url
-                    }))
-                });
-            }
-        );
+    const handleUpload = (file) => {
+        const url = fileUpload(file)
+        setData(prev => ({
+            ...prev,
+            image: url
+        }))
     }
 
     useEffect(() => {
@@ -161,7 +133,7 @@ const AddNewsForm = () => {
                                     )
                                     )}
                                     />
-                    <Button type="button" onClick={uploadFile} >Upload</Button>
+                    <Button type="button" onClick={() => (handleUpload(data?.image))} >Upload</Button>
                 </div>
             </Form.Group>
             <Button type='submit' className='btn_primary mt-4'>Submit</Button>

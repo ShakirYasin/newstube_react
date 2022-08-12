@@ -13,8 +13,16 @@
     border-radius: 50%;
     border: 5px solid black;
     transform: translateY(75px);
-    background-color: white;
+    background-color: #EEEEEE;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.channel--profile-picture span{
+    margin: 0;
+    font-size: 50px;
+    font-weight: bolder;
 }
 
 .channel--nav{

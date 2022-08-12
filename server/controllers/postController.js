@@ -16,7 +16,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
 // @route GET /api/posts
 // @access Private
 const getUserPosts = asyncHandler(async (req, res) => {
-    console.log(req);
+    // console.log(req);
     const posts = await Post.find({ user: req.user.id })
 
     res.status(200).json(posts)

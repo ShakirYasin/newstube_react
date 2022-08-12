@@ -7,7 +7,8 @@
   --icon_bg: #EDF1F4;
   --active_element_bg: #5474FF;
   --info-bg : #F1F5F9;
-  --primary-btn: #060b26
+  --primary-btn: #060b26;
+  --danger-color: #dc3545;
 }
 
 
@@ -69,12 +70,12 @@ body{
   height: 100%;
 }
 
-
-
-
 /* Colors */
 .primary{
   color: var(--primary);
+}
+.heading-color{
+  color: var(--nav_bg)
 }
 .secondary{
   color: var(--secondary);
@@ -84,6 +85,9 @@ body{
 }
 .color-highlight{
   color: var(--active_element_bg);
+}
+.danger-color{
+  color: var(--danger-color);
 }
 
 /* Fonts */
@@ -179,6 +183,12 @@ body{
   color: var(--primary);
   border: 1px solid var(--secondary);
   border-radius: 9px;
+  font-weight: bold;
+}
+.btn_secondary:hover{
+  background-color: transparent;
+  color: black;
+  border: 1px solid var(--secondary);
 }
 
 .angle_buttons{
