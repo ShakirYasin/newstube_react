@@ -20,7 +20,8 @@ import UserContext from '../../context/UserContext'
 
 const Channel = () => {
 
-    const { auth } = useContext(UserContext)
+    const { auth, getMe } = useContext(UserContext)
+    const [userData, setUserData] = useState(null)
     const { userNews } = useContext(NewsContext)
     const [currentTab, setCurrentTab] = useState('home')
     const [tabs, setTabs] = useState(
@@ -41,7 +42,7 @@ const Channel = () => {
                 key: 'about',
                 name: 'about',
                 component: AboutContent,
-                userInfo: auth
+                userInfo: userData
             }
         ]
     )
@@ -68,6 +69,14 @@ const Channel = () => {
         ))
     }, [userNews])
 
+    useEffect(() => {
+        async function fetchData(){
+            setUserData(await getMe())
+        }
+
+        fetchData()
+    }, [auth])
+
     return (
         <>
             <Row>
@@ -77,7 +86,12 @@ const Channel = () => {
                             <Row className='align-items-end justify-content-start height-100'>
                                 <Col xs='6'>
                                     <div className='channel--profile-picture'>
-                                        <Image src={user1} alt='channel--profile-picture' width='100%' height='100%' />
+                                        {
+                                            userData?.profilePicture ?
+                                            <Image src={userData?.profilePicture} alt='channel--profile-picture' width='100%' height='100%' />
+                                            :
+                                            <span>{userData?.name?.slice(0, 1)}</span>
+                                        }
                                     </div>
                                 </Col>
                                 <Col xs='6'>

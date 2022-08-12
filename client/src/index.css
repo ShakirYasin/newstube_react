@@ -16,3 +16,17 @@ p, a, h1, h2, h3, h4, h5, h6{
     padding: 0;
     text-decoration: none;
 }
+.nostyle-input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+.nostyle-input:focus{
+    /* background-color: rgba(255,255,255,0.5); */
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    box-shadow: none;
+}

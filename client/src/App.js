@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react"
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import './css/App.css'
 import Home from "./components/Home";
 import Subscriptions from "./components/Subscriptions";
 import Navbar from "./components/Navbar";
-import './css/App.css'
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Channel from "./components/channel"

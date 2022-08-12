@@ -24,7 +24,7 @@ export const NewsProvider = ({ children }) => {
                     }
                 }
             )
-            console.log(response.data);
+            // console.log(response.data);
             setNews(response.data)
         } catch (err) {
             console.log(err);
@@ -41,7 +41,7 @@ export const NewsProvider = ({ children }) => {
                     }
                 }
             )
-            console.log(response.data);
+            // console.log(response.data);
             setUserNews(response.data)
         } catch (err) {
             console.log(err);

@@ -1,0 +1,33 @@
+.form-input-style{
+    border-bottom: 1px solid rgba(0,0,0,0.6);
+    border-radius: 0;
+}
+.form-input-style:focus{
+    border: 1px solid rgba(0,0,0,0.6);
+    border-radius: 6px;
+}
+
+.accounts--profile-picture{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--nav_bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.accounts--profile-picture .hover-placeholder{
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.09);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.accounts--profile-picture:hover .hover-placeholder{
+    display: flex;
+}

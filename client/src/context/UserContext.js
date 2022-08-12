@@ -12,9 +12,9 @@ export function UserProvider({ children }) {
     useEffect(() => {
         // localStorage.clear()
         // setAuth(localStorage.getItem('user'))
-        console.log(auth)
-        console.log(isUserAuthenticated())
-        console.log(isCreator())
+        // console.log(auth)
+        // console.log(isUserAuthenticated())
+        // console.log(isCreator())
     }, [auth])
 
 
@@ -36,7 +36,7 @@ export function UserProvider({ children }) {
 
     const getMe = async () => {
         try {
-            const response = await axios.get('/me' + auth?._id,
+            const response = await axios.get('/users/me',
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -44,9 +44,11 @@ export function UserProvider({ children }) {
                     }
                 }
             )
-            return response.data
+            const data = await response.data._doc
+            return data
         } catch (error) {
-            throw new Error("Fault in getMe Function 'Client Side'")
+            // throw new Error("Fault in getMe Function 'Client Side'")
+            console.log(error)
         }
     }
 
