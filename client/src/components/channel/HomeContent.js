@@ -3,6 +3,7 @@ import { Col, Row } from 'react-bootstrap'
 import Tile from '../Tile'
 
 import "../../css/channel.css"
+import { Link } from 'react-router-dom'
 
 
 
@@ -10,7 +11,7 @@ const HomeContent = ({ data }) => {
 
     const [sortedData, setSortedData] = useState(null)
     useEffect(() => {
-        setSortedData(data?.reverse())
+        setSortedData(data)
     }, [data])
 
 
@@ -20,7 +21,9 @@ const HomeContent = ({ data }) => {
                 {
                     sortedData?.map(news => (
                         <Col key={news._id} xs='12' md='6' lg='4' xxl='3' className='mt-5'>
-                            <Tile news={news} />
+                            <Link to={`/news/${news?._id}`}>
+                                <Tile news={news} />
+                            </Link>
                         </Col>
                     ))
                 }

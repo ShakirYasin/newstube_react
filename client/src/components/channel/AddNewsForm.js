@@ -5,11 +5,12 @@ import axios from '../axios'
 
 import UserContext from '../../context/UserContext'
 import NewsContext from '../../context/NewsContext'
-import {fileUpload} from '../../utils/fileUpload'
+import { useFileUpload } from '../../hooks/useFileUpload'
 
 const NEWS_URL = '/posts/'
 const AddNewsForm = () => {
 
+    const { upload } = useFileUpload()
     const {auth} = useContext(UserContext)
     const {setNewUserPost} = useContext(NewsContext)
     const [data, setData] = useState({
@@ -79,15 +80,11 @@ const AddNewsForm = () => {
     }
 
     const handleUpload = (file) => {
-        const url = fileUpload(file)
-        setData(prev => ({
-            ...prev,
-            image: url
-        }))
+        upload(file, "images", "image", setData)
     }
 
     useEffect(() => {
-        console.log(data.image)
+        console.log(data)
     }, [data])
 
     return (
@@ -129,10 +126,9 @@ const AddNewsForm = () => {
                         onChange={
                             (e) => (
                                 setData((prev) => 
-                                    ({...prev, image: e.target.files[0]})
-                                    )
-                                    )}
-                                    />
+                                    ({...prev, image: e.target.files[0]}))
+                            )}
+                    />
                     <Button type="button" onClick={() => (handleUpload(data?.image))} >Upload</Button>
                 </div>
             </Form.Group>

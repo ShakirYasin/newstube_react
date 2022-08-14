@@ -95,9 +95,11 @@ const Navbar = () => {
                     <ul className="list-unstyled m-0">
                       {
                         searchResults.map(result => (
-                          <li>
-                            <p className="m-0">{result.title} <span className="ms-auto font_12 secondary">{result.description}</span></p>
-                          </li>
+                          <Link to={`/news/${result?._id}`}>
+                            <li>
+                              <p className="m-0">{result.title} <span className="ms-auto font_12 secondary">{result.description}</span></p>
+                            </li>
+                          </Link>
                         ))
                       }
                     </ul>
