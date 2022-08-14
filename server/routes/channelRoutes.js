@@ -1,7 +1,12 @@
 const asyncHandler = require('express-async-handler');
-// const Post = require('../models/postModel');
+const router = express.Router();
 const User = require('../models/userModel');
+const News = require('../models/postModel');
 
 // @desc GET Channel
 // @route GET /api/channel
 // @access Private
+
+
+
+module.exports = router
