@@ -15,7 +15,7 @@
   
   .nav-menu {
     background-color: var(--nav_bg);
-    width: 250px;
+    width: 220px;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -81,6 +81,11 @@
     width: 40px;
     height: auto;
     border-radius: 50%;
+  }
+
+  .move-logo{
+    transition: 0.2s ease-in-out;
+    margin-left: 200px;
   }
 
 

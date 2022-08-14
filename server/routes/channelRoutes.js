@@ -1,12 +1,8 @@
-const asyncHandler = require('express-async-handler');
+const express = require('express');
 const router = express.Router();
-const User = require('../models/userModel');
-const News = require('../models/postModel');
-
-// @desc GET Channel
-// @route GET /api/channel
-// @access Private
+const { getUserChannel } = require('../controllers/channelController')
 
 
+router.route('/:id').get(getUserChannel)
 
 module.exports = router
