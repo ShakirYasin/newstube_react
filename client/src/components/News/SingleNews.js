@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from 'react'
-import { Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import NewsContext from '../../context/NewsContext'
 import UserContext from '../../context/UserContext'
 
 const SingleNews = () => {
 
     const { auth, getMe } = useContext(UserContext)
-  const { news } = useContext(NewsContext);
+    const { news } = useContext(NewsContext);
 
     
     useEffect(() => {
         async function fetchData(){
-            setUserData(await getMe())
+            // setUserData(await getMe())
         }
 
         fetchData()
