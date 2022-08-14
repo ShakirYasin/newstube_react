@@ -9,12 +9,14 @@ import Register from "./components/Register";
 import Channel from "./components/channel"
 import Accounts from "./components/accounts"
 import UserContext from './context/UserContext'
+import SingleNews from "./components/News/SingleNews";
 
 
 
 const App = () => {
 
   const { isUserAuthenticated, isCreator } = useContext(UserContext)
+
   return (
     <Router>
       <Navbar />
@@ -22,6 +24,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/news' />
+          <Route path='/news/:id' element={<SingleNews />} />
           <Route path='/library' />
           <Route path='/subscriptions' element={<Subscriptions />} />
           <Route path='/accounts' element={<Accounts />} />

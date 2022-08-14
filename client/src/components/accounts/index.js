@@ -1,20 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import UserContext from '../../context/UserContext'
 import {MdEdit} from 'react-icons/md'
 import { BiImageAdd } from 'react-icons/bi'
 
 
 import '../../css/Accounts.css'
+import { useFileUpload } from '../../hooks/useFileUpload'
 
 const url = '/me'
 
 const Accounts = () => {
 
+    const { upload } = useFileUpload()
     const { auth, getMe } = useContext(UserContext)
     const [userData, setUserData] = useState(null)
     const [formValues, setFormValues] = useState(null)
     const [editForm, setEditForm] = useState(false)
+    const profilePictureRef = useRef()
 
     useEffect(() => {
         async function fetchData(){
@@ -42,6 +45,18 @@ const Accounts = () => {
             }
         ))
     }
+
+    const handleSetImage = () => {
+        profilePictureRef.current.click()
+    }
+
+    const handleUpload = (file) => {
+        upload(file, "images", "profilePicture", setFormValues)
+    }
+
+    useEffect(() => {
+        console.log(formValues?.profilePicture);
+    }, [formValues])
 
 
     return formValues && (
@@ -89,10 +104,19 @@ const Accounts = () => {
                                             <Col xs="12" sm="6">
                                                 <div className='d-flex flex-column align-items-center'>
                                                     <div className='accounts--profile-picture'>
-                                                        <span className="hover-placeholder">
+                                                        <span className="hover-placeholder" onClick={handleSetImage}>
                                                             <BiImageAdd size={25} color="grey" />
+                                                            <Form.Control 
+                                                                ref={profilePictureRef}
+                                                                className='d-none'
+                                                                type='file' 
+                                                                onChange={
+                                                                    (e) => (
+                                                                        handleUpload(e.target.files[0])
+                                                                    )}
+                                                            />
                                                         </span>
-                                                        
+                                                        <Image src={formValues?.profilePicture} width="100%" height="100%" alt="" style={{objectFit: "cover"}} />
                                                     </div>
                                                     <Form.Label className='bold'>Profile Picture</Form.Label>
                                                 </div>
