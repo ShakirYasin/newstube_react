@@ -23,6 +23,10 @@ a{
 
 /* Layout */
 
+.justify-text{
+  text-align: justify;
+}
+
 body{
   overflow-x: hidden;
 }
