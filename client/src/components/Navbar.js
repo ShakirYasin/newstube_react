@@ -19,7 +19,7 @@ const Navbar = () => {
   const { news } = useContext(NewsContext);
   const { auth, resetAuth, isUserAuthenticated, isCreator } =
     useContext(UserContext);
-  const [sidebar, setSidebar] = useState(false);
+  const [sidebar, setSidebar] = useState(true);
   const showSidebar = () => setSidebar(!sidebar);
   const [mainSidebar, setMainSidebar] = useState(null);
   const [search, setSearch] = useState("");
@@ -73,7 +73,7 @@ const Navbar = () => {
                 <FaBars onClick={showSidebar} />
               </Link>
               <Link to="/">
-                <h3 className="color-white text-center ms-5">NewsTube</h3>
+                <h3 className={`color-white text-center ${sidebar ? "move-logo" : "ms-5"}`}>NewsTube</h3>
               </Link>
             </Col>
             <Col xs="4" lg="8">
@@ -130,17 +130,18 @@ const Navbar = () => {
           </Row>
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-          <ul className="nav-menu-items ps-0" onClick={showSidebar}>
-            <li className="navbar-toggle">
+          <ul className="nav-menu-items ps-0">
+            <li className="navbar-toggle justify-content-end pe-3">
               <Link to="#" className="menu-bars">
-                <AiOutlineClose />
+                <AiOutlineClose onClick={showSidebar} />
+                {/* <FaBars onClick={showSidebar} /> */}
               </Link>
             </li>
             {mainSidebar?.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
                   <Link to={item.path === '/channel' ? item.path + '/' + auth._id : item.path}>
-                    {item.icon}
+                    <span className="m-0 p-0 flex-shrink-0">{item.icon}</span>
                     <span className="ps-2 color-white">{item.title}</span>
                   </Link>
                 </li>
