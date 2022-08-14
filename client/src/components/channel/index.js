@@ -15,12 +15,14 @@ import Content from './Content';
 
 import NewsContext from '../../context/NewsContext'
 import UserContext from '../../context/UserContext'
+import ChannelContext from '../../context/ChannelContext';
 
 
 
 const Channel = () => {
 
     const { auth, getMe } = useContext(UserContext)
+    const { channelData } = useContext(ChannelContext)
     const [userData, setUserData] = useState(null)
     const { userNews } = useContext(NewsContext)
     const [currentTab, setCurrentTab] = useState('home')
@@ -30,13 +32,13 @@ const Channel = () => {
                 key: 'home',
                 name: 'home',
                 component: HomeContent,
-                userNews
+                userNews: channelData?.news
             },
             {
                 key: 'collections',
                 name: 'collections',
                 component: CollectionsContent,
-                userNews
+                userNews: channelData?.news
             },
             {
                 key: 'about',
@@ -59,7 +61,7 @@ const Channel = () => {
                 if(tab.key === 'home' || tab.key === 'collections'){
                     return {
                         ...tab,
-                        userNews: userNews
+                        userNews: channelData?.news
                     }
                 }
                 else{
@@ -70,12 +72,8 @@ const Channel = () => {
     }, [userNews])
 
     useEffect(() => {
-        async function fetchData(){
-            setUserData(await getMe())
-        }
-
-        fetchData()
-    }, [auth])
+        setUserData(channelData?.user)
+    }, [channelData?.user])
 
     return (
         <>
