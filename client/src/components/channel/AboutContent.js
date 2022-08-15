@@ -8,23 +8,18 @@ const AboutContent = ({data}) => {
         console.log(data)
         let joinedDate = new Date(data?.createdAt);
         let year = joinedDate.getFullYear();
-        // let month = joinedDate.getMonth();
         const monthName = joinedDate.toLocaleString('default', {
             month: 'long',
           });
         let day = joinedDate.getDate();
 
-        // console.log(year, monthName, day);
         setDate(`${monthName},${day} ${year}`);
     },[data])
 
     return (
         <Row className='justify-content-between'>
             <Col xs={12} sm={8} md={7}>
-                {/* <p>{data?.name}</p> */}
-                {/* <p>{data?.email}</p> */}
                 <p>{data?.description}</p>
-                {/* <p>{data?.createdAt}</p> */}
                 <hr />
                 <h4>Details</h4>
                 <span className='d-block mb-2 mt-2'>For business inquiries: <a className='heading-color' href={`mailto:${data?.email}`}>{data?.email}</a></span>
