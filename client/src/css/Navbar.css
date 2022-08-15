@@ -88,6 +88,26 @@
     margin-left: 200px;
   }
 
+  .bell_icon, .bell_icon:hover, .bell_icon:focus, .bell_icon::-moz-focus-inner{
+    background: none;
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .bell_icon::after{
+    display: none;
+  }
+
+  .notifications .dropdown-item{
+    padding: 0 1.5rem;
+  }
+
+  .notifications .dropdown-item:hover, .notifications .dropdown-item:focus{
+    outline: none;
+    box-shadow: none;
+    background-color: #f7f7f7;
+  }
 
   /* Search */
   .search-pane {
