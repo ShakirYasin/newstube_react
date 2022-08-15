@@ -36,25 +36,25 @@ const SingleNews = () => {
     <Container>
          
         <Row className="my-5 align-items-center">
-            <Col xs={12} sm={8} md={6}>
+            <Col xs={12} sm={8} md={8}>
                <Row className="my-5">
                     <Col xs={12} sm={8} md={1}>
                         <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="Thumbnail" width="50" height="50" roundedCircle/>
                     </Col>
                     <Col xs={12} sm={8} md={11}>
                         <p>Author Name</p>
-                        <date>Aug, 11</date> <span>.</span> <p className='d-inline'>7 min read</p>
+                        <date>Aug, 11 2022</date> <span>.</span> <p className='d-inline'>7 min read</p>
                     </Col>
                </Row>
             </Col>
-            <Col xs={12} sm={8} md={2}>
+            <Col xs={12} sm={8} md={2} className='text-end'>
                 <IconContext.Provider value={{ size: 20, color: "#787878" }} >
                     <FaFacebookF className='me-3'/>
                     <BsTwitter className='me-3' />
                     <BsLinkedin className='me-3' />
                 </IconContext.Provider>
             </Col>
-            <Col xs={12} sm={8} md={4} className='text-end'>
+            <Col xs={12} sm={8} md={2} className='text-end'>
                 <IconContext.Provider value={{ size: 20, color: "#FFFFFF" }} >
                     <button className={`${isSubscribed ? 'subscribed' : 'btn_primary'}`} onClick={handleSubscribe}>
                         {isSubscribed ? "Subscribed" : "Subscribe"}
@@ -85,6 +85,19 @@ Mauris tincidunt neque in diam commodo facilisis. Nam ullamcorper mauris ac just
 Nunc posuere enim dolor, ut blandit urna scelerisque in. Etiam eu purus mattis, condimentum urna quis, interdum justo. Nunc orci sapien, efficitur sit amet sollicitudin in, commodo vel libero. In hac habitasse platea dictumst. In ipsum leo, posuere in tortor vestibulum, condimentum lacinia est. Etiam sollicitudin ex nec lectus auctor, ut viverra risus commodo. Nullam mattis scelerisque lacus ac sagittis. Donec tortor est, vestibulum a gravida non, eleifend vel est. Nam molestie mauris non orci vulputate fringilla. Phasellus et blandit diam. Mauris id semper arcu. Suspendisse congue tellus id bibendum dictum. In vitae hendrerit felis, lacinia consectetur velit. Praesent lobortis pellentesque neque sit amet suscipit. Proin tristique arcu a rutrum interdum.
 
 Maecenas eget imperdiet tortor, non porta eros. Morbi urna orci, vestibulum id lacus non, bibendum hendrerit augue. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam at leo vitae tortor porttitor viverra at nec sem. Aliquam erat volutpat. Fusce et turpis ac diam tincidunt aliquam. Donec vel lorem ultricies, scelerisque lacus vitae, lobortis ex. Duis luctus iaculis accumsan. Aliquam feugiat justo quis semper iaculis. Etiam consequat vitae sem ut blandit. Donec at tempor lectus. Suspendisse luctus sem at erat finibus, at sagittis lectus sodales. Fusce rhoncus volutpat mauris nec facilisis. Vestibulum vel fringilla sapien. </p>
+            </Col>
+
+            <Col xs={12}>
+            <audio style={{backgroundColor: "#060b26", width: "100%"}} className="radius_15 my-5" controls>
+                {/* <source src="horse.ogg" type="audio/ogg" /> */}
+                <source src="https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/1.mp3" type="audio/mpeg" />
+                Your browser does not support the audio tag.
+            </audio>
+
+             <video style={{width: "100%"}} className="radius_15 my-5" controls>
+                <source src="http://media.w3.org/2010/05/sintel/trailer.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>  
             </Col>
         </Row>
 
