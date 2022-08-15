@@ -181,6 +181,9 @@ body{
   border: none !important;
   border-radius: 9px !important;
 }
+.btn_primary:focus{
+  outline: none !important;
+}
 .btn_secondary{
   padding: 0.8rem 2rem;
   background-color: transparent;
@@ -207,6 +210,15 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.subscribed{
+  background-color: grey;
+  color: #000;
+}
+
+.subscribed:focus{
+  outline: none !important;
 }
 
 
