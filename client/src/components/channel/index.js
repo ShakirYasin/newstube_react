@@ -23,10 +23,8 @@ import { useParams } from 'react-router-dom';
 const Channel = () => {
 
     let { id: params } = useParams()
-    const { auth, getMe } = useContext(UserContext)
+    const { auth } = useContext(UserContext)
     const { channelData, getUserChannel } = useContext(ChannelContext)
-    const [userData, setUserData] = useState(null)
-    const { userNews } = useContext(NewsContext)
     const [currentTab, setCurrentTab] = useState('home')
     const [tabs, setTabs] = useState(
         [
@@ -46,7 +44,7 @@ const Channel = () => {
                 key: 'about',
                 name: 'about',
                 component: AboutContent,
-                userInfo: userData
+                userInfo: channelData?.user
             }
         ]
     )
@@ -67,23 +65,31 @@ const Channel = () => {
                     }
                 }
                 else{
-                    return tab
+                    return {
+                        ...tab,
+                        userInfo: channelData?.user
+                    }
                 }
             })
         ))
-    }, [userNews])
+    }, [channelData?.news, channelData?.user])
 
     useEffect(() => {
-        setUserData(channelData?.user)
-    }, [channelData?.user])
+        async function getChannel (){
+            if(params === "me"){
+                await getUserChannel(auth?._id)
+            }
+            else {
+                await getUserChannel(params)
+            }
+        }
+
+        getChannel()
+    }, [params])
 
     // useEffect(() => {
-    //     async function getChannel (){
-    //         getUserChannel()
-    //     }
-
-    //     getChannel()
-    // }, [params])
+    //     console.log(channelData.user);
+    // }, [channelData])
 
     return (
         <>
@@ -95,10 +101,10 @@ const Channel = () => {
                                 <Col xs='6'>
                                     <div className='channel--profile-picture'>
                                         {
-                                            userData?.profilePicture ?
-                                            <Image src={userData?.profilePicture} alt='channel--profile-picture' width='100%' height='100%' />
+                                            channelData?.user?.profilePicture ?
+                                            <Image src={channelData?.user?.profilePicture} alt='channel--profile-picture' width='100%' height='100%' />
                                             :
-                                            <span>{userData?.name?.slice(0, 1)}</span>
+                                            <span>{channelData?.user?.name?.slice(0, 1)}</span>
                                         }
                                     </div>
                                 </Col>

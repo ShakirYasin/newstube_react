@@ -53,7 +53,7 @@ const Content = ({ currentTab, tabs, showAddNewsForm, setShowAddNewsForm }) => {
                                     tabs.map(singleTab => {
                                         if (singleTab.name === currentTab) {
                                             const Tab = singleTab.component
-                                            return <Tab key={singleTab.name} data={singleTab.userNews ? singleTab.userNews : singleTab.userInfo} />
+                                            return <Tab key={singleTab.name} data={singleTab.userNews ?? singleTab.userInfo} />
                                         }
                                         else {
                                             return <div key={singleTab.name}></div>

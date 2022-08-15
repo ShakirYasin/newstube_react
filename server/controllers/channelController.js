@@ -8,7 +8,7 @@ const User = require('../models/userModel');
 // @access Public
 const getUserChannel = asyncHandler(async (req, res) => {
     // console.log(req);
-    const user = await User.findById(req.params.id)
+    const user = await User.findById(req.params.id).select("-password -updatedAt -__v -role")
     const posts = await Post.find({ user: req.params.id }).sort({createdAt: "desc"})
 
     if(!user){

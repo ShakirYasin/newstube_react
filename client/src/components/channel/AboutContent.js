@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Col, Row } from 'react-bootstrap'
 
-const AboutContent = () => {
+const AboutContent = ({data}) => {
+
+    useEffect(() => {
+        console.log(data)
+    },[data])
+
     return (
-        <div>AboutContent</div>
+        <Row>
+            <Col>
+                <p>{data?.name}</p>
+                <p>{data?.email}</p>
+                <p>{data?.description}</p>
+                <p>{data?.createdAt}</p>
+            </Col>
+        </Row>
     )
 }
 
