@@ -98,5 +98,13 @@
     margin-top: 10px;
     background-color: white;
     border-radius: 11px;
-    padding: 1rem 1.5rem;
+    overflow: hidden;
+  }
+  
+  .search-pane li{
+    padding: 0.1rem 1.5rem;
+  }
+
+  .search-pane li:hover {
+    background-color: #f7f7f7;
   }

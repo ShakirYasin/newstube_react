@@ -9,12 +9,21 @@ const User = require('../models/userModel');
 const getUserChannel = asyncHandler(async (req, res) => {
     // console.log(req);
     const user = await User.findById(req.params.id)
-    const posts = await Post.find({ user: req.params.id })
+    const posts = await Post.find({ user: req.params.id }).sort({createdAt: "desc"})
 
-    res.status(200).json({
-        user,
-        news: posts.reverse(),
-    })
+    if(!user){
+        res.status(404).send("Channel not Found")
+    }
+
+    if(user?.isACreator){
+        res.status(200).json({
+            user,
+            news: posts,
+        })  
+    }
+    else{
+        res.status(400).send("Channel does not exist")
+    }
 })
 
 
