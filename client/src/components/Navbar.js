@@ -3,12 +3,13 @@ import { FaBars, FaBell } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineLeft } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 import { BiLogIn } from "react-icons/bi";
+import { IoMdNotificationsOutline } from "react-icons/io";
 import { CgLogOut } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { SidebarData, creatorSidebar } from "../data/SidebarData";
 import "../css/Navbar.css";
 import { IconContext } from "react-icons";
-import { Col, Image, Row } from "react-bootstrap";
+import { Col, Dropdown, Image, Row } from "react-bootstrap";
 import UserContext from "../context/UserContext";
 import axios from "../components/axios";
 import user from "../images/users/user1.jpg";
@@ -150,8 +151,75 @@ const Navbar = () => {
                 </Link>
               ) : (
                 <div className="d-flex align-items-center justify-content-between cursor-pointer">
+                  
+                  <Dropdown className='notifications'>
+                    <Dropdown.Toggle className='bell_icon'>
+                      <IoMdNotificationsOutline size={30} className='me-3' />
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className='radius_15' style={{minWidth: '500px'}}>
+                      <p className='bold font_22 px-4'>Notifications</p>
+                      <Dropdown.Item href="#/action-1" className='py-2'>
+                        <Row className='align-items-center'>
+                          <Col xs={12} sm={8} md={1}>
+                            <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="" height="30" width="30" roundedCircle/>
+                          </Col>
+                          <Col xs={12} sm={8} md={9}>
+                            <p className='font_14'>Title goes here</p>
+                            <p className='font_12 bold'>Author Name</p>
+                          </Col>
+                          <Col xs={12} sm={8} md={2}>
+                            <small>Aug, 11</small>
+                          </Col>
+                        </Row>
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-1" className='py-2'>
+                        <Row className='align-items-center'>
+                          <Col xs={12} sm={8} md={1}>
+                            <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="" height="30" width="30" roundedCircle/>
+                          </Col>
+                          <Col xs={12} sm={8} md={9}>
+                            <p className='font_14'>Title goes here</p>
+                            <p className='font_12 bold'>Author Name</p>
+                          </Col>
+                          <Col xs={12} sm={8} md={2}>
+                            <small>Aug, 11</small>
+                          </Col>
+                        </Row>
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-1" className='py-2'>
+                        <Row className='align-items-center'>
+                          <Col xs={12} sm={8} md={1}>
+                            <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="" height="30" width="30" roundedCircle/>
+                          </Col>
+                          <Col xs={12} sm={8} md={9}>
+                            <p className='font_14'>Title goes here</p>
+                            <p className='font_12 bold'>Author Name</p>
+                          </Col>
+                          <Col xs={12} sm={8} md={2}>
+                            <small>Aug, 11</small>
+                          </Col>
+                        </Row>
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-1" className='py-2'>
+                        <Row className='align-items-center'>
+                          <Col xs={12} sm={8} md={1}>
+                            <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="" height="30" width="30" roundedCircle/>
+                          </Col>
+                          <Col xs={12} sm={8} md={9}>
+                            <p className='font_14'>Title goes here</p>
+                            <p className='font_12 bold'>Author Name</p>
+                          </Col>
+                          <Col xs={12} sm={8} md={2}>
+                            <small>Aug, 11</small>
+                          </Col>
+                        </Row>
+                      </Dropdown.Item>
+                      
+                    </Dropdown.Menu>
+                  </Dropdown>
                   <Image src={user} className="nav_user noselect me-3" />
-                  <span className="color-white">{auth.name}</span>
+                  {/* <span className="color-white">{auth.name}</span> */}
                 </div>
               )}
             </Col>
