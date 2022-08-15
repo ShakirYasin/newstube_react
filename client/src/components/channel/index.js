@@ -16,13 +16,15 @@ import Content from './Content';
 import NewsContext from '../../context/NewsContext'
 import UserContext from '../../context/UserContext'
 import ChannelContext from '../../context/ChannelContext';
+import { useParams } from 'react-router-dom';
 
 
 
 const Channel = () => {
 
+    let { id: params } = useParams()
     const { auth, getMe } = useContext(UserContext)
-    const { channelData } = useContext(ChannelContext)
+    const { channelData, getUserChannel } = useContext(ChannelContext)
     const [userData, setUserData] = useState(null)
     const { userNews } = useContext(NewsContext)
     const [currentTab, setCurrentTab] = useState('home')
@@ -74,6 +76,14 @@ const Channel = () => {
     useEffect(() => {
         setUserData(channelData?.user)
     }, [channelData?.user])
+
+    // useEffect(() => {
+    //     async function getChannel (){
+    //         getUserChannel()
+    //     }
+
+    //     getChannel()
+    // }, [params])
 
     return (
         <>

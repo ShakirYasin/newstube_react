@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FaBars, FaBell } from "react-icons/fa";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineLeft } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 import { BiLogIn } from "react-icons/bi";
 import { CgLogOut } from "react-icons/cg";
@@ -14,16 +14,18 @@ import axios from "../components/axios";
 import user from "../images/users/user1.jpg";
 
 import NewsContext from "../context/NewsContext";
+import SearchContext from "../context/SearchContext";
 
 const Navbar = () => {
-  const { news } = useContext(NewsContext);
+  // const { news } = useContext(NewsContext);
+  const { getAllResults } = useContext(SearchContext);
   const { auth, resetAuth, isUserAuthenticated, isCreator } =
     useContext(UserContext);
   const [sidebar, setSidebar] = useState(true);
   const showSidebar = () => setSidebar(!sidebar);
   const [mainSidebar, setMainSidebar] = useState(null);
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const handleSidebar = () => {
     if (isUserAuthenticated() && isCreator()) {
       setMainSidebar(creatorSidebar);
@@ -38,30 +40,37 @@ const Navbar = () => {
     handleSidebar();
   }, [isUserAuthenticated(), isCreator()]);
 
-  const handleSearch = (value) => {
+  const handleSearch = async (value) => {
     setSearch(value)
-    if (value && news) {
-      const newNews = news.filter((news) => {
-        if (news.title.toString().toLowerCase().includes(value)) {
-          return news.title
-        }
-        else if (news.description.toString().toLowerCase().includes(value)) {
-          return news.description
-        }
-      });
-      setSearchResults(newNews);
-    }
   };
 
   useEffect(() => {
-    if (search.length > 0 && searchResults.length > 0) {
-      setSearchPane(true)
-    }
-    else {
+
+    if(search === ""){
       setSearchPane(false)
     }
+    else {
+      setSearchPane(true)
+    }
+    async function getResults() {
+      if(search !== "" || search !== undefined || search !== null){
+        setSearchResults(Object.entries(await getAllResults(search)));
+      }
+    }
+
+    getResults()
+  }, [search])
+
+  useEffect(() => {
+    // console.log(Object.keys(searchResults).length);
+    // if (searchResults && Object.keys(searchResults).length > 0) {
+    //   setSearchPane(true)
+    // }
+    // else {
+    //   setSearchPane(false)
+    // }
     console.log(searchResults)
-  }, [searchResults, search])
+  }, [searchResults])
 
   return (
     <>
@@ -94,13 +103,32 @@ const Navbar = () => {
                   <div className='search-pane card_box_shadow'>
                     <ul className="list-unstyled m-0">
                       {
-                        searchResults.map(result => (
-                          <Link to={`/news/${result?._id}`}>
-                            <li>
-                              <p className="m-0">{result.title} <span className="ms-auto font_12 secondary">{result.description}</span></p>
-                            </li>
-                          </Link>
-                        ))
+                        searchResults.map((arr, i) => {
+                          // console.log(arr[0] + ": ", arr[1])
+                          let type = arr[0]
+                          let data;
+                          let route;
+                          if(type === "channels") {
+                            data = arr[1].slice(0, 3) 
+                            route = "/channel"
+                          }
+                          else if(type === "news"){
+                            data = arr[1].slice(0, 8);
+                            route = "/news"
+                          }
+
+                          return data?.map(result => (
+                            <Link key={result?._id} to={`${route}/${result?._id}`}>
+                              <li className="d-flex align-items-center justify-content-between">
+                                <p className="m-0 my-2 ">
+                                  <BsSearch className="me-2" color="#000" />
+                                  <span className="m-0 p-0">{result.title || result.name}</span> 
+                                </p>
+                                <span className="m-0 p-0 font_12 secondary"> {result.description || "channel"}</span>
+                              </li>
+                            </Link>
+                          ))
+                        })
                       }
                     </ul>
                   </div>
@@ -133,14 +161,14 @@ const Navbar = () => {
           <ul className="nav-menu-items ps-0">
             <li className="navbar-toggle justify-content-end pe-3">
               <Link to="#" className="menu-bars">
-                <AiOutlineClose onClick={showSidebar} />
+                <AiOutlineLeft onClick={showSidebar} size={25} />
                 {/* <FaBars onClick={showSidebar} /> */}
               </Link>
             </li>
             {mainSidebar?.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path === '/channel' ? item.path + '/' + auth._id : item.path}>
+                  <Link to={item.path === '/channel' ? item.path + '/me' : item.path}>
                     <span className="m-0 p-0 flex-shrink-0">{item.icon}</span>
                     <span className="ps-2 color-white">{item.title}</span>
                   </Link>

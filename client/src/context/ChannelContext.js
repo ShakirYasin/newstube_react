@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, useContext } from "react";
 import axios from '../components/axios'
 import UserContext from "./UserContext";
 
-const channelContext = createContext()
+const ChannelContext = createContext()
 
 const CHANNEL_API = '/channel/'
 
@@ -17,20 +17,22 @@ export const ChannelProvider = ({ children }) => {
             const response = await axios.get(CHANNEL_API + id)
             // console.log(response.data)
             setChannelData(response?.data)
+            // return response?.data
         } catch (error) {
             throw new Error(error?.message)
         }
     }
 
-    useEffect(() => {
-        getUserChannel(auth?._id)
-    }, [auth])
+    // useEffect(() => {
+    //     getUserChannel(auth?._id)
+    // }, [auth])
     
-    return <channelContext.Provider value={{
-        channelData
+    return <ChannelContext.Provider value={{
+        channelData,
+        getUserChannel
     }}>
         {children}
-    </channelContext.Provider>
+    </ChannelContext.Provider>
 }
 
-export default channelContext
+export default ChannelContext
