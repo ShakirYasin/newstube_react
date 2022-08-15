@@ -23,3 +23,12 @@ background-clip: padding-box;
 .my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
     margin-bottom: 50px;
 }
+
+/* Single News */
+.subscribed{
+    padding: 0.8rem 2rem !important;
+    background-color: #787878 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 9px !important;
+}

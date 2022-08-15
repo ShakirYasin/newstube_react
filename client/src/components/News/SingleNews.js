@@ -1,18 +1,27 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Col, Container, Row, Image, Card, Form, Button } from 'react-bootstrap'
 import NewsContext from '../../context/NewsContext'
 import UserContext from '../../context/UserContext'
 import {FaFacebookF} from 'react-icons/fa'
-import {BsTwitter, BsLinkedin} from 'react-icons/bs'
-import {AiFillLike} from 'react-icons/ai'
+import {BsTwitter, BsLinkedin, BsCheck2} from 'react-icons/bs'
+import {AiFillLike, AiFillBell} from 'react-icons/ai'
 import {MdModeComment} from 'react-icons/md'
 import {RiShareForwardFill} from 'react-icons/ri'
 import { IconContext } from 'react-icons/lib'
 
+
+
+import '../../css/News.css'
+
 const SingleNews = () => {
 
-    const { auth, getMe } = useContext(UserContext)
+    const { auth, getMe } = useContext(UserContext);
     const { news } = useContext(NewsContext);
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    
+    const handleSubscribe = () => {
+        setIsSubscribed(prev => !prev)
+    }
 
     
     useEffect(() => {
@@ -27,7 +36,7 @@ const SingleNews = () => {
     <Container>
          
         <Row className="my-5 align-items-center">
-            <Col xs={12} sm={8} md={8}>
+            <Col xs={12} sm={8} md={6}>
                <Row className="my-5">
                     <Col xs={12} sm={8} md={1}>
                         <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="Thumbnail" width="50" height="50" roundedCircle/>
@@ -38,11 +47,24 @@ const SingleNews = () => {
                     </Col>
                </Row>
             </Col>
-            <Col xs={12} sm={8} md={4}>
+            <Col xs={12} sm={8} md={2}>
                 <IconContext.Provider value={{ size: 20, color: "#787878" }} >
                     <FaFacebookF className='me-3'/>
                     <BsTwitter className='me-3' />
                     <BsLinkedin className='me-3' />
+                </IconContext.Provider>
+            </Col>
+            <Col xs={12} sm={8} md={4} className='text-end'>
+                <IconContext.Provider value={{ size: 20, color: "#FFFFFF" }} >
+                    <button className={`${isSubscribed ? 'subscribed' : 'btn_primary'}`} onClick={handleSubscribe}>
+                        {isSubscribed ? "Subscribed" : "Subscribe"}
+                        {
+                            isSubscribed ?
+                            <BsCheck2 className='ms-2' />
+                            :
+                            <AiFillBell className='ms-2'/>
+                        } 
+                    </button>
                 </IconContext.Provider>
             </Col>
         </Row>
@@ -85,7 +107,7 @@ Maecenas eget imperdiet tortor, non porta eros. Morbi urna orci, vestibulum id l
                         <Form.Control className='radius_15 p-3' as="textarea" placeholder="Leave a comment here" style={{ height: '200px' }}
                         />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button className='btn_primary' type="submit">
                         Submit
                     </Button>
                 </Form>
