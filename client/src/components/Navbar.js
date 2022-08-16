@@ -5,7 +5,7 @@ import { BsSearch } from "react-icons/bs";
 import { BiLogIn } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { CgLogOut } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SidebarData, creatorSidebar } from "../data/SidebarData";
 import { IconContext } from "react-icons";
 import { Col, Dropdown, Image, Row } from "react-bootstrap";
@@ -21,6 +21,7 @@ import "../css/Navbar.css";
 
 const Navbar = () => {
   // const { news } = useContext(NewsContext);
+  const navigate = useNavigate()
   const { getAllResults } = useContext(SearchContext);
   const { auth, resetAuth, isUserAuthenticated, isCreator } =
     useContext(UserContext);
@@ -37,6 +38,11 @@ const Navbar = () => {
     }
   };
   const [searchPane, setSearchPane] = useState(false)
+
+  const logout = () => {
+    resetAuth();
+    navigate('/')
+  }
 
 
   useEffect(() => {
@@ -247,7 +253,7 @@ const Navbar = () => {
             })}
             {isUserAuthenticated() ? (
               <li className="nav-text">
-                <a className="cursor-pointer" onClick={() => resetAuth()}>
+                <a className="cursor-pointer" onClick={() => logout()}>
                   <CgLogOut size={25} />
                   <span className="ps-2 color-white">Logout</span>
                 </a>

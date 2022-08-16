@@ -57,8 +57,17 @@ const getSinglePosts = asyncHandler(async (req, res) => {
     if(!post) {
         res.status(404).send("Post Not Found")
     }
+    
+    const user = await User.findById(post.user).select("name profilePicture _id")
 
-    res.status(200).json(post)
+    if(!user) {
+        res.status(404).send("User Not Found")
+    }
+
+    res.status(200).json({
+        user,
+        news: post
+    })
 })
 
 // @desc UPDATE Posts 

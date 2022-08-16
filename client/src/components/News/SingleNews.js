@@ -9,15 +9,18 @@ import {MdModeComment} from 'react-icons/md'
 import {RiShareForwardFill} from 'react-icons/ri'
 import { IconContext } from 'react-icons/lib'
 
-
+import user from "../../images/users/user1.jpg";
 
 import '../../css/News.css'
+import { useParams } from 'react-router-dom'
 
 const SingleNews = () => {
 
-    const { auth, getMe } = useContext(UserContext);
-    const { news } = useContext(NewsContext);
+    let { id: params } = useParams()
+    const { auth } = useContext(UserContext);
+    const { getSingleNews } = useContext(NewsContext);
     const [isSubscribed, setIsSubscribed] = useState(false);
+    const [currentNewsData, setCurrentNewsData] = useState(null)
     
     const handleSubscribe = () => {
         setIsSubscribed(prev => !prev)
@@ -26,11 +29,18 @@ const SingleNews = () => {
     
     useEffect(() => {
         async function fetchData(){
-            // setUserData(await getMe())
+            // #For Farhan
+            // -----------------
+            setCurrentNewsData(await getSingleNews(params))
+            // currentNewsData state is set here
+            // it contains an object with 2 more objects
+            // they can be accessed by currentNewsData.user & currentNewsData.news
+            // these information can be handled and displayed below in JSX (eg: currentNewsData?.user?.name) accordingly 
+            // For author and for the news itself
         }
 
         fetchData()
-    }, [auth])
+    }, [params])
 
   return (
     <Container>
@@ -39,11 +49,16 @@ const SingleNews = () => {
             <Col xs={12} sm={8} md={8}>
                <Row className="my-5">
                     <Col xs={12} sm={8} md={1}>
-                        <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="Thumbnail" width="50" height="50" roundedCircle/>
+                        {
+                            currentNewsData?.user?.profilePicture ?
+                            <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="Thumbnail" width="50" height="50" roundedCircle/>
+                            :
+                            <Image src={user} alt="Thumbnail" width="50" height="50" roundedCircle/>
+                        }
                     </Col>
                     <Col xs={12} sm={8} md={11}>
-                        <p>Author Name</p>
-                        <date>Aug, 11 2022</date> <span>.</span> <p className='d-inline'>7 min read</p>
+                        <p className='bold'>{currentNewsData?.user?.name}</p>
+                        <span>Aug, 11 2022</span> <span>.</span> <p className='d-inline'>7 min read</p>
                     </Col>
                </Row>
             </Col>
@@ -72,7 +87,7 @@ const SingleNews = () => {
         <Row className='my-5'>
             <Col sm={12}>
                 <h1>Title goes here...</h1>
-                <Image className='my-3' src="https://static.toiimg.com/photo/84475061.cms" height="" width="100%" alt=""/>
+                <Image className='my-3' src="https://static.toiimg.com/photo/84475061.cms" height="" width="100%" alt="" />
             </Col>
             <Col sm={12}>
                 <p className='justify-text mt-3'>
@@ -136,10 +151,10 @@ Maecenas eget imperdiet tortor, non porta eros. Morbi urna orci, vestibulum id l
                                 <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="Thumbnail" width="70" height="70" roundedCircle/>
                             </Col>
                             <Col xs={12} sm={12} md={2}>
-                                <span><small class="font-weight-bold text-primary">james_olesenn</small></span>
+                                <span><small className="font-weight-bold text-primary">james_olesenn</small></span>
                             </Col>
                             <Col xs={12} sm={12} md={9}>
-                                <small class="font-weight-bold">Hmm, This poster looks cool</small>
+                                <small className="font-weight-bold">Hmm, This poster looks cool</small>
                             </Col>
                         </Row>
                     </Card.Body>
@@ -151,10 +166,10 @@ Maecenas eget imperdiet tortor, non porta eros. Morbi urna orci, vestibulum id l
                                 <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="Thumbnail" width="70" height="70" roundedCircle/>
                             </Col>
                             <Col xs={12} sm={12} md={2}>
-                                <span><small class="font-weight-bold text-primary">james_olesenn</small></span>
+                                <span><small className="font-weight-bold text-primary">james_olesenn</small></span>
                             </Col>
                             <Col xs={12} sm={12} md={9}>
-                                <small class="font-weight-bold">Hmm, This poster looks cool</small>
+                                <small className="font-weight-bold">Hmm, This poster looks cool</small>
                             </Col>
                         </Row>
                     </Card.Body>
@@ -166,10 +181,10 @@ Maecenas eget imperdiet tortor, non porta eros. Morbi urna orci, vestibulum id l
                                 <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="Thumbnail" width="70" height="70" roundedCircle/>
                             </Col>
                             <Col xs={12} sm={12} md={2}>
-                                <span><small class="font-weight-bold text-primary">james_olesenn</small></span>
+                                <span><small className="font-weight-bold text-primary">james_olesenn</small></span>
                             </Col>
                             <Col xs={12} sm={12} md={9}>
-                                <small class="font-weight-bold">Hmm, This poster looks cool</small>
+                                <small className="font-weight-bold">Hmm, This poster looks cool</small>
                             </Col>
                         </Row>
                     </Card.Body>
