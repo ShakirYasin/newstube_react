@@ -3,6 +3,7 @@ import { Col, Row, OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 import { AiFillPlusCircle } from 'react-icons/ai'
 import { FiFolderPlus } from 'react-icons/fi'
+import UserContext from '../../context/UserContext'
 import AddCollectionForm from './AddCollectionForm'
 import AddNewsForm from './AddNewsForm'
 import EditCollectionForm from './EditCollectionForm'
@@ -11,6 +12,7 @@ import EditCollectionForm from './EditCollectionForm'
 
 const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNewsForm, showAddCollection, setShowAddCollection, showEditCollection, setShowEditCollections }) => {
 
+    const {isUserAuthenticated, isCreator} = useContext(UserContext)
 
 
     useEffect(() => {
@@ -43,26 +45,29 @@ const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNew
                     </Row>
                     :
                     <>
-                        <Row className='justify-content-end align-items-center'>
-                            <Col xs='2'>
-                                <Row className='justify-content-end align-items-center'>
-                                    <Col xs='3'>
-                                        <OverlayTrigger overlay={<Tooltip>Add News</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <AiFillPlusCircle onClick={() => (setShowAddNewsForm(true))} size={40} role='button' />
-                                            </span>
-                                        </OverlayTrigger>
-                                    </Col>
-                                    <Col xs='4'>
-                                        <OverlayTrigger overlay={<Tooltip>Add Collection</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <FiFolderPlus onClick={() => (setShowAddCollection(true))} size={35} role='button' />
-                                            </span>
-                                        </OverlayTrigger>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        </Row>
+                        {
+                            (isUserAuthenticated() && isCreator()) &&
+                            <Row className='justify-content-end align-items-center'>
+                                <Col xs='2'>
+                                    <Row className='justify-content-end align-items-center'>
+                                        <Col xs='3'>
+                                            <OverlayTrigger overlay={<Tooltip>Add News</Tooltip>}>
+                                                <span className="d-inline-block">
+                                                    <AiFillPlusCircle onClick={() => (setShowAddNewsForm(true))} size={40} role='button' />
+                                                </span>
+                                            </OverlayTrigger>
+                                        </Col>
+                                        <Col xs='4'>
+                                            <OverlayTrigger overlay={<Tooltip>Add Collection</Tooltip>}>
+                                                <span className="d-inline-block">
+                                                    <FiFolderPlus onClick={() => (setShowAddCollection(true))} size={35} role='button' />
+                                                </span>
+                                            </OverlayTrigger>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        }
                         <Row>
                             <Col xs='12'>
                                 {

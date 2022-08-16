@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 const postIdSchema = mongoose.Schema({
-    id: {
+    postId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Post'

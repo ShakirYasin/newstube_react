@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
 const Collection = require('../models/collectionModel');
+const { default: mongoose } = require('mongoose');
 
 
 // @desc GET AllPosts 
@@ -33,13 +34,14 @@ const setCollection = asyncHandler(async (req, res) => {
     // console.log("Next line is the user")
     // console.log(user._id)
     console.log("news: ", req.body.news)
-    let allPosts = await Post.find({"_id": {$in: req.body.news}}).select("_id")
+    let allPosts = req.body.news
+    // let allPosts = await Post.find({"_id": {$in: req.body.news}}).select("_id")
     // if(!allPosts){
     //     res.status(404)
     //     throw new Error('Add at least 1 news')
     // }
 
-    allPosts = allPosts.map(obj => obj._id)
+    allPosts = allPosts.map(id => ({postId: mongoose.Types.ObjectId(id)}))
     console.log(allPosts)
     
     if(user.isACreator){

@@ -116,7 +116,7 @@ const Accounts = () => {
                                                                     )}
                                                             />
                                                         </span>
-                                                        <Image src={formValues?.profilePicture} width="100%" height="100%" alt="" style={{objectFit: "cover"}} />
+                                                        <Image src={formValues?.profilePicture} width="100%" height="100%" alt="" style={{objectFit: "cover", objectPosition: "top"}} />
                                                     </div>
                                                     <Form.Label className='bold'>Profile Picture</Form.Label>
                                                 </div>
