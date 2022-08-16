@@ -12,20 +12,10 @@ const getAllPosts = asyncHandler(async (req, res) => {
     res.status(200).json(posts)
 })
 
-// @desc GET Posts 
-// @route GET /api/posts
-// @access Private
-const getUserPosts = asyncHandler(async (req, res) => {
-    // console.log(req);
-    const posts = await Post.find({ user: req.user.id })
-
-    res.status(200).json(posts.reverse())
-})
-
 // @desc SET Posts 
 // @route SET /api/posts
 // @access Private
-const setPosts = asyncHandler(async (req, res) => {
+const setPost = asyncHandler(async (req, res) => {
 
     if (!req.body || !req.user.id) {
         res.status(400)
@@ -59,10 +49,22 @@ const setPosts = asyncHandler(async (req, res) => {
 
 })
 
+// @desc GET AllPosts 
+// @route GET /api/posts
+// @access Public
+const getSinglePosts = asyncHandler(async (req, res) => {
+    const post = await Post.findById(req.params.id)
+    if(!post) {
+        res.status(404).send("Post Not Found")
+    }
+
+    res.status(200).json(post)
+})
+
 // @desc UPDATE Posts 
 // @route PUT /api/posts/:id
 // @access Private
-const updatePosts = asyncHandler(async (req, res) => {
+const updateSinglePost = asyncHandler(async (req, res) => {
     const post = await Post.findById(req.params.id)
 
     if (!post) {
@@ -92,7 +94,7 @@ const updatePosts = asyncHandler(async (req, res) => {
 // @desc DELETE Posts 
 // @route DELETE /api/posts/:id
 // @access Private
-const deletePosts = asyncHandler(async (req, res) => {
+const deleteSinglePost = asyncHandler(async (req, res) => {
     const post = await Post.findById(req.params.id)
 
     if (!post) {
@@ -119,12 +121,22 @@ const deletePosts = asyncHandler(async (req, res) => {
     res.status(200).json({ id: req.params.id })
 })
 
+// @desc GET AllPosts 
+// @route GET /api/posts
+// @access Public
+const deleteAllPosts = asyncHandler(async (req, res) => {
+    const posts = await Post.deleteMany({})
+
+    res.status(200).json(posts)
+})
+
 
 
 module.exports = {
     getAllPosts,
-    getUserPosts,
-    setPosts,
-    updatePosts,
-    deletePosts
+    getSinglePosts,
+    setPost,
+    updateSinglePost,
+    deleteSinglePost,
+    deleteAllPosts
 }

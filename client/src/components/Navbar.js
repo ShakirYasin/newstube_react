@@ -7,7 +7,6 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { CgLogOut } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { SidebarData, creatorSidebar } from "../data/SidebarData";
-import "../css/Navbar.css";
 import { IconContext } from "react-icons";
 import { Col, Dropdown, Image, Row } from "react-bootstrap";
 import UserContext from "../context/UserContext";
@@ -16,6 +15,9 @@ import user from "../images/users/user1.jpg";
 
 import NewsContext from "../context/NewsContext";
 import SearchContext from "../context/SearchContext";
+
+import "../css/Navbar.css";
+
 
 const Navbar = () => {
   // const { news } = useContext(NewsContext);
