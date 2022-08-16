@@ -11,8 +11,8 @@ export const NewsProvider = ({ children }) => {
 
     const { auth } = useContext(UserContext)
     const [news, setNews] = useState(null)
-    const [userNews, setUserNews] = useState(null)
-    const [newUserPost, setNewUserPost] = useState(null)
+    // const [userNews, setUserNews] = useState(null)
+    // const [newUserPost, setNewUserPost] = useState(null)
 
     async function getAllNews() {
         try {
@@ -30,35 +30,28 @@ export const NewsProvider = ({ children }) => {
         }
     }
 
-    async function getUserNews() {
-        try {
-            const response = await axios.get(`${NEWS_API}/${auth?._id}`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        authorization: `Bearer ${auth?.token}`
-                    }
-                }
-            )
-            // console.log("UserNews: ", response.data);
-            setUserNews(response.data)
-        } catch (err) {
-            console.log(err);
-        }
-    }
+    // async function getAllUserNews() {
+    //     try {
+    //         const response = await axios.get(`${NEWS_API}/${auth?._id}`,
+    //             {
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     authorization: `Bearer ${auth?.token}`
+    //                 }
+    //             }
+    //         )
+    //         // console.log("UserNews: ", response.data);
+    //         setUserNews(response.data)
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
 
     async function getSingleNews(id) {
         try {
-            const response = await axios.get(`${NEWS_API}/${auth?._id}`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        authorization: `Bearer ${auth?.token}`
-                    }
-                }
-            )
-            // console.log(response.data);
-            setUserNews(response.data)
+            const response = await axios.get(`${NEWS_API}/${id}`)
+            console.log("User News: ", response.data);
+            return response?.data
         } catch (err) {
             console.log(err);
         }
@@ -66,17 +59,17 @@ export const NewsProvider = ({ children }) => {
 
     useEffect(() => {
         getAllNews()
-        getUserNews()
+        // getUserNews()
     }, [auth])
 
-    useEffect(() => {
-        getUserNews()
-    }, [auth, newUserPost])
+    // useEffect(() => {
+    //     getUserNews()
+    // }, [auth, newUserPost])
 
 
 
     return <NewsContext.Provider value={{
-        news, userNews, setNewUserPost
+        news, getSingleNews //userNews, setNewUserPost
     }}>
         {children}
     </NewsContext.Provider>

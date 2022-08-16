@@ -7,12 +7,12 @@ import UserContext from '../../context/UserContext'
 import NewsContext from '../../context/NewsContext'
 import { useFileUpload } from '../../hooks/useFileUpload'
 
-const NEWS_URL = '/posts/'
+const NEWS_URL = '/posts'
 const AddNewsForm = () => {
 
     const { upload } = useFileUpload()
     const {auth} = useContext(UserContext)
-    const {setNewUserPost} = useContext(NewsContext)
+    // const {setNewUserPost} = useContext(NewsContext)
     const [data, setData] = useState({
         title: "",
         description: "",
@@ -37,9 +37,9 @@ const AddNewsForm = () => {
 
     async function handleSubmit(e){
         e.preventDefault();
-
+        // console.log("Submit")
         try {
-            const response = await axios.post(NEWS_URL + auth._id, 
+            const response = await axios.post(NEWS_URL, 
                 JSON.stringify(data),
                 {
                     headers: {
@@ -48,9 +48,8 @@ const AddNewsForm = () => {
                     }
                 }
             )
-            console.log(response.data)
+            console.log(response?.data)
             setSuccessMsg('News Uploaded')
-            setNewUserPost(response.data)
             setErrMsg('')
             setData({
                 title: '',

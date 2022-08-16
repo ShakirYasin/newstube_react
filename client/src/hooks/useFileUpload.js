@@ -36,6 +36,7 @@ export const useFileUpload = () => {
                             [fileName]: url
                         }
                     ))
+                    alert("Upload Successful")
                 });
             }
         );
