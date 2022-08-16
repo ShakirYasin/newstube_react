@@ -49,13 +49,19 @@ const AddNewsForm = () => {
                 }
             )
             console.log(response?.data)
-            setSuccessMsg('News Uploaded')
-            setErrMsg('')
-            setData({
-                title: '',
-                description: '',
-                image: '',
-            })
+            if(response?.data?.message){
+                setErrMsg(response?.data?.message)
+                return
+            }
+            else {
+                setSuccessMsg('News Uploaded')
+                setErrMsg('')
+                setData({
+                    title: '',
+                    description: '',
+                    image: '',
+                })
+            }
         } catch (err) {
             console.log(err?.response)
             setErrMsg('')
