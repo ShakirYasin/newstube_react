@@ -91,9 +91,9 @@ const Channel = () => {
         getChannel()
     }, [params])
 
-    // useEffect(() => {
-    //     console.log(channelData.user);
-    // }, [channelData])
+    useEffect(() => {
+        console.log(channelData);
+    }, [channelData])
 
     return (
         <>

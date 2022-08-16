@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
+const Collection = require('../models/collectionModel');
 
 
 // @desc GET Channel 
@@ -10,6 +11,7 @@ const getUserChannel = asyncHandler(async (req, res) => {
     // console.log(req);
     const user = await User.findById(req.params.id).select("-password -updatedAt -__v -role")
     const posts = await Post.find({ user: req.params.id }).sort({createdAt: "desc"})
+    const collections = await Collection.find({ user: req.params.id }).sort({createdAt: "desc"})
 
     if(!user){
         res.status(404).send("Channel not Found")
@@ -19,6 +21,7 @@ const getUserChannel = asyncHandler(async (req, res) => {
         res.status(200).json({
             user,
             news: posts,
+            collections
         })  
     }
     else{
