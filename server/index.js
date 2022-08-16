@@ -17,6 +17,7 @@ app.use('/api/posts', require('./routes/postRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/channel', require('./routes/channelRoutes'))
 app.use('/api/search', require('./routes/searchRoutes'))
+app.use('/api/collection', require('./routes/collectionRoutes'))
 
 app.use(errorHandler)
 

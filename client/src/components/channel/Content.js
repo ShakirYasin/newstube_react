@@ -3,11 +3,13 @@ import { Col, Row, OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 import { AiFillPlusCircle } from 'react-icons/ai'
 import { FiFolderPlus } from 'react-icons/fi'
+import AddCollectionForm from './AddCollectionForm'
 import AddNewsForm from './AddNewsForm'
+import EditCollectionForm from './EditCollectionForm'
 
 
 
-const Content = ({ currentTab, tabs, showAddNewsForm, setShowAddNewsForm }) => {
+const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNewsForm, showAddCollection, setShowAddCollection, showEditCollection, setShowEditCollections }) => {
 
 
 
@@ -26,6 +28,20 @@ const Content = ({ currentTab, tabs, showAddNewsForm, setShowAddNewsForm }) => {
                         </Col>
                     </Row>
                     :
+                showAddCollection ?
+                    <Row className='justify-content-center'>
+                        <Col xs='12' lg='10'>
+                            <AddCollectionForm data={channelData?.news} />
+                        </Col>
+                    </Row>
+                    :
+                showEditCollection ?
+                    <Row className='justify-content-center'>
+                        <Col xs='12' lg='10'>
+                            <EditCollectionForm />
+                        </Col>
+                    </Row>
+                    :
                     <>
                         <Row className='justify-content-end align-items-center'>
                             <Col xs='2'>
@@ -40,7 +56,7 @@ const Content = ({ currentTab, tabs, showAddNewsForm, setShowAddNewsForm }) => {
                                     <Col xs='4'>
                                         <OverlayTrigger overlay={<Tooltip>Add Collection</Tooltip>}>
                                             <span className="d-inline-block">
-                                                <FiFolderPlus onClick={() => (setShowAddNewsForm(true))} size={35} role='button' />
+                                                <FiFolderPlus onClick={() => (setShowAddCollection(true))} size={35} role='button' />
                                             </span>
                                         </OverlayTrigger>
                                     </Col>

@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 
 
+const postIdSchema = mongoose.Schema({
+    id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Post'
+    }
+})
+
 const collectionSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -29,13 +37,6 @@ const collectionSchema = mongoose.Schema({
     }
 )
 
-const postIdSchema = mongoose.Schema({
-    id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Post'
-    }
-})
 
 
 module.exports = mongoose.model('Collection', collectionSchema)

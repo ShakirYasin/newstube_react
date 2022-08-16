@@ -30,12 +30,20 @@ export const useFileUpload = () => {
             () => {
                 console.log("Upload Complete")
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    setValue(prev => (
-                        {
-                            ...prev,
-                            [fileName]: url
+                    setValue(prev => {
+                        if(Array.isArray(prev)){
+                            return [
+                                ...prev,
+                                url
+                            ]
                         }
-                    ))
+                        else{
+                            return {
+                                ...prev,
+                                [fileName]: url
+                            }
+                        }
+                    })
                     alert("Upload Successful")
                 });
             }
