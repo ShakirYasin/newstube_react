@@ -10,17 +10,18 @@ const COLLECTION_API = '/collection'
 export const CollectionProvider = ({ children }) => {
 
     const { auth } = useContext(UserContext)
+    const [updateChannel, setUpdateChannel] = useState(false)
 
-    const getAllCollections = async () => {
-        try {
-            const response = await axios.get(COLLECTION_API)
-            console.log(response.data)
-            // setAllCollections(response?.data)
-            return response?.data
-        } catch (error) {
-            throw new Error(error)
-        }
-    }
+    // const getAllCollections = async () => {
+    //     try {
+    //         const response = await axios.get(COLLECTION_API)
+    //         console.log(response.data)
+    //         // setAllCollections(response?.data)
+    //         return response?.data
+    //     } catch (error) {
+    //         throw new Error(error)
+    //     }
+    // }
 
     const getSingleCollection = async (id) => {
         try {
@@ -46,6 +47,7 @@ export const CollectionProvider = ({ children }) => {
             )
             // console.log(response.data)
             // setAllCollections(response?.data)
+            setUpdateChannel(prev => !prev)
             return response?.data
         } catch (error) {
             throw new Error(error)
@@ -114,12 +116,13 @@ export const CollectionProvider = ({ children }) => {
     // }, [auth])
     
     return <CollectionContext.Provider value={{
-        getAllCollections,
+        // getAllCollections,
         getSingleCollection,
         AddNewCollection,
         UpdateACollection,
         DeleteACollection,
-        DeleteAllCollections
+        DeleteAllCollections,
+        updateChannel,
     }}>
         {children}
     </CollectionContext.Provider>

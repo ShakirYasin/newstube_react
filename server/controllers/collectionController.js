@@ -71,14 +71,13 @@ const getSingleCollection = asyncHandler(async (req, res) => {
         res.status(404).send("Post Not Found")
     }
     
-    const user = await User.findById(collection.user).select("name profilePicture _id")
+    // const user = await User.findById(collection.user).select("name profilePicture _id")
 
-    if(!user) {
-        res.status(404).send("User Not Found")
-    }
+    // if(!user) {
+    //     res.status(404).send("User Not Found")
+    // }
 
     res.status(200).json({
-        user,
         collection
     })
 })
