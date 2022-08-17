@@ -10,15 +10,16 @@ import EditCollectionForm from './EditCollectionForm'
 
 
 
-const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNewsForm, showAddCollection, setShowAddCollection, showEditCollection, setShowEditCollections }) => {
+const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNewsForm, showAddCollection, setShowAddCollection, showEditCollection, setShowEditCollections, isCurrentUser}) => {
 
     const {isUserAuthenticated, isCreator} = useContext(UserContext)
 
 
-    useEffect(() => {
-        console.log(currentTab)
-        console.log(tabs)
-    }, [currentTab, tabs])
+    // useEffect(() => {
+    //     console.log("auth: ", isUserAuthenticated())
+    //     console.log("creator: ", isCreator())
+    //     console.log("currentUser: ", isCurrentUser)
+    // }, [isUserAuthenticated(), isCreator(), isCurrentUser])
 
     return (
         <div className='py-5'>
@@ -46,7 +47,7 @@ const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNew
                     :
                     <>
                         {
-                            (isUserAuthenticated() && isCreator()) &&
+                            (isUserAuthenticated() && isCreator() && isCurrentUser) &&
                             <Row className='justify-content-end align-items-center'>
                                 <Col xs='2'>
                                     <Row className='justify-content-end align-items-center'>
@@ -74,7 +75,7 @@ const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNew
                                     tabs.map(singleTab => {
                                         if (singleTab.name === currentTab) {
                                             const Tab = singleTab.component
-                                            return <Tab key={singleTab.name} data={singleTab.userNews ?? singleTab.userInfo} />
+                                            return <Tab key={singleTab.name} data={singleTab?.userNews ?? singleTab?.userCollections ?? singleTab?.userInfo} />
                                         }
                                         else {
                                             return <div key={singleTab.name}></div>

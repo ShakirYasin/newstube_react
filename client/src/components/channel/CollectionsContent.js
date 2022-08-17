@@ -1,9 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Col, Row } from 'react-bootstrap'
 import CollectionContext from '../../context/CollectionContext'
+import Tile from '../Tile'
+// import '../../css/Channel.css'
+
 
 const CollectionsContent = ({data}) => {
 
-  const { getAllCollections } = useContext(CollectionContext)
+  // const { getAllCollections } = useContext(CollectionContext)
 
   const [allCollections, setAllCollections] = useState(null)
 
@@ -11,14 +15,29 @@ const CollectionsContent = ({data}) => {
   useEffect(() => {
     
 
+    console.log("Collections: ", data)
+  }, [data])
 
-  }, [getAllCollections()])
-
-  console.log(allCollections)
+  // console.log(allCollections)
 
   return (
     <div>
-      <h3 className="mb-4">All Collections</h3>
+      <h3 className="mb-5">All Collections</h3>
+      <Row>
+        {
+          data?.map(collection => (
+            <Col key={collection?._id} xs={12} md={3} className="mb-5">
+              <div className='collections--tile'>
+                <div className='content card_box_shadow'>
+                  <Tile data={collection} />
+                </div>
+                <span className='layer1 card_box_shadow'></span>
+                <span className='layer2 card_box_shadow'></span>
+              </div>
+            </Col>
+          ))
+        }
+      </Row>
       {/* <Row key={item?._id}>
         <Col xs={9} md={10}>
           <ListGroup.Item className='d-flex align-items-center gap-3 mb-2 py-3'>

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Button, Col, Form, Image, ListGroup, Row } from 'react-bootstrap'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { Alert, Button, Col, Form, Image, ListGroup, Row } from 'react-bootstrap'
 import CollectionContext from '../../context/CollectionContext'
 import { useFileUpload } from '../../hooks/useFileUpload'
 
@@ -16,7 +16,11 @@ const AddCollectionForm = ({data}) => {
   })
 
   const [selectedNews, setSelectedNews] = useState([])
-
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
+  const [errorMsg, setErrorMsg] = useState("")
+  
+  
   function handleChange(name, value) {
     setFormValues(prev => (
       {
@@ -53,18 +57,58 @@ const AddCollectionForm = ({data}) => {
   }, [selectedNews])
 
   const handleUpload = (file) => {
-    upload(file, "images", "thumbnail", setFormValues)
-}
+    if(!file){
+      setError(true)
+      setErrorMsg("Please Select an Image")
+    }
+    else{
+      upload(file, "images", "thumbnail", setFormValues)
+    }
+  }
+
 
 async function handleSubmit(e) {
-  e.preventDefault()
-  try {
-    const response = await AddNewCollection(formValues)
-    console.log(response)
+  e.preventDefault();
+  setError(false)
+  setSuccess(false)
+  setErrorMsg("")
 
-  } catch (error) {
-    console.log(error)
+  if(formValues.title === "" || formValues.description === "" || formValues.thumbnail === ""){
+    setError(true)
+    setErrorMsg("Please fill all fields")
   }
+  else if(formValues.thumbnail === ""){
+    setError(true)
+    setErrorMsg("Please Upload an Image")
+  }
+  // else if(typeof formValues.thumbnail !== String){
+  //   setError(true)
+  //   setErrorMsg("Please click 'Upload' to upload the image...")
+  // }
+  else if( !formValues.news.length > 0){
+    setError(true)
+    setErrorMsg("Please Select at least 1 post")
+  }
+  else {
+    try {
+      const response = await AddNewCollection(formValues)
+      console.log(response)
+      setFormValues({
+        title: "",
+        description: "",
+        thumbnail: "",
+        news: [],
+      })
+      setSelectedNews([])
+      setSuccess(true)
+
+    } catch (error) {
+      console.log(error)
+      setError(true)
+      setErrorMsg(error?.message)
+    }
+  }
+
 }
 
 useEffect(() => {
@@ -77,6 +121,18 @@ useEffect(() => {
         Create New Collection
       </h3>
       <Form className='my-4' onSubmit={(e) => (handleSubmit(e))}>
+        {
+          success &&
+          <Alert variant='success'>
+            Collection has been created Successfully
+          </Alert>
+        }
+        {
+          error &&
+          <Alert variant='danger'>
+            {errorMsg}
+          </Alert>
+        }
         <Form.Group className='mb-3'>
           <Form.Label className="font_15">Title</Form.Label>
           <Form.Control value={formValues?.title} name="title" onChange={(e) => (handleChange(e.target.name, e.target.value))} />
