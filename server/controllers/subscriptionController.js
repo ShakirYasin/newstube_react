@@ -42,6 +42,9 @@ const setSubscribe = asyncHandler(async (req, res) => {
         if(sub.length !== 0){
             res.status(409).send("You are already subscribed")
         }
+        else if(req.body.userId === req.user.id){
+            res.status(409).json({success: true, message: "You cannot subscribe to yourself"})
+        }
         else {   
             const newSubscriber = await Subscription.create({
                 userTo: req.body.userId,
