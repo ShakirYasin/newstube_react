@@ -18,6 +18,7 @@ import UserContext from '../../context/UserContext'
 import ChannelContext from '../../context/ChannelContext';
 import { useParams } from 'react-router-dom';
 import CollectionContext from '../../context/CollectionContext';
+import Subscribe from '../Subscribe';
 
 
 
@@ -110,7 +111,7 @@ const Channel = () => {
         console.log(channelData);
     }, [channelData])
 
-    return (
+    return (channelData?.news || channelData?.user || channelData?.collections) && (
         <>
             <Row>
                 <Col xs='12'>
@@ -132,29 +133,35 @@ const Channel = () => {
                             </Row>
                         </Container>
                         <div className='channel--nav'>
-                            <Container>
+                            <Container style={{height: "100%"}}>
                                 <Row className='py-3'>
-                                    <Col xs='12'>
-                                        <Row>
-                                            <Col xs='11'>
-                                                <Nav defaultActiveKey="/home" as="ul">
-                                                    {
-                                                        tabs.map(singleTab => (
-                                                            <Nav.Item key={singleTab.name} as="li">
-                                                                <a role='button' className='nav-link capitalize' name={singleTab.name}
-                                                                    onClick={(e) => (handleTab(e.target.name))} >{singleTab.name}</a>
-                                                            </Nav.Item>
-                                                        ))
-                                                    }
-                                                </Nav>
-                                            </Col>
-                                            <Col xs='1'>
-                                                <IconContext.Provider value={{ size: '20' }}>
+                                    <Col xs='10' style={{height: "100%"}}>
+                                        <div className='d-flex align-items-end' style={{height: "100%"}}>
+                                            <Nav defaultActiveKey="/home" as="ul">
+                                                {
+                                                    tabs.map(singleTab => (
+                                                        <Nav.Item key={singleTab.name} as="li">
+                                                            <a role='button' className='nav-link capitalize' name={singleTab.name}
+                                                                onClick={(e) => (handleTab(e.target.name))} >{singleTab.name}</a>
+                                                        </Nav.Item>
+                                                    ))
+                                                }
+                                            </Nav>
+                                        </div>
+                                    </Col>
+                                    <Col xs='2'>
+                                        <div className='d-flex flex-column align-items-end justify-content-between' style={{height: "100%"}}>
+                                            {
+                                                !isCurrentUser &&
+                                                <Subscribe userTo={channelData?.user?._id} userFrom={auth?._id} />
+                                            }
+                                            <IconContext.Provider value={{ size: '20' }}>
+                                                <div>
                                                     <BsSearch role='button' />
                                                     <IoMdMore className='ms-3' role='button' />
-                                                </IconContext.Provider>
-                                            </Col>
-                                        </Row>
+                                                </div>
+                                            </IconContext.Provider>
+                                        </div>
                                     </Col>
                                 </Row>
                             </Container>

@@ -27,7 +27,11 @@
 
 .channel--nav{
     background-color: #CCCCCC;
-    padding-top: 75px;
+    /* padding-top: 75px; */
+}
+
+.channel--nav .row {
+    height: 170px;
 }
 
 .add-news{

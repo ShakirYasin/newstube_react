@@ -13,19 +13,15 @@ import user from "../../images/users/user1.jpg";
 
 import '../../css/News.css'
 import { useParams } from 'react-router-dom'
+import Subscribe from '../Subscribe'
+import SubscriptionContext from '../../context/SubscriptionContext'
 
 const SingleNews = () => {
 
     let { id: params } = useParams()
     const { auth } = useContext(UserContext);
     const { getSingleNews } = useContext(NewsContext);
-    const [isSubscribed, setIsSubscribed] = useState(false);
     const [currentNewsData, setCurrentNewsData] = useState(null)
-    
-    const handleSubscribe = () => {
-        setIsSubscribed(prev => !prev)
-    }
-
     
     useEffect(() => {
         async function fetchData(){
@@ -85,17 +81,7 @@ const SingleNews = () => {
                 </IconContext.Provider>
             </Col>
             <Col xs={12} sm={8} md={2} className='text-end'>
-                <IconContext.Provider value={{ size: 20, color: "#FFFFFF" }} >
-                    <button className={`${isSubscribed ? 'subscribed' : 'btn_primary'}`} onClick={handleSubscribe}>
-                        {isSubscribed ? "Subscribed" : "Subscribe"}
-                        {
-                            isSubscribed ?
-                            <BsCheck2 className='ms-2' />
-                            :
-                            <AiFillBell className='ms-2'/>
-                        } 
-                    </button>
-                </IconContext.Provider>
+                <Subscribe userTo={currentNewsData?.user?._id} userFrom={auth?._id} />
             </Col>
         </Row>
 

@@ -7,17 +7,20 @@ import { NewsProvider } from './context/NewsContext'
 import { ChannelProvider } from './context/ChannelContext'
 import { SearchProvider } from './context/SearchContext';
 import { CollectionProvider } from './context/CollectionContext';
+import { SubscriptionProvider } from './context/SubscriptionContext';
 
 
 ReactDOM.render(
     <UserProvider>
         <NewsProvider>
             <ChannelProvider>
-                <SearchProvider>
-                    <CollectionProvider>
-                        <App />
-                    </CollectionProvider>
-                </SearchProvider>
+                <SubscriptionProvider>
+                    <SearchProvider>
+                        <CollectionProvider>
+                            <App />
+                        </CollectionProvider>
+                    </SearchProvider>
+                </SubscriptionProvider>
             </ChannelProvider>
         </NewsProvider>
     </UserProvider>,
