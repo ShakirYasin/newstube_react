@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Subscription = require('../models/subscriptionModel');
+const User = require('../models/userModel');
+const Post = require('../models/postModel');
 
 
 // @desc GET SubscribersNumber 
@@ -76,9 +78,42 @@ const setUnsubscribe = asyncHandler(async (req, res) => {
 })
 
 
+// @desc GET ChannelsSubscribed 
+// @route GET /api/subscription
+// @access Private
+const getChannelsSubscribed = asyncHandler(async (req, res) => {
+    try {
+        const totalSubscriptions = await Subscription.find({"userFrom": req.user.id}).populate('userTo')
+        const channelsSubscribed = await Promise.all(totalSubscriptions?.map(async (subscription) => {
+            const posts = await Post.find({"user": subscription.userTo._id})
+            const totalSubscribers = await Subscription.find({"userTo": subscription.userTo._id})
+            return {
+                _id: subscription._id,
+                channelSubscribed: {
+                    _id: subscription.userTo._id,
+                    email: subscription.userTo.email,
+                    name: subscription.userTo.name,
+                    profilePicture: subscription.userTo.profilePicture,
+                    totalPosts: posts.length,
+                    totalSubscribers: totalSubscribers.length
+                }
+            }
+        }))
+
+
+        // console.log(channelsSubscribed);
+        res.status(200).json({success: true, channelsSubscribed})
+    } catch (error) {
+        res.status(400).json({success: false, error})
+    }
+    // console.log(req.user.id)
+})
+
+
 module.exports = {
     getSubscribersNumber,
     getIsSubscribed,
     setSubscribe,
-    setUnsubscribe
+    setUnsubscribe,
+    getChannelsSubscribed
 }
