@@ -4,13 +4,14 @@ import { BsCheck2 } from 'react-icons/bs'
 import { IconContext } from 'react-icons/lib'
 import SubscriptionContext from '../context/SubscriptionContext'
 
-const Subscribe = ({userTo, userFrom}) => {
+const Subscribe = ({userTo, userFrom, noCount}) => {
 
     const {isSubscribed, subscribersNumber, getSubscribersNumber, getIsSubscribed, subscriptionEvent, subscribeMe, unsubscribe} = useContext(SubscriptionContext)
 
     useEffect(() => {
         getSubscribersNumber(userTo)
         getIsSubscribed(userTo)
+        console.log("userTo: ", userTo);
     }, [userTo, subscriptionEvent])
 
         
@@ -28,8 +29,8 @@ const Subscribe = ({userTo, userFrom}) => {
 
   return (
     <IconContext.Provider value={{ size: 20, color: "#FFFFFF" }} >
-        <button className={`${isSubscribed ? 'subscribed' : 'btn_primary'}`} onClick={handleSubscribe}>
-            <span className='pe-2'>{subscribersNumber}</span>{isSubscribed ? "Subscribed" : "Subscribe"}
+        <button className={`${(isSubscribed && noCount) ? 'subscriptions subscribed' : isSubscribed ? 'subscribed' : 'btn_primary'} d-flex align-items-center`} onClick={handleSubscribe}>
+            <span className='pe-2'>{!noCount && subscribersNumber}</span>{isSubscribed ? "Subscribed" : "Subscribe"}
             {
                 isSubscribed ?
                 <BsCheck2 className='ms-2' />

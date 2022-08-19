@@ -42,7 +42,6 @@ const setCollection = asyncHandler(async (req, res) => {
     // }
 
     allPosts = allPosts.map(id => ({postId: mongoose.Types.ObjectId(id)}))
-    console.log(allPosts)
     
     if(user.isACreator){
         const collection = await Collection.create({

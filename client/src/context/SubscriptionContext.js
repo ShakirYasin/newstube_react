@@ -13,6 +13,7 @@ export const SubscriptionProvider = ({ children }) => {
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [subscriptionEvent, setSubscriptionEvent] = useState("");
     const [subscribersNumber, setSubscribersNumber] = useState(false);
+    const [channelsSubscribed, setChannelsSubscribed] = useState([])
 
 
     const getSubscribersNumber = async (userId) => {
@@ -36,7 +37,7 @@ export const SubscriptionProvider = ({ children }) => {
                     }
                 }
             )
-            // console.log(response?.data)
+            console.log("Working")
             setIsSubscribed(response?.data?.isSubscribed)
             // return response?.data
         } catch (error) {
@@ -80,6 +81,25 @@ export const SubscriptionProvider = ({ children }) => {
         }
     }
 
+    const getChannelsSubscribed = async () => {
+        try {
+            const response = await axios.get(`${SUBSCRIPTION_API}/channelsSubscribed`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${auth?.token}`
+                    }
+                }
+            )
+            // console.log(response?.data)
+            setChannelsSubscribed(response?.data?.channelsSubscribed)
+            setSubscriptionEvent('Subscription Data Fetched')
+            // return response?.data
+        } catch (error) {
+            throw new Error(error?.message)
+        }
+    }
+
     // useEffect(() => {
     //     getUserChannel(auth?._id)
     // }, [auth])
@@ -91,7 +111,9 @@ export const SubscriptionProvider = ({ children }) => {
         getSubscribersNumber,
         subscriptionEvent,
         subscribeMe,
-        unsubscribe
+        unsubscribe,
+        channelsSubscribed,
+        getChannelsSubscribed
     }}>
         {children}
     </SubscriptionContext.Provider>
