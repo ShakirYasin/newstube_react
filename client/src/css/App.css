@@ -78,6 +78,10 @@ body{
 .primary{
   color: var(--primary);
 }
+
+.primary-2{
+  color: var(--primary-btn);
+}
 .heading-color{
   color: var(--nav_bg)
 }

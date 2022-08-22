@@ -8,10 +8,12 @@ import { CgLogOut } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
 import { SidebarData, creatorSidebar } from "../data/SidebarData";
 import { IconContext } from "react-icons";
-import { Col, Dropdown, Image, Row } from "react-bootstrap";
+import { Col, Dropdown, Image, Row, Tooltip } from "react-bootstrap";
 import UserContext from "../context/UserContext";
 import axios from "../components/axios";
 import user from "../images/users/user1.jpg";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+
 
 import NewsContext from "../context/NewsContext";
 import SearchContext from "../context/SearchContext";
@@ -226,8 +228,29 @@ const Navbar = () => {
                       
                     </Dropdown.Menu>
                   </Dropdown>
-                  <Image src={user} className="nav_user noselect me-3" />
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={
+                      <Tooltip id="nav_user">
+                        <p>
+                          {auth?.name}
+                        </p>
+                        <p>
+                          {auth?.email}
+                        </p>
+                      </Tooltip>
+                    }
+                  >
+                    {({ ref, ...triggerHandler }) => (
+                      <Image 
+                        src={user}
+                        className="nav_user noselect me-3"
+                        ref={ref}
+                        {...triggerHandler}
+                      />
+                    )}
                   {/* <span className="color-white">{auth.name}</span> */}
+                  </OverlayTrigger>
                 </div>
               )}
             </Col>

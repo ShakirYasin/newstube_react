@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/index.css'
-import App from './App'
 import { UserProvider } from './context/UserContext'
 import { NewsProvider } from './context/NewsContext'
 import { ChannelProvider } from './context/ChannelContext'
@@ -9,6 +8,8 @@ import { SearchProvider } from './context/SearchContext';
 import { CollectionProvider } from './context/CollectionContext';
 import { SubscriptionProvider } from './context/SubscriptionContext';
 
+import App from './App'
+import { CommentProvider } from './context/CommentContext';
 
 ReactDOM.render(
     <UserProvider>
@@ -17,7 +18,10 @@ ReactDOM.render(
                 <SubscriptionProvider>
                     <SearchProvider>
                         <CollectionProvider>
-                            <App />
+                            <CommentProvider>
+
+                                <App />
+                            </CommentProvider>
                         </CollectionProvider>
                     </SearchProvider>
                 </SubscriptionProvider>
