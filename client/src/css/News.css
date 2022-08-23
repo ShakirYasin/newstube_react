@@ -39,3 +39,8 @@ background-clip: padding-box;
     border: none !important;
     border-radius: 9px !important;
 }
+
+/* Comments */
+.childComment {
+    width: 95%;
+}

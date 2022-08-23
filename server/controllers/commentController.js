@@ -37,7 +37,7 @@ const setComment = asyncHandler(async (req, res) => {
 
             const childComment = await ChildComment.create({
                 postId: req.body.postId,
-                userId: req.user.id,
+                user: req.user.id,
                 comment: req.body.comment
             })
 
@@ -51,20 +51,20 @@ const setComment = asyncHandler(async (req, res) => {
             }
 
             res.status(200).json({
-                newComment: childComment
+                childComment: childComment
             })
         }
         else {
             const comment = await Comment.create({
                 postId: req.body.postId,
-                userId: req.user.id,
+                user: req.user.id,
                 comment: req.body.comment
             })
             if(!comment) {
                 res.status(400)
                 throw new Error('There was an error while commenting...')
             }
-            res.status(200).json(comment)        
+            res.status(200).json({comment: comment})        
         }
         
     } catch (error) {
@@ -79,7 +79,7 @@ const setComment = asyncHandler(async (req, res) => {
 // @access Public
 const getAllComments = asyncHandler(async (req, res) => {
     try {
-        const comments = await Comment.find({"postId": req.params.id}).populate("children.comment").populate("userId","name _id profilePicture email")
+        const comments = await Comment.find({"postId": req.params.id}).populate("children.comment").populate("user", "name email profilePicture").populate({path: "children.comment", populate: { path: "user", model: "User", select: "name email profilePicture" }})
         console.log(comments)
         res.status(200).json(comments)
     } catch (error) {
