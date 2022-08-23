@@ -10,6 +10,10 @@ const COMMENT_API = '/comments'
 export const CommentProvider = ({ children }) => {
 
     const { auth } = useContext(UserContext)
+    const [count, setCount] = useState(0)
+    function handleCount(){
+        setCount(prev => prev+1)
+    }
 
     const setComment = async (values) => {
         try {
@@ -24,6 +28,7 @@ export const CommentProvider = ({ children }) => {
             )
 
             console.log(response?.data)
+            handleCount()
 
 
         } catch (error) {
@@ -34,7 +39,6 @@ export const CommentProvider = ({ children }) => {
     const getAllComments = async (id) => {
         try {
             const response = await axios.get(`${COMMENT_API}/${id}`)
-            console.log(response?.data)
             return response?.data
 
         } catch (error) {
@@ -44,7 +48,8 @@ export const CommentProvider = ({ children }) => {
 
     return <CommentContext.Provider value={{
         setComment,
-        getAllComments
+        getAllComments,
+        count
     }}>
         {children}
     </CommentContext.Provider>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Col, Container, Row, Image, Card, Form, Button } from 'react-bootstrap'
 import NewsContext from '../../context/NewsContext'
 import UserContext from '../../context/UserContext'
@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom'
 import Subscribe from '../Subscribe'
 import SubscriptionContext from '../../context/SubscriptionContext'
 import CommentContext from '../../context/CommentContext'
+import SingleComment from './SingleComment'
 
 
 const SingleNews = () => {
@@ -24,13 +25,14 @@ const SingleNews = () => {
     let { id: params } = useParams()
     const { auth } = useContext(UserContext);
     const { getSingleNews } = useContext(NewsContext);
-    const {setComment, getAllComments} = useContext(CommentContext)
+    const {setComment, getAllComments, count} = useContext(CommentContext)
     const [currentNewsData, setCurrentNewsData] = useState(null)
     const [formValues, setFormValues] = useState({
         parentCommentId: "",
         comment: ""
     })
     const [allComments, setAllComments] = useState(null)
+    const scrollRef = useRef()
     
     function handleChange(name, value){
         setFormValues(prev => (
@@ -94,7 +96,12 @@ const SingleNews = () => {
         }
 
         getComments()
-    }, [currentNewsData?.news])
+    }, [currentNewsData?.news, count])
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({behavior: "smooth"})
+        console.log(count)
+    }, [count])
 
     useEffect(() => {
         console.log(allComments)
@@ -111,7 +118,7 @@ const SingleNews = () => {
                             currentNewsData?.user?.profilePicture ?
                             <Image src={currentNewsData?.user?.profilePicture} alt="Thumbnail" width="50" height="50" roundedCircle/>
                             :
-                            <Image src="https://www.grids-hub.com/new_images/Avatars/Abdullah.png" alt="Thumbnail" width="50" height="50" roundedCircle/>
+                            <Image src="/avatar.jpg" alt="Thumbnail" width="50" height="50" roundedCircle/>
                         }
                     </Col>
                     <Col xs={12} sm={8} md={11}>
@@ -204,42 +211,24 @@ const SingleNews = () => {
         {/* Comments */}
         <Row className='my-3'>
             <Col sm={12}>
+                <h3>Comments</h3>
+                <hr className='mb-5' />
                 {
                     allComments?.map(comment => (
-                        <Card className='mt-3 radius_15'>
-                            <Card.Body>
-                                <Row>
-                                    <Col xs={12} sm={8} md={11} className='pe-0' >
-                                        <div className="d-flex gap-4">
-                                            <Image src="https://miro.medium.com/fit/c/48/48/1*RN7jBa57oDtGv-30-1HMPA.png" alt="Thumbnail" width="50" height="50" roundedCircle/>
-                                            <div className='d-flex flex-column'>
-                                                <p><small className="fw-bold primary-2">james_olesenn</small></p>
-                                                <p><small className="secondary">Hmm, This poster looks cool</small></p>
-                                                <div className='d-flex mt-2 gap-3'>
-                                                    <div className='d-flex align-items-center'>
-                                                        <AiOutlineLike />
-                                                        <span className='font_12 mt-1'>Like</span>
-                                                    </div>
-                                                    <div className='d-flex align-items-center'>
-                                                        <BsReply />
-                                                        <span className='font_12 mt-1'>Reply</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Col>
-                                    <Col xs={12} sm={12} md={1}>
-                                        <div className='text-end'>
-                                            <CgMoreVerticalAlt size={20} className="cursor-pointer" />
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
+                        <div key={comment?._id}>
+                            <SingleComment comment={comment?.comment} postId={currentNewsData?.news?._id} user={comment?.user} parentComment={comment?._id} data={comment} />
+                            {
+                                comment?.children.length > 0 &&
+                                comment?.children?.map(childComment => (
+                                    <SingleComment key={childComment?._id} comment={childComment?.comment?.comment} postId={currentNewsData?.news?._id} user={childComment?.comment?.user} parentComment={comment?._id} data={childComment} />
+                                ))
+                            }
+                        </div>
                     ))
                 }
             </Col>
         </Row>
+        <div ref={scrollRef} style={{height: "100px", width: "100%"}} />
     </Container>
   )
 }
