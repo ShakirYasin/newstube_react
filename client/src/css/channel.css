@@ -1,8 +1,8 @@
 .cover_area{
     /* background-color: red; */
-    height: clamp(150px, 30vh + 1rem, 35vh);
+    height: clamp(300px, 40vh + 1rem, 55vh);
     border-bottom: 2px solid rgba(0,0,0,0.06);
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -10,9 +10,12 @@
 .channel--profile-picture{
     width: 150px;
     height: 150px;
+    position: absolute;
+    top: -75px;
+    left: 0;
     border-radius: 50%;
     border: 5px solid black;
-    transform: translateY(75px);
+    /* margin-top: -75px; */
     background-color: #EEEEEE;
     overflow: hidden;
     display: flex;

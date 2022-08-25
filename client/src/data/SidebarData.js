@@ -17,30 +17,30 @@ export const SidebarData = [
     icon: <GiPapers />,
     cName: 'nav-text'
   },
-  {
-    title: 'Library',
-    path: '/library',
-    icon: <MdLibraryBooks />,
-    cName: 'nav-text'
-  },
-  {
-    title: 'Subscriptions',
-    path: '/subscriptions',
-    icon: <MdSubscriptions />,
-    cName: 'nav-text'
-  },
-  {
-    title: 'History',
-    path: '/history',
-    icon: <GiAnticlockwiseRotation />,
-    cName: 'nav-text'
-  },
-  {
-    title: 'Accounts',
-    path: '/accounts',
-    icon: <MdManageAccounts />,
-    cName: 'nav-text'
-  }
+  // {
+  //   title: 'Library',
+  //   path: '/library',
+  //   icon: <MdLibraryBooks />,
+  //   cName: 'nav-text'
+  // },
+  // {
+  //   title: 'Subscriptions',
+  //   path: '/subscriptions',
+  //   icon: <MdSubscriptions />,
+  //   cName: 'nav-text'
+  // },
+  // {
+  //   title: 'History',
+  //   path: '/history',
+  //   icon: <GiAnticlockwiseRotation />,
+  //   cName: 'nav-text'
+  // },
+  // {
+  //   title: 'Accounts',
+  //   path: '/accounts',
+  //   icon: <MdManageAccounts />,
+  //   cName: 'nav-text'
+  // }
 ];
 
 export const creatorSidebar = [

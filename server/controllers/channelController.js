@@ -29,7 +29,6 @@ const getUserChannel = asyncHandler(async (req, res) => {
     }
 })
 
-
 module.exports = {
-    getUserChannel
+    getUserChannel,
 }

@@ -1,5 +1,6 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import axios from '../components/axios';
+import ChannelContext from './ChannelContext';
 
 
 const UserContext = createContext();
@@ -45,10 +46,29 @@ export function UserProvider({ children }) {
                     }
                 }
             )
-            const data = await response.data._doc
+            const data = await response.data
             return data
         } catch (error) {
             // throw new Error("Fault in getMe Function 'Client Side'")
+            console.log(error)
+        }
+    }
+
+    const updateMe = async (values) => {
+        try {
+            const response = await axios.put('/users/me', JSON.stringify(values), 
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${auth?.token}`
+                    }
+                }
+            )
+
+            console.log(response?.data)
+            return response?.data
+
+        } catch (error) {
             console.log(error)
         }
     }
@@ -87,7 +107,8 @@ export function UserProvider({ children }) {
                 isUserAuthenticated,
                 resetAuth,
                 isCreator,
-                getMe
+                getMe,
+                updateMe
             }}
         >
             {children}

@@ -85,7 +85,7 @@ const updateSinglePost = asyncHandler(async (req, res) => {
 
     // Check for user
     if (!user) {
-        res.status(401)
+        res.status(404)
         throw new Error('User not Found')
     }
 
