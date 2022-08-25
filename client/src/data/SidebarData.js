@@ -17,7 +17,7 @@ export const SidebarData = [
     icon: <GiPapers />,
     cName: 'nav-text'
   },
-  // {
+  // { 
   //   title: 'Library',
   //   path: '/library',
   //   icon: <MdLibraryBooks />,
