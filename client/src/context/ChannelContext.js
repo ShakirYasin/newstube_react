@@ -29,7 +29,9 @@ export const ChannelProvider = ({ children }) => {
     
     return <ChannelContext.Provider value={{
         channelData,
-        getUserChannel
+        getUserChannel,
+        setChannelData
+        
     }}>
         {children}
     </ChannelContext.Provider>

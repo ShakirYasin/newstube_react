@@ -25,13 +25,16 @@ const Navbar = () => {
   // const { news } = useContext(NewsContext);
   const navigate = useNavigate()
   const { getAllResults } = useContext(SearchContext);
-  const { auth, resetAuth, isUserAuthenticated, isCreator } =
+  const { auth, resetAuth, isUserAuthenticated, isCreator, getMe } =
     useContext(UserContext);
+  const [userData, setUserData] = useState({})
   const [sidebar, setSidebar] = useState(true);
   const showSidebar = () => setSidebar(!sidebar);
   const [mainSidebar, setMainSidebar] = useState(null);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+
   const handleSidebar = () => {
     if (isUserAuthenticated() && isCreator()) {
       setMainSidebar(creatorSidebar);
@@ -45,15 +48,14 @@ const Navbar = () => {
     resetAuth();
     navigate('/')
   }
+  const handleSearch = async (value) => {
+    setSearch(value)
+  };
 
 
   useEffect(() => {
     handleSidebar();
   }, [isUserAuthenticated(), isCreator()]);
-
-  const handleSearch = async (value) => {
-    setSearch(value)
-  };
 
   useEffect(() => {
 
@@ -82,6 +84,14 @@ const Navbar = () => {
     // }
     console.log(searchResults)
   }, [searchResults])
+
+  useEffect(() => {
+    async function fetchData(){
+        setUserData(await getMe())
+    }
+
+    fetchData()
+}, [auth])
 
   return (
     <>
@@ -242,12 +252,24 @@ const Navbar = () => {
                     }
                   >
                     {({ ref, ...triggerHandler }) => (
-                      <Image 
-                        src={user}
-                        className="nav_user noselect me-3"
-                        ref={ref}
-                        {...triggerHandler}
-                      />
+                      <>
+                        {
+                          userData?.profilePicture ?
+                          <Image 
+                          src={userData?.profilePicture}
+                          className="nav_user noselect me-3"
+                          ref={ref}
+                          {...triggerHandler}
+                          />
+                          : 
+                          <Image 
+                          src="/avatar.jpg"
+                          className="nav_user noselect me-3"
+                          ref={ref}
+                          {...triggerHandler}
+                          />
+                        }
+                      </>
                     )}
                   {/* <span className="color-white">{auth.name}</span> */}
                   </OverlayTrigger>

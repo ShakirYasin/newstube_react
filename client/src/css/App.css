@@ -74,6 +74,10 @@ body{
   height: 100%;
 }
 
+.cursor-disabled{
+  cursor: not-allowed;
+}
+
 /* Colors */
 .primary{
   color: var(--primary);

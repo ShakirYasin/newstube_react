@@ -111,66 +111,57 @@ const Channel = () => {
         console.log(channelData);
     }, [channelData])
 
-    return (channelData?.news || channelData?.user || channelData?.collections) && (
+    return (channelData?.user) && (
         <>
             <Row>
                 <Col xs='12'>
-                    <div className='cover_area'>
-                        <Container className='height-100'>
-                            <Row className='align-items-end justify-content-start height-100'>
-                                <Col xs='6'>
-                                    <div className='channel--profile-picture'>
-                                        {
-                                            channelData?.user?.profilePicture ?
-                                            <Image src={channelData?.user?.profilePicture} alt='channel--profile-picture' width='100%' height='100%' />
-                                            :
-                                            <span>{channelData?.user?.name?.slice(0, 1)}</span>
-                                        }
+                    <div className='cover_area' style={{backgroundImage: `url('${channelData?.user?.coverPhoto}')`}}></div>
+                    <div className='channel--nav'>
+                        <Container style={{height: "100%", position: "relative"}}>
+                            <div className='channel--profile-picture'>
+                                {
+                                    channelData?.user?.profilePicture ?
+                                    <Image src={channelData?.user?.profilePicture} alt='channel--profile-picture' width='100%' height='100%' />
+                                    :
+                                    <span>{channelData?.user?.name?.slice(0, 1)}</span>
+                                }
+                            </div>
+                            <Row className='py-3'>
+                                <Col xs='10' style={{height: "100%"}}>
+                                    <div className='d-flex align-items-end' style={{height: "100%"}}>
+                                        <Nav defaultActiveKey="/home" as="ul">
+                                            {
+                                                tabs.map(singleTab => (
+                                                    <Nav.Item key={singleTab.name} as="li">
+                                                        <a role='button' className='nav-link capitalize' name={singleTab.name}
+                                                            onClick={(e) => (handleTab(e.target.name))} >{singleTab.name}</a>
+                                                    </Nav.Item>
+                                                ))
+                                            }
+                                        </Nav>
                                     </div>
                                 </Col>
-                                <Col xs='6'>
+                                <Col xs='2'>
+                                    <div className='d-flex flex-column align-items-end justify-content-between' style={{height: "100%"}}>
+                                        {
+                                            !isCurrentUser &&
+                                            <Subscribe userTo={channelData?.user?._id} userFrom={auth?._id} />
+                                        }
+                                        <IconContext.Provider value={{ size: '20' }}>
+                                            <div>
+                                                <BsSearch role='button' />
+                                                <IoMdMore className='ms-3' role='button' />
+                                            </div>
+                                        </IconContext.Provider>
+                                    </div>
                                 </Col>
                             </Row>
                         </Container>
-                        <div className='channel--nav'>
-                            <Container style={{height: "100%"}}>
-                                <Row className='py-3'>
-                                    <Col xs='10' style={{height: "100%"}}>
-                                        <div className='d-flex align-items-end' style={{height: "100%"}}>
-                                            <Nav defaultActiveKey="/home" as="ul">
-                                                {
-                                                    tabs.map(singleTab => (
-                                                        <Nav.Item key={singleTab.name} as="li">
-                                                            <a role='button' className='nav-link capitalize' name={singleTab.name}
-                                                                onClick={(e) => (handleTab(e.target.name))} >{singleTab.name}</a>
-                                                        </Nav.Item>
-                                                    ))
-                                                }
-                                            </Nav>
-                                        </div>
-                                    </Col>
-                                    <Col xs='2'>
-                                        <div className='d-flex flex-column align-items-end justify-content-between' style={{height: "100%"}}>
-                                            {
-                                                !isCurrentUser &&
-                                                <Subscribe userTo={channelData?.user?._id} userFrom={auth?._id} />
-                                            }
-                                            <IconContext.Provider value={{ size: '20' }}>
-                                                <div>
-                                                    <BsSearch role='button' />
-                                                    <IoMdMore className='ms-3' role='button' />
-                                                </div>
-                                            </IconContext.Provider>
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Container>
-                        </div>
-                        <div className='channel--content'>
-                            <Container>
-                                <Content isCurrentUser={isCurrentUser} channelData={channelData} currentTab={currentTab} tabs={tabs} showAddNewsForm={showAddNewsForm} setShowAddNewsForm={setShowAddNewsForm} showAddCollection={showAddCollection} setShowAddCollection={setShowAddCollection} showEditCollection={showEditCollection} setShowEditCollection={setShowEditCollection} />
-                            </Container>
-                        </div>
+                    </div>
+                    <div className='channel--content'>
+                        <Container>
+                            <Content isCurrentUser={isCurrentUser} channelData={channelData} currentTab={currentTab} tabs={tabs} showAddNewsForm={showAddNewsForm} setShowAddNewsForm={setShowAddNewsForm} showAddCollection={showAddCollection} setShowAddCollection={setShowAddCollection} showEditCollection={showEditCollection} setShowEditCollection={setShowEditCollection} />
+                        </Container>
                     </div>
                 </Col>
             </Row>

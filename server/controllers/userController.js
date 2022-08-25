@@ -108,13 +108,10 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/me
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
-    // const user = await User.findById(req.user.id)
-    const user = await req.user
+    const user = await User.findById(req.user.id)
+    // const user = await req.user
     console.log(user)
-    res.status(200).json({
-        id: user._id,
-        ...user
-    })
+    res.status(200).json(user)
 })
 
 
@@ -122,18 +119,19 @@ const getMe = asyncHandler(async (req, res) => {
 // @route   GET /api/users/me
 // @access  Private
 const updateMe = asyncHandler(async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.user.id, req.user, (err, doc) => {
-        if(err){
-            throw new Error("Something's wrong in the 'updateMe' function ")
+    try {
+        const user = await User.findByIdAndUpdate(req.user.id, req.body, {new: true})
+    
+        if(!user){
+            res.status(404)
+            throw new Error(`No user with the id of ${req.body.id}`)
         }
-    })
-
-    if(!user){
-        throw new Error(`No user with the id of ${req.body.id}`)
+        
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
     }
-
-    user.save();
-    res.status(200).res.json(user)
 })
 
 

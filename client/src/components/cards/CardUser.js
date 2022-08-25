@@ -35,7 +35,7 @@ const CardUser = ({ data, orientation, handleMuting, isMute, checkFollow }) => {
             <Row>
                 <Col xs='12' xl={orientation === 'portrait' ? '12' : '6'}>
                     {
-                        data?.image ?
+                        data?.profilePicture ?
                         <Image src={data.profilePicture} alt={data._id} style={{width: "100%", height: "250px"}} className={path === '/subscriptions' ? 'card_user_thumb_full' : 'card_user_thumb'} />
                         :
                         <Image src="/placeholder_image.png" alt={data._id} style={{width: "100%", height: "250px"}} className={path === '/subscriptions' ? 'card_user_thumb_full' : 'card_user_thumb'} />
