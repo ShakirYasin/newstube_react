@@ -18,6 +18,7 @@ import Subscribe from '../Subscribe'
 import SubscriptionContext from '../../context/SubscriptionContext'
 import CommentContext from '../../context/CommentContext'
 import SingleComment from './SingleComment'
+import axios from '../axios'
 
 
 const SingleNews = () => {
@@ -61,20 +62,38 @@ const SingleNews = () => {
     }
 
     useEffect(() => {
-        async function fetchData(){
-            // #For Farhan
-            // -----------------
-            setCurrentNewsData(await getSingleNews(params))
-            // currentNewsData state is set here
-            // it contains an object with 2 more objects
-            // they can be accessed by currentNewsData.user & currentNewsData.news
-            // these information can be handled and displayed below in JSX (eg: currentNewsData?.user?.name) accordingly 
-            // For author and for the news itself
-
+        if(params){
+            async function fetchData(){
+                setCurrentNewsData(await getSingleNews(params))
+            }
+    
+            fetchData()
         }
-
-        fetchData()
     }, [params])
+
+    useEffect(() => {
+        if(currentNewsData?.news?._id === params){
+            async function setHistory(){
+                try {
+                    const response = await axios.post('/history', 
+                        JSON.stringify({postId: currentNewsData?.news?._id}),
+                        {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                authorization: `Bearer ${auth?.token}`
+                            }
+                        }
+                    )
+    
+                    console.log(response?.data)
+                } catch (error) {
+                    console.log(error?.message)
+                }
+            }
+    
+            setHistory()
+        }
+    }, [currentNewsData?.news?._id])
 
     const [date, setDate] = useState()
 
@@ -99,13 +118,14 @@ const SingleNews = () => {
     }, [currentNewsData?.news, count])
 
     useEffect(() => {
-        scrollRef.current?.scrollIntoView({behavior: "smooth"})
-        console.log(count)
+        if(count != 0){
+            scrollRef.current?.scrollIntoView({behavior: "smooth"})
+        }
     }, [count])
 
-    useEffect(() => {
-        console.log(allComments)
-    }, [allComments])
+    // useEffect(() => {
+    //     console.log(allComments)
+    // }, [allComments])
 
   return (
     <Container>
@@ -197,7 +217,7 @@ const SingleNews = () => {
                 <Form onSubmit={(e) => (handleSubmit(e))}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Comment</Form.Label>
-                        <Form.Control className='radius_15 p-3' as="textarea" name="comment" value={formValues.comment} onChange={(e) => (handleChange(e.target.name, e.target.value)) } placeholder="Leave a comment here" style={{ height: '200px' }}
+                        <Form.Control className='radius_15 p-3' required as="textarea" name="comment" value={formValues.comment} onChange={(e) => (handleChange(e.target.name, e.target.value)) } placeholder="Leave a comment here" style={{ height: '200px' }}
                         />
                     </Form.Group>
                     <Button className='btn_primary' type="submit">

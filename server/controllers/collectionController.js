@@ -33,7 +33,7 @@ const setCollection = asyncHandler(async (req, res) => {
     
     // console.log("Next line is the user")
     // console.log(user._id)
-    console.log("news: ", req.body.news)
+    // console.log("news: ", req.body.news)
     let allPosts = req.body.news
     // let allPosts = await Post.find({"_id": {$in: req.body.news}}).select("_id")
     // if(!allPosts){

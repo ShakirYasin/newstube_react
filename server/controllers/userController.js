@@ -110,7 +110,7 @@ const loginUser = asyncHandler(async (req, res) => {
 const getMe = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user.id)
     // const user = await req.user
-    console.log(user)
+    // console.log(user)
     res.status(200).json(user)
 })
 
