@@ -20,6 +20,7 @@ app.use('/api/search', require('./routes/searchRoutes'))
 app.use('/api/collection', require('./routes/collectionRoutes'))
 app.use('/api/subscription', require('./routes/subscriptionRoutes'))
 app.use('/api/comments', require('./routes/commentRoutes'))
+app.use('/api/history', require('./routes/historyRoutes'))
 
 app.use(errorHandler)
 

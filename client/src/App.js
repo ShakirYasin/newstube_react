@@ -10,6 +10,7 @@ import Channel from "./components/channel"
 import Accounts from "./components/accounts"
 import UserContext from './context/UserContext'
 import SingleNews from "./components/News/SingleNews";
+import History from "./components/history";
 
 
 
@@ -26,6 +27,7 @@ const App = () => {
           <Route path='/news' />
           <Route path='/news/:id' element={<SingleNews />} />
           <Route path='/library' />
+          <Route path='/history' element={<History />} />
           <Route path='/subscriptions' element={<Subscriptions />} />
           <Route path='/accounts' element={<Accounts />} />
           <Route path='/login' element={!isUserAuthenticated() ? <Login /> : <Navigate replace to='/' />} />

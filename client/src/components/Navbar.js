@@ -67,23 +67,23 @@ const Navbar = () => {
     }
     async function getResults() {
       if(search !== "" || search !== undefined || search !== null){
-        setSearchResults(Object.entries(await getAllResults(search)));
+          setSearchResults(Object.entries(await getAllResults(search)));
       }
     }
 
     getResults()
   }, [search])
 
-  useEffect(() => {
-    // console.log(Object.keys(searchResults).length);
-    // if (searchResults && Object.keys(searchResults).length > 0) {
-    //   setSearchPane(true)
-    // }
-    // else {
-    //   setSearchPane(false)
-    // }
-    console.log(searchResults)
-  }, [searchResults])
+  // useEffect(() => {
+  //   // console.log(Object.keys(searchResults).length);
+  //   // if (searchResults && Object.keys(searchResults).length > 0) {
+  //   //   setSearchPane(true)
+  //   // }
+  //   // else {
+  //   //   setSearchPane(false)
+  //   // }
+  //   console.log(searchResults)
+  // }, [searchResults])
 
   useEffect(() => {
     async function fetchData(){

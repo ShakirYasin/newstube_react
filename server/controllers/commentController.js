@@ -80,7 +80,6 @@ const setComment = asyncHandler(async (req, res) => {
 const getAllComments = asyncHandler(async (req, res) => {
     try {
         const comments = await Comment.find({"postId": req.params.id}).populate("children.comment").populate("user", "name email profilePicture").populate({path: "children.comment", populate: { path: "user", model: "User", select: "name email profilePicture" }})
-        console.log(comments)
         res.status(200).json(comments)
     } catch (error) {
         res.status(400)
