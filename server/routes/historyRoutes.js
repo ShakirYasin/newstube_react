@@ -7,8 +7,7 @@ const { protect } = require('../middleware/authMiddleware')
 router.route('/')
     .get(protect, getEntireHistory)
     .post(protect, setHistory)
-    // .delete(protect, deleteEntireHistory)
-// router.route('/:id')
-//     .delete(protect, deleteHistory)
+    .delete(protect, deleteEntireHistory)
+router.route('/:id').delete(protect, deleteHistory)
 
 module.exports = router

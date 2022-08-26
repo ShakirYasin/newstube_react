@@ -10,11 +10,11 @@ const Tile = ({ data }) => {
             <Card className='custom-card card_box_shadow'>
                 {
                     data?.image || data?.thumbnail ?
-                        <Card.Img variant='top' width='100%' height='50%' style={{height: "200px", objectFit: "cover", objectPosition: "top"}} src={data?.image || data?.thumbnail} />
+                        <Card.Img variant='top' width='100%' height='50%' style={{height: "200px", maxHeight: "200px", objectFit: "cover", objectPosition: "top"}} src={data?.image || data?.thumbnail} />
                         :
                         <Card.Img variant='top' src='/placeholder_image.png' width='100%' height='50%' />
                 }
-                <Card.Body>
+                <Card.Body style={{position: "inherit",maxHeight: "90px"}}>
                     {
                         data?.title ?
                             <Card.Title>{data?.title}</Card.Title>

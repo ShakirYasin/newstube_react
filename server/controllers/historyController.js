@@ -82,9 +82,73 @@ const getEntireHistory = asyncHandler(async (req, res) => {
 
 })
 
+// @desc DELETE SINGLEHISTORY 
+// @route GET /api/history/:id
+// @access Private
+const deleteHistory = asyncHandler(async (req, res) => {
+
+    if (!req.user.id) {
+        res.status(400)
+        throw new Error('User Not Found...')
+    }
+    
+    const userHistory = await History.find({"user": req.user.id})
+    
+    if(!userHistory){
+        res.status(400)
+        throw new Error('User has no viewing history...')    
+    }
+
+    const postId = req.params.id
+    const currentHistory = userHistory[0]
+    const updatedHistory = currentHistory.watchHistory.filter(h => h.post != postId)
+
+    const history = await History.findByIdAndUpdate(currentHistory._id, {"watchHistory": updatedHistory}, {new: true, upsert: true})
+
+    if(history){
+        res.status(200).json(history)
+    }
+    else {
+        res.status(400)
+        throw new Error("There was a problem updating your watch history")
+    }
+
+})
+
+// @desc DELETE ENTIREHISTORY 
+// @route GET /api/history/:id
+// @access Private
+const deleteEntireHistory = asyncHandler(async (req, res) => {
+    
+    if (!req.user.id) {
+        res.status(400)
+        throw new Error('User Not Found...')
+    }
+    
+    const userHistory = await History.find({"user": req.user.id})
+    
+    if(!userHistory){
+        res.status(400)
+        throw new Error('User has no viewing history...')    
+    }
+
+    const currentHistory = userHistory[0]
+
+    const history = await History.findByIdAndDelete(currentHistory._id)
+
+    if(history){
+        res.status(200).json(history)
+    }
+    else {
+        res.status(400)
+        throw new Error("There was a problem updating your watch history")
+    }
+
+})
+
 module.exports = {
     getEntireHistory, 
     setHistory, 
-    // deleteEntireHistory, 
-    // deleteHistory
+    deleteEntireHistory, 
+    deleteHistory
 }
