@@ -93,9 +93,9 @@ const History = () => {
                             <div className='ms-auto' style={{width: "max-content"}}>
                                 <OverlayTrigger
                                     placement="bottom"
-                                    overlay={<Tooltip>Delete All</Tooltip>}
+                                    overlay={<Tooltip>Clear History</Tooltip>}
                                     >
-                                    <div>
+                                    <div className='border border-2 border-dark p-2' style={{borderRadius: "50%"}}>
                                         <MdDelete role="button" size={30} onClick={deleteEntireHistory} />
                                     </div>
                                 </OverlayTrigger>
