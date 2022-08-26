@@ -2,6 +2,39 @@
     border-radius: 11px !important;
     border: 0;
 }
+
+.custom-card-wrapper{
+    position: relative;
+}
+
+.custom-card-wrapper .more-icon-dropdown > button{
+    background-color: transparent;
+    border: 0;
+    color: black;
+    padding: 0;
+}
+.custom-card-wrapper .more-icon-dropdown > button::after{
+    content: "";
+    display: none;
+}
+.custom-card-wrapper .more-icon-dropdown > button:focus{
+    box-shadow: none !important;
+}
+.custom-card-wrapper .more-icon-dropdown > button[aria-expanded="true"]{
+    box-shadow: none;
+    background-color: transparent;
+    border: 0;
+    color: black;
+}
+.custom-card-wrapper .more-icon-dropdown .dropdown-item:focus{
+    background-color: transparent;
+}
+.custom-card-wrapper .more-icon{
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    z-index: 999999;
+}
 .custom-card .card-img-top{
     border-top-left-radius: 11px !important;
     border-top-right-radius: 11px !important;
