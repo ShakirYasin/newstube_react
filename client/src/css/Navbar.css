@@ -79,8 +79,10 @@
   }
   .nav_user{
     width: 40px;
-    height: auto;
+    height: 40px;
     border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
   }
 
   .move-logo{
