@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Col, Row } from 'react-bootstrap'
+import { Button, Col, Dropdown, Row } from 'react-bootstrap'
+import { IoMdMore } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import CollectionContext from '../../context/CollectionContext'
 import Tile from '../Tile'
@@ -8,35 +9,66 @@ import Tile from '../Tile'
 
 const CollectionsContent = ({data}) => {
 
-  // const { getAllCollections } = useContext(CollectionContext)
-
   const [allCollections, setAllCollections] = useState(null)
+  const {DeleteACollection, DeleteAllCollections} = useContext(CollectionContext)
 
 
   useEffect(() => {
-    
-
     console.log("Collections: ", data)
   }, [data])
 
-  // console.log(allCollections)
+
+  const deleteCollection = async (id) => {
+      const confirm = window.confirm("Confirm Delete?")
+      
+      if(confirm){
+          await DeleteACollection(id)
+      }
+  }
+
+  const deleteAllCollections = async () => {
+      const confirm = window.confirm("Confirm Delete?")
+      
+      if(confirm){
+          await DeleteAllCollections()
+      }
+  }
 
   return (
     <div>
       <h3 className="mb-5">All Collections</h3>
+      <Row className="justify-content-end mb-5">
+        <Col xs={2} className="text-end">
+          <Button className="btn_primary" onClick={() => (deleteAllCollections())}>Delete All</Button>
+        </Col>
+      </Row>
       <Row>
         {
           data?.map(collection => (
             <Col key={collection?._id} xs={12} md={3} className="mb-5">
-              <Link to={`/collection/${collection?._id}`}>
-                <div className='collections--tile'>
-                  <div className='content card_box_shadow'>
-                    <Tile data={collection} />
+              <div className='custom-card-wrapper'>
+                <Link to={`/collection/${collection?._id}`}>
+                  <div className='collections--tile'>
+                    <div className='content card_box_shadow'>
+                      <Tile data={collection} />
+                    </div>
+                    <span className='layer1 card_box_shadow'></span>
+                    <span className='layer2 card_box_shadow'></span>
                   </div>
-                  <span className='layer1 card_box_shadow'></span>
-                  <span className='layer2 card_box_shadow'></span>
-                </div>
-              </Link>
+                </Link>
+                <div className="more-icon">
+                      <Dropdown className='more-icon-dropdown'>
+                          <Dropdown.Toggle>
+                              <IoMdMore size={20} role='button' />
+                          </Dropdown.Toggle>
+
+                          <Dropdown.Menu>
+                              <Dropdown.Item>Edit</Dropdown.Item>
+                              <Dropdown.Item onClick={() => (deleteCollection(collection?._id))}>Delete</Dropdown.Item>
+                          </Dropdown.Menu>
+                      </Dropdown>
+                  </div>
+              </div>
             </Col>
           ))
         }

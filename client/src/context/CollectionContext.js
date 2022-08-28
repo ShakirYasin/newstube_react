@@ -83,9 +83,10 @@ export const CollectionProvider = ({ children }) => {
                     }
                 }   
             )
+            setUpdateChannel(prev => !prev)
             // console.log(response.data)
             // setAllCollections(response?.data)
-            return response?.data
+            return await response?.data
         } catch (error) {
             throw new Error(error)
         }
@@ -103,7 +104,8 @@ export const CollectionProvider = ({ children }) => {
             )
             // console.log(response.data)
             // setAllCollections(response?.data)
-            return response?.data
+            setUpdateChannel(prev => !prev)
+            return await response?.data
         } catch (error) {
             throw new Error(error)
         }

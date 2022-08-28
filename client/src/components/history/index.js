@@ -125,7 +125,7 @@ const History = () => {
                                                     <Dropdown.Item onClick={() => (deleteHistory(item.post._id))}>Delete</Dropdown.Item>
                                                 </Dropdown.Menu>
                                             </Dropdown>
-                                            </div>
+                                        </div>
                                     </div>
                                 </Col>        
                             ))
