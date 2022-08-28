@@ -1,0 +1,25 @@
+.collection-pane{
+    position: fixed; 
+    max-width: 300px;
+    max-height: 60%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.collection-pane.scroll-active::-webkit-scrollbar {
+    display: none;
+}
+
+.collection-pane::-webkit-scrollbar {
+    width: 12px;
+}
+
+.collection-pane::-webkit-scrollbar-track {
+    background-color: var(--primary_bg); 
+    border-radius: 10px;
+}
+
+.collection-pane::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--primary); 
+}

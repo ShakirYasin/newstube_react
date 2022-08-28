@@ -6,6 +6,8 @@ import UserContext from '../../context/UserContext'
 import SingleNews from './SingleNews'
 import {IoIosArrowForward} from "react-icons/io"
 
+import "../../css/Collection.css"
+
 const SingleCollection = () => {
 
     let { id: params } = useParams()
@@ -42,17 +44,18 @@ const SingleCollection = () => {
                 <SingleNews postId={currentPost} />
             </Col>
             <Col xs={12} md={3}>
-                <div className='pt-5 mt-5 d-flex align-items-center justify-content-end'>
-                    <div className='card_box_shadow radius_11 w-100 pt-4 bg-white'>
+                <div className='pt-5 mt-5 d-flex justify-content-end w-100 position-relative' style={{height: "100%"}}>
+                    <div className={`card_box_shadow radius_11 pt-4 bg-white collection-pane ${currentCollection?.posts?.length >= 7 ? 'scroll-active' : ''}`}>
                         <div className='px-4'>
-                            <h3>Collection Queue</h3>
+                            <h3>{currentCollection?.title}</h3>
+                            <p className='font_12 mt-2'>Collection Queue</p>
                         </div>
                         <hr />
                         <div className='pb-4'>
                             {
                                 currentCollection?.posts?.map(item => (
                                     <div className='d-flex align-items-center justify-content-between hover-light p-3 px-4 cursor-pointer' style={{maxHeight: "80px"}} onClick={() => (handlePostSelection(item?.postId?._id))}>
-                                        <div className='d-flex align-items-center gap-3'>
+                                        <div className='d-flex align-items-center gap-3 pe-3'>
                                             <Image src={item?.postId?.image} width="50px" height="40px" style={{borderRadius: "6px", objectFit: "cover", objectPosition: "top"}} />
                                             <div>
                                                 <h6 className="bold">{item?.postId?.title}</h6>

@@ -105,7 +105,7 @@ const updateSingleCollection = asyncHandler(async (req, res) => {
 // @route DELETE /api/posts/:id
 // @access Private
 const deleteSingleCollection = asyncHandler(async (req, res) => {
-    const collection = await Collection.findById(req.body.id)
+    const collection = await Collection.findById(req.params.id)
 
     if (!collection) {
         res.status(400)
@@ -128,14 +128,23 @@ const deleteSingleCollection = asyncHandler(async (req, res) => {
 
     await collection.remove()
 
-    res.status(200).json({ id: req.body.id })
+    res.status(200).json({ id: req.params.id })
 })
 
 // @desc GET AllPosts 
 // @route GET /api/posts
 // @access Public
 const deleteAllCollections = asyncHandler(async (req, res) => {
-    const collections = await Collection.deleteMany({})
+    const user = await User.findById(req.user.id)
+
+    // Check for user
+    if (!user) {
+        res.status(401)
+        throw new Error('User not Found')
+    }
+
+
+    const collections = await Collection.deleteMany({user: req.user.id})
 
     res.status(200).json(collections)
 })

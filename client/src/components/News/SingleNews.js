@@ -62,6 +62,12 @@ const SingleNews = ({postId}) => {
     }
 
     useEffect(() => {
+
+        setFormValues({
+            parentCommentId: "",
+            comment: ""
+        })
+
         async function fetchData(id){
             setCurrentNewsData(await getSingleNews(id))
         }
