@@ -21,7 +21,7 @@ import SingleComment from './SingleComment'
 import axios from '../axios'
 
 
-const SingleNews = () => {
+const SingleNews = ({postId}) => {
 
     let { id: params } = useParams()
     const { auth } = useContext(UserContext);
@@ -62,14 +62,17 @@ const SingleNews = () => {
     }
 
     useEffect(() => {
-        if(params){
-            async function fetchData(){
-                setCurrentNewsData(await getSingleNews(params))
-            }
-    
-            fetchData()
+        async function fetchData(id){
+            setCurrentNewsData(await getSingleNews(id))
         }
-    }, [params])
+
+        if(postId){
+            fetchData(postId)
+        }
+        else {
+            fetchData(params)
+        }
+    }, [params, postId])
 
     useEffect(() => {
         if(currentNewsData?.news?._id === params){
@@ -115,11 +118,11 @@ const SingleNews = () => {
         getComments()
     }, [currentNewsData?.news, count])
 
-    useEffect(() => {
-        if(count != 0){
-            scrollRef.current?.scrollIntoView({behavior: "smooth"})
-        }
-    }, [count])
+    // useEffect(() => {
+    //     if(count != 0){
+    //         scrollRef.current?.scrollIntoView({behavior: "smooth"})
+    //     }
+    // }, [count])
 
     // useEffect(() => {
     //     console.log(allComments)
@@ -129,9 +132,9 @@ const SingleNews = () => {
     <Container>
          
         <Row className="my-5 align-items-center">
-            <Col xs={12} sm={8} md={8}>
+            <Col xs={12} sm={8} md={postId ? 7 : 8}>
                <Row className="my-5">
-                    <Col xs={12} sm={8} md={1}>
+                    <Col xs={12} sm={8} md={postId ? 2 : 1}>
                         {
                             currentNewsData?.user?.profilePicture ?
                             <Image src={currentNewsData?.user?.profilePicture} alt="Thumbnail" width="50" height="50" roundedCircle/>
@@ -139,7 +142,7 @@ const SingleNews = () => {
                             <Image src="/avatar.jpg" alt="Thumbnail" width="50" height="50" roundedCircle/>
                         }
                     </Col>
-                    <Col xs={12} sm={8} md={11}>
+                    <Col xs={12} sm={8} md={postId ? 10 : 11}>
                         <p className='bold'>{currentNewsData?.user?.name}</p>
                         <span>{date}</span> <span>.</span> <p className='d-inline'>7 min read</p>
                     </Col>
@@ -152,7 +155,7 @@ const SingleNews = () => {
                     <BsLinkedin className='me-3' />
                 </IconContext.Provider>
             </Col>
-            <Col xs={12} sm={8} md={2} className='text-end'>
+            <Col xs={12} sm={8} md={postId ? 3 : 2} className='text-end'>
                 {
                     auth?._id === currentNewsData?.user?._id ?
                     <></>

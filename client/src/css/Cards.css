@@ -24,6 +24,8 @@
     width: 100%;
     height: auto;
     border-radius: 15px;
+    object-fit: cover;
+    object-position: top;
 }
 .card_alert{
     position: fixed !important;

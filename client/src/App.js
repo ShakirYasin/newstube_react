@@ -11,6 +11,7 @@ import Accounts from "./components/accounts"
 import UserContext from './context/UserContext'
 import SingleNews from "./components/News/SingleNews";
 import History from "./components/history";
+import SingleCollection from "./components/News/SingleCollection";
 
 
 
@@ -33,6 +34,7 @@ const App = () => {
           <Route path='/login' element={!isUserAuthenticated() ? <Login /> : <Navigate replace to='/' />} />
           <Route path='/signup' element={!isUserAuthenticated() ? <Register /> : <Navigate to='/' />} />
           <Route path='/channel/:id' element={<Channel />} />
+          <Route path='/collection/:id' element={<SingleCollection />} />
         </Routes>
       </div>
     </Router>

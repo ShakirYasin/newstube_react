@@ -19,7 +19,6 @@ ReactDOM.render(
                     <SearchProvider>
                         <CollectionProvider>
                             <CommentProvider>
-
                                 <App />
                             </CommentProvider>
                         </CollectionProvider>

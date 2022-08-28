@@ -66,6 +66,9 @@ export function UserProvider({ children }) {
             )
 
             console.log(response?.data)
+            const updatedUser = await getMe()
+            const { _id, name, email, isACreator } = updatedUser
+            setUserAuthInfo({ _id, name, email, isACreator, token: auth?.token })
             return response?.data
 
         } catch (error) {

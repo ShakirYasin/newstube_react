@@ -21,7 +21,10 @@ const setHistory = asyncHandler(async (req, res) => {
     if(!userHistory?.length){
         const newHistory = await History.create({
             user: req.user.id,
-            watchHistory: [{post: postId}]
+            watchHistory: [{
+                date: new Date(),
+                post: postId
+            }]
         })
 
         if (newHistory) {
@@ -40,7 +43,7 @@ const setHistory = asyncHandler(async (req, res) => {
             }
             else {
                 if(currentHistory.watchHistory.length < 50){
-                    const history = await History.findByIdAndUpdate(currentHistory._id, {$push: {"watchHistory": {post: postId}}}, {new: true, upsert: true})
+                    const history = await History.findByIdAndUpdate(currentHistory._id, {$push: {"watchHistory": {date: new Date(),post: postId}}}, {new: true, upsert: true})
                     res.status(200).json(history)
                 }
                 else{
@@ -71,9 +74,13 @@ const getEntireHistory = asyncHandler(async (req, res) => {
     }
 
     const entireHistory = await History.find({"user": req.user.id}).populate("watchHistory.post")
+    const reverseHistory = entireHistory[0].watchHistory.reverse()
 
     if(entireHistory){
-        res.status(200).json(entireHistory)
+        res.status(200).json([{
+            ...entireHistory,
+            watchHistory: reverseHistory
+        }])
     }
     else {
         res.status(400)

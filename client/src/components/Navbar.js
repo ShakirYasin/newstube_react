@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { FaBars, FaBell } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineLeft } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
@@ -6,7 +6,7 @@ import { BiLogIn } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { CgLogOut } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
-import { SidebarData, creatorSidebar } from "../data/SidebarData";
+import { SidebarData, creatorSidebar, userSidebarData } from "../data/SidebarData";
 import { IconContext } from "react-icons";
 import { Col, Dropdown, Image, Row, Tooltip } from "react-bootstrap";
 import UserContext from "../context/UserContext";
@@ -38,6 +38,8 @@ const Navbar = () => {
   const handleSidebar = () => {
     if (isUserAuthenticated() && isCreator()) {
       setMainSidebar(creatorSidebar);
+    } else if(isUserAuthenticated()) {
+      setMainSidebar(userSidebarData);
     } else {
       setMainSidebar(SidebarData);
     }
@@ -73,6 +75,7 @@ const Navbar = () => {
 
     getResults()
   }, [search])
+
 
   // useEffect(() => {
   //   // console.log(Object.keys(searchResults).length);
@@ -114,6 +117,7 @@ const Navbar = () => {
                   <input
                     type="text"
                     value={search}
+                    // onBlur={() => (setSearchPane(false))}
                     onChange={(e) => handleSearch(e.target.value)}
                     className="bg-transparent border-0 w-100 color-white outline_none"
                     placeholder="Search"

@@ -17,6 +17,7 @@ export const SidebarData = [
     icon: <GiPapers />,
     cName: 'nav-text'
   },
+
   // { 
   //   title: 'Library',
   //   path: '/library',
@@ -35,12 +36,6 @@ export const SidebarData = [
   //   icon: <GiAnticlockwiseRotation />,
   //   cName: 'nav-text'
   // },
-  // {
-  //   title: 'Accounts',
-  //   path: '/accounts',
-  //   icon: <MdManageAccounts />,
-  //   cName: 'nav-text'
-  // }
 ];
 
 export const creatorSidebar = [
@@ -87,3 +82,24 @@ export const creatorSidebar = [
     cName: 'nav-text'
   }
 ];
+
+export const userSidebarData = [
+  {
+    title: 'Home',
+    path: '/',
+    icon: <AiFillHome />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'News',
+    path: '/news',
+    icon: <GiPapers />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Accounts',
+    path: '/accounts',
+    icon: <MdManageAccounts />,
+    cName: 'nav-text'
+  }
+]
