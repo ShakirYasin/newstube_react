@@ -13,7 +13,7 @@ const url = '/me'
 const Accounts = () => {
 
     const { upload } = useFileUpload()
-    const { auth, getMe, updateMe } = useContext(UserContext)
+    const { auth, getMe, updateMe, isCreator } = useContext(UserContext)
     const [userData, setUserData] = useState(null)
     const [formValues, setFormValues] = useState(null)
     const [editForm, setEditForm] = useState(false)
@@ -152,26 +152,30 @@ const Accounts = () => {
                                                     </div>
                                                     <Form.Label className='bold'>Profile Picture</Form.Label>
                                                 </div> 
-                                                <div className='d-flex flex-column align-items-center mt-3'>
-                                                    {/* Cover Photo */}
-                                                    <div className='accounts--cover-photo'>
-                                                        <span className={`hover-placeholder ${!editForm ? 'cursor-disabled' : 'cursor-pointer'}`} onClick={() => (handleSetImage(coverPhotoRef.current))}>
-                                                            <BiImageAdd size={25} color="grey" />
-                                                            <Form.Control 
-                                                                ref={coverPhotoRef}
-                                                                className='d-none'
-                                                                type='file'
-                                                                accept='image/.png, image/.jpeg, image/.jpg' 
-                                                                onChange={
-                                                                    (e) => (
-                                                                        handleCoverPhotoUpload(e.target.files[0])
-                                                                    )}
-                                                            />
-                                                        </span>
-                                                        <Image src={formValues?.coverPhoto} width="101%" height="101%" alt="" style={{objectFit: "cover", objectPosition: "center"}} />
+                                                {
+                                                    isCreator() &&
+                                                    <div className='d-flex flex-column align-items-center mt-3'>
+                                                        {/* Cover Photo */}
+                                                        <div className='accounts--cover-photo'>
+                                                            <span className={`hover-placeholder ${!editForm ? 'cursor-disabled' : 'cursor-pointer'}`} onClick={() => (handleSetImage(coverPhotoRef.current))}>
+                                                                <BiImageAdd size={25} color="grey" />
+                                                                <Form.Control 
+                                                                    ref={coverPhotoRef}
+                                                                    className='d-none'
+                                                                    type='file'
+                                                                    accept='image/.png, image/.jpeg, image/.jpg' 
+                                                                    onChange={
+                                                                        (e) => (
+                                                                            handleCoverPhotoUpload(e.target.files[0])
+                                                                        )}
+                                                                />
+                                                            </span>
+                                                            <Image src={formValues?.coverPhoto} width="101%" height="101%" alt="" style={{objectFit: "cover", objectPosition: "center"}} />
+                                                        </div>
+                                                        <Form.Label className='bold'>Cover Photo</Form.Label>
                                                     </div>
-                                                    <Form.Label className='bold'>Cover Photo</Form.Label>
-                                                </div>
+
+                                                }
                                             </Col>
                                         </Row>
                                     </div>

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import CollectionContext from '../../context/CollectionContext'
 import Tile from '../Tile'
 // import '../../css/Channel.css'
@@ -27,13 +28,15 @@ const CollectionsContent = ({data}) => {
         {
           data?.map(collection => (
             <Col key={collection?._id} xs={12} md={3} className="mb-5">
-              <div className='collections--tile'>
-                <div className='content card_box_shadow'>
-                  <Tile data={collection} />
+              <Link to={`/collection/${collection?._id}`}>
+                <div className='collections--tile'>
+                  <div className='content card_box_shadow'>
+                    <Tile data={collection} />
+                  </div>
+                  <span className='layer1 card_box_shadow'></span>
+                  <span className='layer2 card_box_shadow'></span>
                 </div>
-                <span className='layer1 card_box_shadow'></span>
-                <span className='layer2 card_box_shadow'></span>
-              </div>
+              </Link>
             </Col>
           ))
         }

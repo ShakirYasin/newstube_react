@@ -27,6 +27,7 @@ const History = () => {
                 )
 
                 setEntireHistory(response?.data[0])
+                console.log(response?.data[0]);
             } catch (error) {
                 console.log(error)
             }
@@ -77,9 +78,9 @@ const History = () => {
         }
     }
 
-    // useEffect(() => {
-    //     console.log(entireHistory)
-    // }, [entireHistory])
+    useEffect(() => {
+        console.log(entireHistory)
+    }, [entireHistory])
 
   return (
         <div className='position-relative my-5 pt-5'>

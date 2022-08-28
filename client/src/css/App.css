@@ -153,6 +153,10 @@ body{
   border-radius: 15px;
 }
 
+.radius_11 {
+  border-radius: 11px;
+}
+
 .outline_none:focus{
   outline: none;
 }
@@ -178,6 +182,10 @@ body{
 }
 .active_element_bg{
   color: var(--active_element_bg);
+}
+
+.hover-light:hover{
+  background-color: #EEEEEE;
 }
 
 

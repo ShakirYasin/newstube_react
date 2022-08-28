@@ -7,6 +7,10 @@ const historySchema = mongoose.Schema({
         ref: 'User'
     },
     watchHistory: [{ 
+        date: {
+            type: Date,
+            required: true
+        },
         post: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,

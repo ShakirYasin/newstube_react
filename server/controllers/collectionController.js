@@ -31,16 +31,7 @@ const setCollection = asyncHandler(async (req, res) => {
         throw new Error('User not found')
     }
     
-    // console.log("Next line is the user")
-    // console.log(user._id)
-    // console.log("news: ", req.body.news)
     let allPosts = req.body.news
-    // let allPosts = await Post.find({"_id": {$in: req.body.news}}).select("_id")
-    // if(!allPosts){
-    //     res.status(404)
-    //     throw new Error('Add at least 1 news')
-    // }
-
     allPosts = allPosts.map(id => ({postId: mongoose.Types.ObjectId(id)}))
     
     if(user.isACreator){
@@ -65,20 +56,11 @@ const setCollection = asyncHandler(async (req, res) => {
 // @route GET /api/posts
 // @access Public
 const getSingleCollection = asyncHandler(async (req, res) => {
-    const collection = await Collection.findById(req.body.id)
+    const collection = await Collection.findById(req.params.id).populate("posts.postId")
     if(!collection) {
-        res.status(404).send("Post Not Found")
+        res.status(404).send("Collection Not Found")
     }
-    
-    // const user = await User.findById(collection.user).select("name profilePicture _id")
-
-    // if(!user) {
-    //     res.status(404).send("User Not Found")
-    // }
-
-    res.status(200).json({
-        collection
-    })
+    res.status(200).json(collection)
 })
 
 // @desc UPDATE Posts 

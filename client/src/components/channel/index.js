@@ -30,6 +30,7 @@ const Channel = () => {
     const { channelData, getUserChannel } = useContext(ChannelContext)
     const [isCurrentUser, setIsCurrentUser] = useState(false)
     const [currentTab, setCurrentTab] = useState('home')
+    const [isAllowed, setIsAllowed] = useState(false)
     const [tabs, setTabs] = useState(
         [
             {
@@ -86,6 +87,10 @@ const Channel = () => {
                 }
             })
         ))
+        // setIsAllowed(true)
+        if(channelData?.news && channelData?.user && channelData?.collections){
+            setIsAllowed(true)
+        }
     }, [channelData?.news, channelData?.user, channelData?.collections])
 
     useEffect(() => {
@@ -111,7 +116,7 @@ const Channel = () => {
         console.log(channelData);
     }, [channelData])
 
-    return (channelData?.user) && (
+    return isAllowed && (
         <>
             <Row>
                 <Col xs='12'>

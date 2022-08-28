@@ -28,7 +28,7 @@ export const CollectionProvider = ({ children }) => {
             const response = await axios.get(`${COLLECTION_API}/${id}`)
             // console.log(response.data)
             // setAllCollections(response?.data)
-            return response
+            return response?.data
         } catch (error) {
             throw new Error(error)
         }
