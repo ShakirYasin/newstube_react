@@ -117,10 +117,10 @@ const Login = () => {
                         <h3 className='montserrat_regular text-center mb-3'>Login</h3>
                         <Form className='text-center' onSubmit={(e) => (handleSubmit(e))}>
                             <Form.Group>
-                                <Form.Control type='email' name='email' className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' placeholder='Email' onChange={(e) => (handleChange(e.target.name, e.target.value))} />
+                                <Form.Control type='email' name='email' required className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' placeholder='Email *' onChange={(e) => (handleChange(e.target.name, e.target.value))} />
                             </Form.Group>
                             <Form.Group className='mt-4'>
-                                <Form.Control type='password' name='password' className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' placeholder='Password' onChange={(e) => (handleChange(e.target.name, e.target.value))} />
+                                <Form.Control type='password' name='password' required className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' placeholder='Password *' onChange={(e) => (handleChange(e.target.name, e.target.value))} />
                             </Form.Group>
                             <button className='mt-5 btn_primary mx-auto'>Login</button>
                         </Form>

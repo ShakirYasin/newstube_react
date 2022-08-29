@@ -140,16 +140,16 @@ const Register = () => {
                         <h3 className='montserrat_regular text-center mb-3'>Sign Up</h3>
                         <Form onSubmit={(e) => (handleSubmit(e))}>
                             <Form.Group>
-                                <Form.Control type='text' name='fullname' className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' placeholder='Full Name' required onChange={(e) => (handleChange(e.target.name, e.target.value))} />
+                                <Form.Control type='text' name='fullname' className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' placeholder='Full Name *' required onChange={(e) => (handleChange(e.target.name, e.target.value))} />
                             </Form.Group>
                             <Form.Group className='mt-4'>
-                                <Form.Control type='email' name='email' className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' placeholder='Email' required onChange={(e) => (handleChange(e.target.name, e.target.value))} />
+                                <Form.Control type='email' name='email' className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' placeholder='Email *' required onChange={(e) => (handleChange(e.target.name, e.target.value))} />
                             </Form.Group>
                             <Form.Group className='mt-4'>
-                                <Form.Control type='password' name='password' className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' placeholder='Password' required onChange={(e) => (handleChange(e.target.name, e.target.value))} />
+                                <Form.Control type='password' name='password' className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' placeholder='Password *' required onChange={(e) => (handleChange(e.target.name, e.target.value))} />
                             </Form.Group>
                             <Form.Group className='mt-4'>
-                                <Form.Control type='password' name='confirmPassword' className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' required placeholder='Confirm Password' onChange={(e) => (handleChange(e.target.name, e.target.value))} />
+                                <Form.Control type='password' name='confirmPassword' className='bg-transparent border-0 border-bottom border-2 rounded-0 box-shadow-none outline_none' required placeholder='Confirm Password *' onChange={(e) => (handleChange(e.target.name, e.target.value))} />
                             </Form.Group>
                             <Form.Group className='mt-4'>
                                 <Form.Check label='Create a channel' className='text-left' name='isACreator' onChange={(e) => (handleChange(e.target.name, e.target.checked))} />
