@@ -223,7 +223,7 @@ const SingleNews = ({postId}) => {
             <Col sm={12} className="mt-3">
                 <Form onSubmit={(e) => (handleSubmit(e))}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Comment</Form.Label>
+                        <Form.Label>Comment *</Form.Label>
                         <Form.Control className='radius_15 p-3' required as="textarea" name="comment" value={formValues.comment} onChange={(e) => (handleChange(e.target.name, e.target.value)) } placeholder="Leave a comment here" style={{ height: '200px' }}
                         />
                     </Form.Group>

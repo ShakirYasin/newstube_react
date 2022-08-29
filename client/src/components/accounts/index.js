@@ -123,11 +123,11 @@ const Accounts = () => {
                                         <Row className='px-3 pt-3'>
                                             <Col xs="12" sm="6">
                                                 <Form.Group className="mb-3">
-                                                    <Form.Label className="heading-color bold m-0">Display Name</Form.Label>
+                                                    <Form.Label className="heading-color bold m-0">Display Name *</Form.Label>
                                                     <Form.Control type="text" required className={`nostyle-input form-input-style mt-2 ${!editForm ? 'secondary' : 'primary'}`} name="name" value={formValues?.name || ''} onChange={(e) => (handleChange(e.target.name, e.target.value))} />
                                                 </Form.Group>
                                                 <Form.Group className="mb-3">
-                                                    <Form.Label className="heading-color bold m-0">Email</Form.Label>
+                                                    <Form.Label className="heading-color bold m-0">Email *</Form.Label>
                                                     <Form.Control type="text" required className={`nostyle-input form-input-style mt-2 ${!editForm ? 'secondary' : 'primary'}`} name="email" value={formValues?.email || ''} onChange={(e) => (handleChange(e.target.name, e.target.value))} />
                                                 </Form.Group>
                                             </Col>
