@@ -75,7 +75,7 @@ const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNew
                                     tabs.map(singleTab => {
                                         if (singleTab.name === currentTab) {
                                             const Tab = singleTab.component
-                                            return <Tab key={singleTab.name} data={singleTab?.userNews ?? singleTab?.userCollections ?? singleTab?.userInfo} />
+                                            return <Tab key={singleTab.name} isCurrentUser={isCurrentUser} data={singleTab?.userNews ?? singleTab?.userCollections ?? singleTab?.userInfo} />
                                         }
                                         else {
                                             return <div key={singleTab.name}></div>
