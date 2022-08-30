@@ -134,18 +134,19 @@ useEffect(() => {
           </Alert>
         }
         <Form.Group className='mb-3'>
-          <Form.Label className="font_15">Title</Form.Label>
-          <Form.Control value={formValues?.title} name="title" onChange={(e) => (handleChange(e.target.name, e.target.value))} />
+          <Form.Label className="font_15">Title *</Form.Label>
+          <Form.Control required value={formValues?.title} name="title" onChange={(e) => (handleChange(e.target.name, e.target.value))} />
         </Form.Group>
         <Form.Group className='mb-3'>
-          <Form.Label className="font_15">Description</Form.Label>
-          <Form.Control value={formValues?.description} name="description" onChange={(e) => (handleChange(e.target.name, e.target.value))} />
+          <Form.Label className="font_15">Description *</Form.Label>
+          <Form.Control required value={formValues?.description} name="description" onChange={(e) => (handleChange(e.target.name, e.target.value))} />
         </Form.Group>
         <Form.Group className='mb-3' >
-          <Form.Label className="font_15">Thumbnail</Form.Label>
+          <Form.Label className="font_15">Thumbnail *</Form.Label>
           <div className='d-flex gap-5 w-50'>
             <Form.Control 
                 className='flex-shrink-1'
+                required
                 type='file' 
                 name="thumbnail"
                 onChange={(e) => (handleChange(e.target.name, e.target.files[0]))}
