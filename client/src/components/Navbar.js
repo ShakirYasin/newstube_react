@@ -54,6 +54,12 @@ const Navbar = () => {
     setSearch(value)
   };
 
+  const handleSearchPane = () => {
+    setTimeout(() => {
+      setSearchPane(false)
+    }, 100)
+  }
+
 
   useEffect(() => {
     handleSidebar();
@@ -117,7 +123,7 @@ const Navbar = () => {
                   <input
                     type="text"
                     value={search}
-                    // onBlur={() => (setSearchPane(false))}
+                    onBlur={() => (handleSearchPane())}
                     onChange={(e) => handleSearch(e.target.value)}
                     className="bg-transparent border-0 w-100 color-white outline_none"
                     placeholder="Search"

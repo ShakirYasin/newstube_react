@@ -112,8 +112,8 @@ async function handleSubmit(e) {
 }
 
 useEffect(() => {
-  console.log(formValues)
-}, [formValues])
+  console.log(data)
+}, [data])
 
   return (
     <div>
@@ -164,8 +164,10 @@ useEffect(() => {
                           <ListGroup.Item className='d-flex align-items-center gap-3 mb-2 py-3'>
                             <Form.Check id={item?._id} onChange={(e) => (handleSelectedNews(e))} />
                             {
-                              item?.thumbnail && 
-                              <Image src={item?.thumbnail} width="60px" height="60px" alt="" />
+                              item?.image ? 
+                              <Image src={item?.image} width="60px" height="60px" alt="" style={{objectFit: "cover"}} />
+                              :
+                              <Image src="/placeholder_image.png" width="60px" height="60px" alt="" style={{objectFit: "cover"}} />
                             }
                             {item?.title}
                           </ListGroup.Item>

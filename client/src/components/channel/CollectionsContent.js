@@ -3,14 +3,16 @@ import { Button, Col, Dropdown, Row } from 'react-bootstrap'
 import { IoMdMore } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import CollectionContext from '../../context/CollectionContext'
+import UserContext from '../../context/UserContext'
 import Tile from '../Tile'
 // import '../../css/Channel.css'
 
 
-const CollectionsContent = ({data}) => {
+const CollectionsContent = ({data, isCurrentUser}) => {
 
   const [allCollections, setAllCollections] = useState(null)
   const {DeleteACollection, DeleteAllCollections} = useContext(CollectionContext)
+  const {isCreator, isUserAuthenticated} = useContext(UserContext)
 
 
   useEffect(() => {
@@ -37,11 +39,14 @@ const CollectionsContent = ({data}) => {
   return (
     <div>
       <h3 className="mb-5">All Collections</h3>
-      <Row className="justify-content-end mb-5">
-        <Col xs={2} className="text-end">
-          <Button className="btn_primary" onClick={() => (deleteAllCollections())}>Delete All</Button>
-        </Col>
-      </Row>
+      {
+        (data?.length > 0 && isCreator() && isUserAuthenticated() && isCurrentUser) &&
+        <Row className="justify-content-end mb-5">
+          <Col xs={2} className="text-end">
+            <Button className="btn_primary" onClick={() => (deleteAllCollections())}>Delete All</Button>
+          </Col>
+        </Row>
+      }
       <Row>
         {
           data?.map(collection => (
