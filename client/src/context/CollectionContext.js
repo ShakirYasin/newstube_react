@@ -10,7 +10,7 @@ const COLLECTION_API = '/collection'
 export const CollectionProvider = ({ children }) => {
 
     const { auth } = useContext(UserContext)
-    const [updateChannel, setUpdateChannel] = useState(false)
+    const [updateCollections, setUpdateCollections] = useState(false)
 
     // const getAllCollections = async () => {
     //     try {
@@ -47,7 +47,7 @@ export const CollectionProvider = ({ children }) => {
             )
             // console.log(response.data)
             // setAllCollections(response?.data)
-            setUpdateChannel(prev => !prev)
+            setUpdateCollections(prev => !prev)
             return response?.data
         } catch (error) {
             throw new Error(error)
@@ -83,7 +83,7 @@ export const CollectionProvider = ({ children }) => {
                     }
                 }   
             )
-            setUpdateChannel(prev => !prev)
+            setUpdateCollections(prev => !prev)
             // console.log(response.data)
             // setAllCollections(response?.data)
             return await response?.data
@@ -104,7 +104,7 @@ export const CollectionProvider = ({ children }) => {
             )
             // console.log(response.data)
             // setAllCollections(response?.data)
-            setUpdateChannel(prev => !prev)
+            setUpdateCollections(prev => !prev)
             return await response?.data
         } catch (error) {
             throw new Error(error)
@@ -124,7 +124,7 @@ export const CollectionProvider = ({ children }) => {
         UpdateACollection,
         DeleteACollection,
         DeleteAllCollections,
-        updateChannel,
+        updateCollections,
     }}>
         {children}
     </CollectionContext.Provider>
