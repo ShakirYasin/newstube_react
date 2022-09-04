@@ -7,10 +7,11 @@ import UserContext from '../../context/UserContext'
 import AddCollectionForm from './AddCollectionForm'
 import AddNewsForm from './AddNewsForm'
 import EditCollectionForm from './EditCollectionForm'
+import EditNewsForm from './EditNewsForm'
 
 
 
-const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNewsForm, showAddCollection, setShowAddCollection, showEditCollection, setShowEditCollections, isCurrentUser}) => {
+const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNewsForm, showAddCollection, setShowAddCollection, showEditCollection, handleEditCollection, isCurrentUser, showEditNewsForm, handleEditNews}) => {
 
     const {isUserAuthenticated, isCreator} = useContext(UserContext)
 
@@ -31,17 +32,24 @@ const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNew
                         </Col>
                     </Row>
                     :
+                showEditNewsForm.show ?
+                    <Row className='justify-content-center'>
+                        <Col xs='12' lg='10'>
+                            <EditNewsForm newsId={showEditNewsForm.id} />
+                        </Col>
+                    </Row>
+                :
                 showAddCollection ?
                     <Row className='justify-content-center'>
                         <Col xs='12' lg='10'>
                             <AddCollectionForm data={channelData?.news} />
                         </Col>
                     </Row>
-                    :
-                showEditCollection ?
+                :
+                showEditCollection.show ?
                     <Row className='justify-content-center'>
                         <Col xs='12' lg='10'>
-                            <EditCollectionForm />
+                            <EditCollectionForm collectionId={showEditCollection.id} />
                         </Col>
                     </Row>
                     :
@@ -75,7 +83,7 @@ const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNew
                                     tabs.map(singleTab => {
                                         if (singleTab.name === currentTab) {
                                             const Tab = singleTab.component
-                                            return <Tab key={singleTab.name} isCurrentUser={isCurrentUser} data={singleTab?.userNews ?? singleTab?.userCollections ?? singleTab?.userInfo} />
+                                            return <Tab key={singleTab.name} isCurrentUser={isCurrentUser} data={singleTab?.userNews ?? singleTab?.userCollections ?? singleTab?.userInfo} handleEdit={singleTab.key === "home" ? handleEditNews : singleTab.key="collections" && handleEditCollection} />
                                         }
                                         else {
                                             return <div key={singleTab.name}></div>

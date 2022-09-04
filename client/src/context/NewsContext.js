@@ -11,6 +11,7 @@ export const NewsProvider = ({ children }) => {
 
     const { auth } = useContext(UserContext)
     const [news, setNews] = useState(null)
+    const [updateNews, setUpdateNews] = useState(false)
     // const [userNews, setUserNews] = useState(null)
     // const [newUserPost, setNewUserPost] = useState(null)
 
@@ -57,6 +58,46 @@ export const NewsProvider = ({ children }) => {
         }
     }
 
+    const DeleteAPost = async (id) => {
+        try {
+            const response = await axios.delete(`${NEWS_API}/${id}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${auth?.token}`
+                    }
+                }   
+            )
+            setUpdateNews(prev => !prev)
+            // console.log(response.data)
+            // setAllCollections(response?.data)
+            return await response?.data
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    
+    const UpdateAPost = async (id, data) => {
+        try {
+            const response = await axios.put(`${NEWS_API}/${id}`,
+                JSON.stringify(data),
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${auth?.token}`
+                    }
+                }   
+            )
+            // console.log(response.data)
+            // setAllCollections(response?.data)
+            setUpdateNews(prev => !prev)
+            return response?.data
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
     useEffect(() => {
         getAllNews()
         // getUserNews()
@@ -69,7 +110,12 @@ export const NewsProvider = ({ children }) => {
 
 
     return <NewsContext.Provider value={{
-        news, getSingleNews //userNews, setNewUserPost
+        news, 
+        updateNews,
+        getSingleNews,
+        DeleteAPost,
+        UpdateAPost
+        
     }}>
         {children}
     </NewsContext.Provider>

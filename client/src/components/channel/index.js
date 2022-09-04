@@ -27,6 +27,7 @@ const Channel = () => {
     let { id: params } = useParams()
     const { auth } = useContext(UserContext)
     const { updateChannel } = useContext(CollectionContext)
+    const { updateNews } = useContext(NewsContext)
     const { channelData, getUserChannel } = useContext(ChannelContext)
     const [isCurrentUser, setIsCurrentUser] = useState(false)
     const [currentTab, setCurrentTab] = useState('home')
@@ -54,14 +55,46 @@ const Channel = () => {
         ]
     )
     const [showAddNewsForm, setShowAddNewsForm] = useState(false)
+    const [showEditNewsForm, setShowEditNewsForm] = useState({
+        show: false,
+        id: ""
+    })
     const [showAddCollection, setShowAddCollection] = useState(false)
-    const [showEditCollection, setShowEditCollection] = useState(false)
+    const [showEditCollection, setShowEditCollection] = useState({
+        show: false,
+        id: ""
+    })
 
     const handleTab = (name) => {
         setShowAddNewsForm(false)
         setShowAddCollection(false)
-        setShowEditCollection(false)
+        setShowEditCollection({
+            show: false,
+            id: ""
+        })
+        setShowEditNewsForm({
+            show: false,
+            id: ""
+        })
         setCurrentTab(name)
+    }
+
+    const handleEditNews = (id) => {
+        if(id){
+            setShowEditNewsForm({
+                show: true,
+                id
+            })
+        }
+    }
+
+    const handleEditCollection = (id) => {
+        if(id){
+            setShowEditCollection({
+                show: true,
+                id
+            })
+        }
     }
 
     useEffect(() => {
@@ -106,7 +139,7 @@ const Channel = () => {
         }
 
         getChannel()
-    }, [params, auth?._id, updateChannel, currentTab])
+    }, [params, auth?._id, updateChannel, currentTab, updateNews])
 
     useEffect(() => {
         setCurrentTab('home')
@@ -165,7 +198,7 @@ const Channel = () => {
                     </div>
                     <div className='channel--content'>
                         <Container>
-                            <Content isCurrentUser={isCurrentUser} channelData={channelData} currentTab={currentTab} tabs={tabs} showAddNewsForm={showAddNewsForm} setShowAddNewsForm={setShowAddNewsForm} showAddCollection={showAddCollection} setShowAddCollection={setShowAddCollection} showEditCollection={showEditCollection} setShowEditCollection={setShowEditCollection} />
+                            <Content isCurrentUser={isCurrentUser} channelData={channelData} currentTab={currentTab} tabs={tabs} showAddNewsForm={showAddNewsForm} setShowAddNewsForm={setShowAddNewsForm} showAddCollection={showAddCollection} setShowAddCollection={setShowAddCollection} showEditCollection={showEditCollection} handleEditCollection={handleEditCollection} showEditNewsForm={showEditNewsForm} handleEditNews={handleEditNews} />
                         </Container>
                     </div>
                 </Col>

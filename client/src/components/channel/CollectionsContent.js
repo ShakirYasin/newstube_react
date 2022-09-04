@@ -8,7 +8,7 @@ import Tile from '../Tile'
 // import '../../css/Channel.css'
 
 
-const CollectionsContent = ({data, isCurrentUser}) => {
+const CollectionsContent = ({data, isCurrentUser, handleEdit}) => {
 
   const [allCollections, setAllCollections] = useState(null)
   const {DeleteACollection, DeleteAllCollections} = useContext(CollectionContext)
@@ -68,7 +68,7 @@ const CollectionsContent = ({data, isCurrentUser}) => {
                           </Dropdown.Toggle>
 
                           <Dropdown.Menu>
-                              <Dropdown.Item>Edit</Dropdown.Item>
+                              <Dropdown.Item onClick={() => (handleEdit(collection?._id))}>Edit</Dropdown.Item>
                               <Dropdown.Item onClick={() => (deleteCollection(collection?._id))}>Delete</Dropdown.Item>
                           </Dropdown.Menu>
                       </Dropdown>
