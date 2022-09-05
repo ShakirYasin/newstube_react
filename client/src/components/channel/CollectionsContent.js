@@ -15,9 +15,9 @@ const CollectionsContent = ({data, isCurrentUser, handleEdit}) => {
   const {isCreator, isUserAuthenticated} = useContext(UserContext)
 
 
-  useEffect(() => {
-    console.log("Collections: ", data)
-  }, [data])
+  // useEffect(() => {
+  //   console.log("Collections: ", data)
+  // }, [data])
 
 
   const deleteCollection = async (id) => {

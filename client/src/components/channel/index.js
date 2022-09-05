@@ -26,7 +26,7 @@ const Channel = () => {
 
     let { id: params } = useParams()
     const { auth } = useContext(UserContext)
-    const { updateChannel } = useContext(CollectionContext)
+    const { updateCollections } = useContext(CollectionContext)
     const { updateNews } = useContext(NewsContext)
     const { channelData, getUserChannel } = useContext(ChannelContext)
     const [isCurrentUser, setIsCurrentUser] = useState(false)
@@ -139,7 +139,7 @@ const Channel = () => {
         }
 
         getChannel()
-    }, [params, auth?._id, updateChannel, currentTab, updateNews])
+    }, [params, auth?._id, updateCollections, currentTab, updateNews])
 
     useEffect(() => {
         setCurrentTab('home')
@@ -147,7 +147,7 @@ const Channel = () => {
 
     useEffect(() => {
         console.log(channelData);
-    }, [channelData])
+    }, [channelData.collections])
 
     return isAllowed && (
         <>

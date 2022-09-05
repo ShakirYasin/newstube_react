@@ -67,6 +67,7 @@ export const CollectionProvider = ({ children }) => {
             )
             // console.log(response.data)
             // setAllCollections(response?.data)
+            setUpdateCollections(prev => !prev)
             return response?.data
         } catch (error) {
             throw new Error(error)
