@@ -49,7 +49,7 @@ const Content = ({ channelData, currentTab, tabs, showAddNewsForm, setShowAddNew
                 showEditCollection.show ?
                     <Row className='justify-content-center'>
                         <Col xs='12' lg='10'>
-                            <EditCollectionForm collectionId={showEditCollection.id} />
+                            <EditCollectionForm collectionId={showEditCollection.id} news={channelData?.news} />
                         </Col>
                     </Row>
                     :

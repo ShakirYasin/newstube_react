@@ -67,7 +67,7 @@ const getSingleCollection = asyncHandler(async (req, res) => {
 // @route PUT /api/posts/:id
 // @access Private
 const updateSingleCollection = asyncHandler(async (req, res) => {
-    const collection = await Collection.findById(req.body.id)
+    const collection = await Collection.findById(req.params.id)
 
     if (!collection) {
         res.status(400)
@@ -88,15 +88,18 @@ const updateSingleCollection = asyncHandler(async (req, res) => {
         throw new Error('User not authorized')
     }
 
+    let allPosts = req.body.news
+    allPosts = allPosts.map(id => ({postId: mongoose.Types.ObjectId(id)}))
+
     let body = {
         title: req.body.title,
         description: req.body.description,
         thumbnail: req.body.thumbnail,
         user: req.user.id,
-        posts: req.body.news
+        posts: allPosts
     }
 
-    const updatedCollection = await Collection.findByIdAndUpdate(req.body.id, body, { new: true })
+    const updatedCollection = await Collection.findByIdAndUpdate(req.params.id, body, { new: true })
 
     res.status(200).json(updatedCollection)
 })
