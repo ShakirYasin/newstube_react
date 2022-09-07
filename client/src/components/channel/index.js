@@ -147,7 +147,7 @@ const Channel = () => {
 
     useEffect(() => {
         console.log(channelData);
-    }, [channelData.collections])
+    }, [channelData])
 
     return isAllowed && (
         <>

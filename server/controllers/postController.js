@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
+const Collection = require('../models/collectionModel');
 
 
 // @desc GET AllPosts 
@@ -126,6 +127,11 @@ const deleteSinglePost = asyncHandler(async (req, res) => {
     }
 
     await post.remove()
+    const collections = await Collection.find({user: req.user.id})
+    await Promise.all(collections.forEach(async(collection) => {
+        let newPosts = [...collection.posts].filter(post => post.postId != req.params.id)
+        await Collection.findByIdAndUpdate(collection._id, { posts: newPosts }, {new: true})
+    }))
 
     res.status(200).json({ id: req.params.id })
 })
