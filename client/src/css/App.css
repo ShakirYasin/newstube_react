@@ -191,7 +191,7 @@ body{
 
 /* Buttons */
 .btn_primary{
-  padding: 0.8rem 2rem !important;
+  padding: 0.8rem 2rem ;
   background-color: var(--primary-btn) !important;
   color: white !important;
   border: none !important;
