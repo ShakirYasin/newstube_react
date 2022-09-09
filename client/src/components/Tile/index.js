@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, Card, Placeholder, Button } from 'react-bootstrap'
 import '../../css/tile.css'
 
 
 const Tile = ({ data }) => {
+
+    const [like, setLike] = useState(false)
+
+    
 
     return (
         <div className='tile'>
