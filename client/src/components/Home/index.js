@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import NewsGroup from '../NewsGroup'
 import News from '../../data/News'
 import Users from '../../data/Users'
-import { Container } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
+import NewsContext from '../../context/NewsContext'
+import Tile from '../Tile/'
+import { Link } from 'react-router-dom'
+import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai'
 
 
 const Home = () => {
+
+  const {news} = useContext(NewsContext)
+
+  useEffect(() => {
+    console.log(news);
+  }, [news])
+
   return (
     <div className='m-5'>
       <Container>
@@ -20,6 +31,26 @@ const Home = () => {
         <div className='mt-5'>
           <h4 className='capitalize bold'># Top Picks</h4>
           <NewsGroup news={News} users={Users} />
+        </div>
+        <div className='mt-5'>
+          <h4 className='capitalize bold'>All News</h4>
+          <Row className='mt-3'>
+          {
+            news?.map(item => (
+              <Col xs={12} md={3} className="mb-5">
+                <div className='custom-card-wrapper'>
+                    <Link to={`/news/${item?._id}`}>
+                        <Tile data={item} />
+                    </Link>
+                    <div className="more-icon">
+                        <AiFillHeart size={25}/>
+                        <AiOutlineHeart size={25}/>
+                    </div>
+                </div>
+              </Col>
+            ))
+          }
+          </Row>
         </div>
       </Container >
     </div >
