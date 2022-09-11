@@ -12,6 +12,7 @@ import UserContext from './context/UserContext'
 import SingleNews from "./components/News/SingleNews";
 import History from "./components/history";
 import SingleCollection from "./components/News/SingleCollection";
+import Wishlist from "./components/Wishlist";
 
 
 
@@ -27,7 +28,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/news' />
           <Route path='/news/:id' element={<SingleNews />} />
-          <Route path='/library' />
+          <Route path='/wishlist' element={<Wishlist />} />
           <Route path='/history' element={<History />} />
           <Route path='/subscriptions' element={<Subscriptions />} />
           <Route path='/accounts' element={<Accounts />} />

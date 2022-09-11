@@ -28,7 +28,7 @@ const setHistory = asyncHandler(async (req, res) => {
         })
 
         if (newHistory) {
-            res.status(201).json(history)
+            res.status(201).json(newHistory)
         } else {
             res.status(400)
             throw new Error('Invalid History data')

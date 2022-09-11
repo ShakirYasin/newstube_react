@@ -13,10 +13,6 @@ const Home = () => {
 
   const {news} = useContext(NewsContext)
 
-  useEffect(() => {
-    console.log(news);
-  }, [news])
-
   return (
     <div className='m-5'>
       <Container>
@@ -38,15 +34,7 @@ const Home = () => {
           {
             news?.map(item => (
               <Col xs={12} md={3} className="mb-5">
-                <div className='custom-card-wrapper'>
-                    <Link to={`/news/${item?._id}`}>
-                        <Tile data={item} />
-                    </Link>
-                    <div className="more-icon">
-                        <AiFillHeart size={25}/>
-                        <AiOutlineHeart size={25}/>
-                    </div>
-                </div>
+                <Tile data={item} />
               </Col>
             ))
           }

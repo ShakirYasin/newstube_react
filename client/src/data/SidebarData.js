@@ -1,5 +1,6 @@
 import React from 'react';
 import { AiFillHome } from 'react-icons/ai';
+import { RiHeartAddFill } from 'react-icons/ri';
 import { MdLibraryBooks, MdSubscriptions, MdManageAccounts } from 'react-icons/md';
 import { GiPapers, GiAnticlockwiseRotation } from 'react-icons/gi';
 
@@ -52,9 +53,9 @@ export const creatorSidebar = [
     cName: 'nav-text'
   },
   {
-    title: 'Library',
-    path: '/library',
-    icon: <MdLibraryBooks />,
+    title: 'Wishlist',
+    path: '/wishlist',
+    icon: <RiHeartAddFill />,
     cName: 'nav-text'
   },
   {

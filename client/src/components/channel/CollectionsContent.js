@@ -55,7 +55,7 @@ const CollectionsContent = ({data, isCurrentUser, handleEdit}) => {
                 <Link to={`/collection/${collection?._id}`}>
                   <div className='collections--tile'>
                     <div className='content card_box_shadow'>
-                      <Tile data={collection} />
+                      <Tile dataFor="collection" data={collection} />
                     </div>
                     <span className='layer1 card_box_shadow'></span>
                     <span className='layer2 card_box_shadow'></span>
