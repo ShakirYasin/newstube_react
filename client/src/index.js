@@ -10,6 +10,7 @@ import { SubscriptionProvider } from './context/SubscriptionContext';
 
 import App from './App'
 import { CommentProvider } from './context/CommentContext';
+import { WishlistProvider } from './context/WishListContext';
 
 ReactDOM.render(
     <UserProvider>
@@ -19,7 +20,9 @@ ReactDOM.render(
                     <SearchProvider>
                         <CollectionProvider>
                             <CommentProvider>
-                                <App />
+                                <WishlistProvider>
+                                    <App />
+                                </WishlistProvider>
                             </CommentProvider>
                         </CollectionProvider>
                     </SearchProvider>
