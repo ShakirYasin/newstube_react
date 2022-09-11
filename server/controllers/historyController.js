@@ -18,7 +18,7 @@ const setHistory = asyncHandler(async (req, res) => {
     const userHistory = await History.find({"user": req.user.id})
     const postId = req.body.postId
 
-    if(!userHistory?.length){
+    if(!userHistory?.length){  
         const newHistory = await History.create({
             user: req.user.id,
             watchHistory: [{

@@ -43,8 +43,8 @@ const Home = () => {
                         <Tile data={item} />
                     </Link>
                     <div className="more-icon">
-                        <AiFillHeart size={25}/>
-                        <AiOutlineHeart size={25}/>
+                        <AiFillHeart color="red" size={25}/>
+                        <AiOutlineHeart color="#787878" size={25}/>
                     </div>
                 </div>
               </Col>
