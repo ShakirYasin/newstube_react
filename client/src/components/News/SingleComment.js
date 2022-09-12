@@ -65,10 +65,10 @@ const SingleComment = ({comment, user, parentComment, postId, data}) => {
                                 <p><small className="fw-bold primary-2">{user?.name}</small></p>
                                 <p><small className="secondary">{comment}</small></p>
                                 <div className='d-flex mt-2 gap-3'>
-                                    <div className='d-flex align-items-center cursor-pointer'>
+                                    {/* <div className='d-flex align-items-center cursor-pointer'>
                                         <AiOutlineLike />
                                         <span className='font_12 mt-1'>Like</span>
-                                    </div>
+                                    </div> */}
                                     <div className='d-flex align-items-center cursor-pointer' onClick={handleEnableReply}>
                                         <BsReply />
                                         <span className='font_12 mt-1'>Reply</span>

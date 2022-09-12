@@ -56,9 +56,11 @@ const Tile = ({ data, dataFor }) => {
                         <Card.Img variant='top' src='/placeholder_image.png' width='100%' height='50%' />
                     }
                 </Link>
-                <Card.Body style={{position: "relative",maxHeight: "90px", }}>
+                <Card.Body className="py-2 px-3" style={{position: "relative",maxHeight: "100px",  height: "100px", overflow: 'hidden'}}>
                     {
-                        !isCreator() &&
+                        dataFor === "collection" ?
+                        <></>
+                        :
                         <div style={{position: "absolute", top: "15px", right: "10px"}}>
                             {
                                 add ?
@@ -79,7 +81,7 @@ const Tile = ({ data, dataFor }) => {
                         }
                         {
                             data?.description ?
-                            <Card.Text>{data?.description}</Card.Text>
+                            <Card.Text>{data?.description.substring(0, 16)}...</Card.Text>
                             :
                             <Placeholder as={Card.Text} animation="glow">
                                     <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
