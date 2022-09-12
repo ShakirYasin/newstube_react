@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Card, Col, Form, Image, Row } from 'react-bootstrap'
+import { Button, Card, Col, Dropdown, Form, Image, Row } from 'react-bootstrap'
 import { AiOutlineLike } from 'react-icons/ai'
 import { BsReply } from 'react-icons/bs'
 import { CgMoreVerticalAlt } from 'react-icons/cg'
+import { IoMdMore } from 'react-icons/io'
 import CommentContext from '../../context/CommentContext'
 
-const SingleComment = ({comment, user, parentComment, postId, data}) => {
+const SingleComment = ({comment, user, parentComment, postId, data, deleteComment}) => {
 
     const [enableReply, setEnableReply] = useState(false)
     const [formValues, setFormValues] = useState({
@@ -78,9 +79,17 @@ const SingleComment = ({comment, user, parentComment, postId, data}) => {
                         </div>
                     </Col>
                     <Col xs={12} sm={12} md={1}>
-                        <div className='text-end'>
-                            <CgMoreVerticalAlt size={20} className="cursor-pointer" />
-                        </div>
+                        {/* <div className='text-end'>
+                        <Dropdown className='more-icon-dropdown'>
+                            <Dropdown.Toggle>
+                                <CgMoreVerticalAlt size={20} className="cursor-pointer" />
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => (deleteComment(data?._id))}>Delete</Dropdown.Item>
+                            </Dropdown.Menu>
+                            </Dropdown>
+                        </div> */}
                     </Col>
                 </Row>
             </Card.Body>

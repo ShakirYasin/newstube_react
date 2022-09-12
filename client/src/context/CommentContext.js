@@ -46,9 +46,30 @@ export const CommentProvider = ({ children }) => {
         }
     }
 
+    const deleteSingleComment = async (id) => {
+        try {
+            const response = await axios.post(`${COMMENT_API}/${id}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${auth?.token}`
+                    }
+                }
+            )
+
+            console.log(response?.data)
+            handleCount()
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return <CommentContext.Provider value={{
         setComment,
         getAllComments,
+        deleteSingleComment,
         count
     }}>
         {children}
