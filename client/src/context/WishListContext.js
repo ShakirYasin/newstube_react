@@ -30,7 +30,7 @@ export const WishlistProvider = ({ children }) => {
 
     const setUserWishlist = async (id) => {
         try {
-            const response = await axios.get(Wishlist_API,
+            const response = await axios.post(Wishlist_API,
                 JSON.stringify({
                     id
                 }), 
@@ -48,6 +48,41 @@ export const WishlistProvider = ({ children }) => {
         }
     }
 
+    const getSingleWishListState = async (id) => {
+        try {
+            const response = await axios.get(Wishlist_API+id, 
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${auth?.token}`
+                    }
+                }   
+            )
+            // console.log("Status: ", response?.data?.status)
+            return response?.data?.status
+        } catch (error) {
+            throw new Error(error?.message)
+        }
+    }
+
+    const removeSingleWishList = async (id) => {
+        try {
+            const response = await axios.put(Wishlist_API,
+                JSON.stringify({id}), 
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${auth?.token}`
+                    }
+                }   
+            )
+            console.log("Status: ", response?.data)
+            return response?.data
+        } catch (error) {
+            throw new Error(error?.message)
+        }
+    }
+
     // useEffect(() => {
     //     getUserWishlist(auth?._id)
     // }, [auth])
@@ -55,6 +90,8 @@ export const WishlistProvider = ({ children }) => {
     return <WishlistContext.Provider value={{
         getUserWishlist,
         setUserWishlist,
+        getSingleWishListState,
+        removeSingleWishList,
         wishlistData
         
     }}>

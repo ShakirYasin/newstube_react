@@ -38,6 +38,10 @@ const setPost = asyncHandler(async (req, res) => {
             title: req.body.title,
             description: req.body.description,
             image: req.body.image,
+            audio: req.body.audio,
+            video: req.body.video,
+            tags: req.body.tags,
+            categories: req.body.categories,
             user: req.user.id
         })
     

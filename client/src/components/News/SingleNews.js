@@ -33,6 +33,7 @@ const SingleNews = ({postId}) => {
         comment: ""
     })
     const [allComments, setAllComments] = useState(null)
+    const [showMainComment, setShowMainContent] = useState(false)
     const scrollRef = useRef()
     
     function handleChange(name, value){
@@ -214,23 +215,26 @@ const SingleNews = ({postId}) => {
                     <Card.Body>
                         <IconContext.Provider value={{ size: 25, color: "#787878" }} >
                             <AiFillLike /> <span className='me-3'>(128 Likes)</span>
-                            <MdModeComment className='me-3' />
-                            <RiShareForwardFill />
+                            <MdModeComment className='me-3' onClick={() => (setShowMainContent(prev => !prev))} />
+                            {/* <RiShareForwardFill /> */}
                         </IconContext.Provider>
                     </Card.Body>
                 </Card>
             </Col>
             <Col sm={12} className="mt-3">
-                <Form onSubmit={(e) => (handleSubmit(e))}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Comment *</Form.Label>
-                        <Form.Control className='radius_15 p-3' required as="textarea" name="comment" value={formValues.comment} onChange={(e) => (handleChange(e.target.name, e.target.value)) } placeholder="Leave a comment here" style={{ height: '200px' }}
-                        />
-                    </Form.Group>
-                    <Button className='btn_primary' type="submit">
-                        Submit
-                    </Button>
-                </Form>
+                {
+                    showMainComment &&
+                    <Form onSubmit={(e) => (handleSubmit(e))}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Comment *</Form.Label>
+                            <Form.Control className='radius_15 p-3' required as="textarea" name="comment" value={formValues.comment} onChange={(e) => (handleChange(e.target.name, e.target.value)) } placeholder="Leave a comment here" style={{ height: '200px' }}
+                            />
+                        </Form.Group>
+                        <Button className='btn_primary' type="submit">
+                            Submit
+                        </Button>
+                    </Form>
+                }
             </Col>
         </Row>
 

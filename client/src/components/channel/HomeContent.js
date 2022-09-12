@@ -34,9 +34,7 @@ const HomeContent = ({ data, handleEdit }) => {
                     sortedData?.map(news => (
                         <Col key={news._id} xs='12' md='6' lg='4' xxl='3' className='mt-5'>
                             <div className='custom-card-wrapper'>
-                                <Link to={`/news/${news?._id}`}>
-                                    <Tile data={news} />
-                                </Link>
+                                <Tile data={news} />
                                 <div className="more-icon">
                                     <Dropdown className='more-icon-dropdown'>
                                         <Dropdown.Toggle>

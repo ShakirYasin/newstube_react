@@ -6,7 +6,7 @@ const Wishlist = require('../models/wishListModel');
 
 // @desc GET AllPosts 
 // @route GET /api/posts
-// @access Public
+// @access Private
 const getAllPosts = asyncHandler(async (req, res) => {
 
     if (!req.user.id) {
@@ -24,6 +24,36 @@ const getAllPosts = asyncHandler(async (req, res) => {
     const posts = await Wishlist.findOne({user: req.user.id}).populate("wishlist.post")
 
     res.status(200).json(posts)
+})
+
+// @desc GET SinglePosts 
+// @route GET /api/posts/:id
+// @access Private
+const getSinglePostState = asyncHandler(async (req, res) => {
+
+    if (!req.user.id) {
+        res.status(400)
+        throw new Error('Please add all fields')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    if(!user){
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+    const userWishList = await Wishlist.findOne({user: req.user.id})
+
+    const post = userWishList.wishlist.find(item => item.post == req.params.id)
+    
+    if(post){
+        res.status(200).json({status: true})
+    }
+    else {
+        res.status(200).json({status: false})
+
+    }
 })
 
 // @desc SET Posts 
@@ -45,13 +75,13 @@ const setPost = asyncHandler(async (req, res) => {
 
     // console.log("Next line is the user")
     // console.log(user._id)
-    const userWishlist = Wishlist.find({user: req.user.id})
+    const userWishlist = await Wishlist.find({"user": req.user.id})
 
     if(!userWishlist?.length){
         const wishlist = await Wishlist.create({
             user: req.user.id,
             wishlist: [{
-                post: req.body.post
+                post: req.body.id
             }]
         })
     
@@ -59,7 +89,7 @@ const setPost = asyncHandler(async (req, res) => {
             res.status(201).json(wishlist)
         } else {
             res.status(400)
-            throw new Error('Invalid History data')
+            throw new Error('Invalid Wishlist data')
         }
 
     }
@@ -101,13 +131,13 @@ const deleteWishlist = asyncHandler(async (req, res) => {
         throw new Error('User has no wishlist...')    
     }
 
-    const postId = req.params.id
+    const postId = req.body.id
     const updatedWishlist = userWishList.wishlist.filter(h => h.post != postId)
 
     const wishlist = await Wishlist.findByIdAndUpdate(userWishList._id, {"wishlist": updatedWishlist}, {new: true, upsert: true})
 
     if(wishlist){
-        res.status(200).json(wishlist)
+        res.status(200).json({wishlist})
     }
     else {
         res.status(400)
@@ -122,5 +152,6 @@ const deleteWishlist = asyncHandler(async (req, res) => {
 module.exports = {
     getAllPosts,
     setPost,
-    deleteWishlist
+    deleteWishlist,
+    getSinglePostState
 }

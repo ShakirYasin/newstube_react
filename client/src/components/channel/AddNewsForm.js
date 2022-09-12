@@ -15,11 +15,14 @@ const AddNewsForm = () => {
     const tagsRef = useRef(null)
     const { upload } = useFileUpload()
     const {auth} = useContext(UserContext)
+    const {setUpdateNews} = useContext(NewsContext)
     // const {setNewUserPost} = useContext(NewsContext)
     const [data, setData] = useState({
         title: "",
         description: "",
         image: null,
+        audio: null,
+        video: null,
         tags: [],
         categories: []
     });
@@ -27,14 +30,31 @@ const AddNewsForm = () => {
     const [successMsg, setSuccessMsg] = useState('')
     const [errMsg, setErrMsg] = useState('')
     const [uploadState, setUploadState] = useState(null)
+    const [audioUploadState, setAudioUploadState] = useState(null)
+    const [videoUploadState, setVideoUploadState] = useState(null)
 
     const handleChange = (name, value) => {
-        setData(prev => (
-            {
-                ...prev,
-                [name]: value
+        if(name === "audio" || name === "video"){
+            if(value.size > 307200){
+                alert("file is too big. Please upload below 30mbs")
             }
-        ));
+            else {
+                setData(prev => (
+                    {
+                        ...prev,
+                        [name]: value
+                    }
+                ));
+            }
+        }
+        else {
+            setData(prev => (
+                {
+                    ...prev,
+                    [name]: value
+                }
+            ));
+        }
     };
 
     const handleTag = (key) => {
@@ -100,6 +120,7 @@ const AddNewsForm = () => {
                 return
             }
             else {
+                setUpdateNews(prev => !prev)
                 setSuccessMsg('News Uploaded')
                 setErrMsg('')
                 setData({
@@ -134,9 +155,17 @@ const AddNewsForm = () => {
         upload(file, "images", "image", setData, setUploadState)
     }
 
+    const handleUploadAudio = (file) => {
+        upload(file, "audios", "audio", setData, setAudioUploadState)
+    }
+
+    const handleUploadVideo = (file) => {
+        upload(file, "videos", "video", setData, setVideoUploadState)
+    }
+
     useEffect(() => {
-        console.log(typeof uploadState)
-    }, [uploadState])
+        console.log(data)
+    }, [data])
 
 
     return (
@@ -193,6 +222,66 @@ const AddNewsForm = () => {
                                 <Spinner size={20} color="white" />
                                 :
                                 uploadState == 100 &&
+                                <FiCheck size={20} color="white" />
+                            }
+                        </span>
+                    </Button>
+                </div>
+            </Form.Group>
+            <Form.Group className="mt-3">
+                <Form.Label>Audio *</Form.Label>
+                <div className='d-flex gap-5 w-50'>
+                    <Form.Control 
+                        className='flex-shrink-1'
+                        type='file' 
+                        accept='audio/*'
+                        onChange={
+                            (e) => (
+                                setData((prev) => 
+                                    ({...prev, audio: e.target.files[0]}))
+                            )}
+                    />
+                    <Button type="button" className='btn_primary d-flex' disabled={audioUploadState === 100} style={{padding: "0.45rem 1rem"}} onClick={() => (handleUploadAudio(data?.audio))}>
+                        Upload
+                        <span className='ms-2'>
+                            {
+                                audioUploadState === null ?
+                                <></>
+                                :
+                                audioUploadState == 0 ?
+                                <Spinner size={20} color="white" />
+                                :
+                                audioUploadState == 100 &&
+                                <FiCheck size={20} color="white" />
+                            }
+                        </span>
+                    </Button>
+                </div>
+            </Form.Group>
+            <Form.Group className="mt-3">
+                <Form.Label>Video *</Form.Label>
+                <div className='d-flex gap-5 w-50'>
+                    <Form.Control 
+                        className='flex-shrink-1'
+                        type='file' 
+                        accept='video/*'
+                        onChange={
+                            (e) => (
+                                setData((prev) => 
+                                    ({...prev, video: e.target.files[0]}))
+                            )}
+                    />
+                    <Button type="button" className='btn_primary d-flex' disabled={videoUploadState === 100} style={{padding: "0.45rem 1rem"}} onClick={() => (handleUploadVideo(data?.video))}>
+                        Upload
+                        <span className='ms-2'>
+                            {
+                                videoUploadState === null ?
+                                <></>
+                                :
+                                videoUploadState == 0 ?
+                                <Spinner size={20} color="white" />
+                                :
+                                videoUploadState == 100 &&
                                 <FiCheck size={20} color="white" />
                             }
                         </span>

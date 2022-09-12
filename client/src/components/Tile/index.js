@@ -5,33 +5,43 @@ import '../../css/tile.css'
 import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai'
 import WishlistContext from '../../context/WishListContext'
 import axios from '../axios'
+import UserContext from '../../context/UserContext'
 
 
 
 const Tile = ({ data, dataFor }) => {
 
     const [add, setAdd] = useState(false)
-    const {setUserWishlist} = useContext(WishlistContext)
+    const {setUserWishlist, getSingleWishListState, removeSingleWishList} = useContext(WishlistContext)
+    const {isCreator, auth} = useContext(UserContext)
 
     const setAddWishlist = async (id) => {
         const response = await setUserWishlist(id);
-        console.log(response?.data);
-        if(response?.data){
+        console.log(response);
+        if(response){
             setAdd(true)
         }
     }
 
     const setRemoveWishlist = async (id) => {
-        // const response = await setUserWishlist(id);
-        // console.log(response?.data);
-        // if(response?.data){
-        //     setAdd(true)
-        // }
+        const response = await removeSingleWishList(id);
+        console.log(response);
+        if(response){
+            setAdd(false)
+        }
     }
 
-    // useEffect(() => {   
-        
-    // }, [add])
+    useEffect(() => {   
+        async function getStatus(id){
+            setAdd(await getSingleWishListState(id))
+        }
+
+        getStatus(data?._id)
+    }, [data])
+
+    useEffect(() => {
+        console.log(add)
+    }, [add])
 
     
 
@@ -46,15 +56,20 @@ const Tile = ({ data, dataFor }) => {
                         <Card.Img variant='top' src='/placeholder_image.png' width='100%' height='50%' />
                     }
                 </Link>
-                <Card.Body style={{position: "relative",maxHeight: "90px", }}>
-                    <div style={{position: "absolute", top: "15px", right: "10px"}}>
-                        {
-                            add ?
-                            <AiFillHeart size={25} onClick={() => (setRemoveWishlist(data?._id))} />
-                            :
-                            <AiOutlineHeart size={25} onClick={() => (setAddWishlist(data?._id))} />
-                        }
-                    </div>
+                <Card.Body className="py-2 px-3" style={{position: "relative",maxHeight: "100px",  height: "100px", overflow: 'hidden'}}>
+                    {
+                        dataFor === "collection" ?
+                        <></>
+                        :
+                        <div style={{position: "absolute", top: "15px", right: "10px"}}>
+                            {
+                                add ?
+                                <AiFillHeart size={25} color="red" onClick={() => (setRemoveWishlist(data?._id))} />
+                                :
+                                <AiOutlineHeart size={25} onClick={() => (setAddWishlist(data?._id))} />
+                            }
+                        </div>
+                    }
                     <Link to={`${dataFor === "collection" ? '/collection/' : '/news/'}${data?._id}`}>
                         {
                             data?.title ?
@@ -66,7 +81,7 @@ const Tile = ({ data, dataFor }) => {
                         }
                         {
                             data?.description ?
-                            <Card.Text>{data?.description}</Card.Text>
+                            <Card.Text>{data?.description.substring(0, 16)}...</Card.Text>
                             :
                             <Placeholder as={Card.Text} animation="glow">
                                     <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}

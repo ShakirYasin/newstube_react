@@ -17,7 +17,21 @@ const postSchema = mongoose.Schema({
     image: {
         type: String,
         required: [true, 'Please add an image']
-    }
+    },
+    audio: {
+        type: String,
+        required: [false, 'Please add an audio']
+    },
+    video: {
+        type: String,
+        required: [false, 'Please add a video']
+    },
+    tags: [{
+        type: String,
+    }],
+    categories: [{
+        type: String,
+    }]
 },
     {
         timestamps: true

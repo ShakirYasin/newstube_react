@@ -112,6 +112,7 @@ export const NewsProvider = ({ children }) => {
     return <NewsContext.Provider value={{
         news, 
         updateNews,
+        setUpdateNews,
         getSingleNews,
         DeleteAPost,
         UpdateAPost
