@@ -26,7 +26,7 @@ const SingleNews = ({postId}) => {
     let { id: params } = useParams()
     const { auth } = useContext(UserContext);
     const { getSingleNews } = useContext(NewsContext);
-    const {setComment, getAllComments, count} = useContext(CommentContext)
+    const {setComment, getAllComments, count, deleteSingleComment} = useContext(CommentContext)
     const [currentNewsData, setCurrentNewsData] = useState(null)
     const [formValues, setFormValues] = useState({
         parentCommentId: "",
@@ -60,6 +60,10 @@ const SingleNews = ({postId}) => {
                 parentCommentId: formValues.parentCommentId
             })
         }
+    }
+
+    function deleteComment(id){
+        deleteSingleComment(id)
     }
 
     useEffect(() => {
@@ -151,7 +155,8 @@ const SingleNews = ({postId}) => {
                     </Col>
                     <Col xs={12} sm={8} md={postId ? 10 : 11}>
                         <p className='bold'>{currentNewsData?.user?.name}</p>
-                        <span>{date}</span> <span>.</span> <p className='d-inline'>7 min read</p>
+                        <span>{date}</span> <span>.</span>
+                        {/* <p className='d-inline'>7 min read</p> */}
                     </Col>
                </Row>
             </Col>
@@ -214,7 +219,7 @@ const SingleNews = ({postId}) => {
                 <Card className='radius_15'>
                     <Card.Body>
                         <IconContext.Provider value={{ size: 25, color: "#787878" }} >
-                            <AiFillLike /> <span className='me-3'>(128 Likes)</span>
+                            {/* <AiFillLike /> <span className='me-3'>(128 Likes)</span> */}
                             <MdModeComment className='me-3' onClick={() => (setShowMainContent(prev => !prev))} />
                             {/* <RiShareForwardFill /> */}
                         </IconContext.Provider>
@@ -247,11 +252,11 @@ const SingleNews = ({postId}) => {
                 {
                     allComments?.map(comment => (
                         <div key={comment?._id}>
-                            <SingleComment comment={comment?.comment} postId={currentNewsData?.news?._id} user={comment?.user} parentComment={comment?._id} data={comment} />
+                            <SingleComment comment={comment?.comment} postId={currentNewsData?.news?._id} user={comment?.user} parentComment={comment?._id} data={comment} deleteComment={deleteComment} />
                             {
                                 comment?.children.length > 0 &&
                                 comment?.children?.map(childComment => (
-                                    <SingleComment key={childComment?._id} comment={childComment?.comment?.comment} postId={currentNewsData?.news?._id} user={childComment?.comment?.user} parentComment={comment?._id} data={childComment} />
+                                    <SingleComment key={childComment?._id} comment={childComment?.comment?.comment} postId={currentNewsData?.news?._id} user={childComment?.comment?.user} parentComment={comment?._id} data={childComment} deleteComment={deleteComment} />
                                 ))
                             }
                         </div>

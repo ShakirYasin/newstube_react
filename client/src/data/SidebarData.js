@@ -12,12 +12,12 @@ export const SidebarData = [
     icon: <AiFillHome />,
     cName: 'nav-text'
   },
-  {
-    title: 'News',
-    path: '/news',
-    icon: <GiPapers />,
-    cName: 'nav-text'
-  },
+  // {
+  //   title: 'News',
+  //   path: '/news',
+  //   icon: <GiPapers />,
+  //   cName: 'nav-text'
+  // },
 
   // { 
   //   title: 'Library',
@@ -46,12 +46,12 @@ export const creatorSidebar = [
     icon: <AiFillHome />,
     cName: 'nav-text'
   },
-  {
-    title: 'News',
-    path: '/news',
-    icon: <GiPapers />,
-    cName: 'nav-text'
-  },
+  // {
+  //   title: 'News',
+  //   path: '/news',
+  //   icon: <GiPapers />,
+  //   cName: 'nav-text'
+  // },
   {
     title: 'Wishlist',
     path: '/wishlist',
@@ -91,12 +91,12 @@ export const userSidebarData = [
     icon: <AiFillHome />,
     cName: 'nav-text'
   },
-  {
-    title: 'News',
-    path: '/news',
-    icon: <GiPapers />,
-    cName: 'nav-text'
-  },
+  // {
+  //   title: 'News',
+  //   path: '/news',
+  //   icon: <GiPapers />,
+  //   cName: 'nav-text'
+  // },
   {
     title: 'Accounts',
     path: '/accounts',

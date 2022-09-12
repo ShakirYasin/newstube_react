@@ -73,6 +73,30 @@ const setComment = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc DELETE COMMENT 
+// @route DELETE /api/comments
+// @access Public
+
+const deleteSinglComment = asyncHandler(async (req, res) => {
+
+    const user = await User.findById(req.user.id)
+
+    if(!user){
+        res.status(404)
+        throw new Error('Sign in to modify comment...')
+    }
+    
+    let comment = await Comment.findByIdAndDelete(req.params.id)
+    
+    if(!comment) {
+        comment = await ChildComment.findByIdAndDelete(req.params.id)
+    }
+    
+    res.status(200).json(comment)
+    
+        // res.status(400)
+        // throw new Error(error)
+})
 
 // @desc GET COMMENT 
 // @route GET /api/comments
@@ -89,5 +113,6 @@ const getAllComments = asyncHandler(async (req, res) => {
 
 module.exports = {
     setComment,
-    getAllComments
+    getAllComments,
+    deleteSinglComment
 }
