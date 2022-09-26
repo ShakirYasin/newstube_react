@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.541fc021.css",
+    "main.js": "/static/js/main.ef0dc254.js",
+    "static/media/post-5.png": "/static/media/post-5.960296ad7c8f285a24a2.png",
+    "static/media/post-1.png": "/static/media/post-1.48ce2520711ca30572a9.png",
+    "static/media/post-4.png": "/static/media/post-4.74d7f923ad6514298e14.png",
+    "static/media/post-3.jpg": "/static/media/post-3.0416d241b805b617e62f.jpg",
+    "static/media/building.jpg": "/static/media/building.da9e5891fa2d826c3cb0.jpg",
+    "static/media/post-2.png": "/static/media/post-2.dbebbb65fd7efbbcdd87.png",
+    "static/media/forest.jpg": "/static/media/forest.ababa830c5f300945a08.jpg",
+    "static/media/mountain.jpg": "/static/media/mountain.2abd79a17c0a05c924f7.jpg",
+    "static/media/user2.jpg": "/static/media/user2.3386c1aef3ccfe69d605.jpg",
+    "static/media/user4.jpg": "/static/media/user4.8777048a163be11d552f.jpg",
+    "static/media/user1.jpg": "/static/media/user1.78525badb4b82851f65e.jpg",
+    "static/media/user3.jpg": "/static/media/user3.bc696d4e44430cbc1d1f.jpg",
+    "static/media/lamp.png": "/static/media/lamp.764bd25c30fabd0781a1.png",
+    "static/media/lamp2.jpg": "/static/media/lamp2.b815f34bd9556ea988aa.jpg",
+    "static/media/user5.jpg": "/static/media/user5.656cfcc2633a0a1a421d.jpg",
+    "static/media/user6.jpg": "/static/media/user6.65e896b6a21e88437f75.jpg",
+    "index.html": "/index.html",
+    "main.541fc021.css.map": "/static/css/main.541fc021.css.map",
+    "main.ef0dc254.js.map": "/static/js/main.ef0dc254.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.541fc021.css",
+    "static/js/main.ef0dc254.js"
+  ]
+}
