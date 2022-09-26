@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div className='m-5'>
       <Container>
-        {/* <div className='mt-5 pt-5'>
+        <div className='mt-5 pt-5'>
           <h4 className='capitalize bold'># For you</h4>
           <NewsGroup news={News} users={Users} />
         </div>
@@ -27,7 +27,7 @@ const Home = () => {
         <div className='mt-5'>
           <h4 className='capitalize bold'># Top Picks</h4>
           <NewsGroup news={News} users={Users} />
-        </div> */}
+        </div>
         <div className='mt-5 pt-5'>
           <h4 className='capitalize bold'>All News</h4>
           <Row className='mt-3'>
