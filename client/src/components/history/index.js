@@ -112,8 +112,8 @@ const History = () => {
                             entireHistory?.watchHistory?.map(item => (
                                 <Col key={item?._id} xs={12} md={4} lg={3} className="mb-4">
                                     <div className='custom-card-wrapper'>
-                                        <Link to={`/news/${item.post._id}`}>
-                                            <Tile data={item.post} />
+                                        <Link to={`/news/${item?.post?._id}`}>
+                                            <Tile data={item?.post} />
                                         </Link>
                                         <div className="more-icon">
                                             <Dropdown className='more-icon-dropdown'>
@@ -122,7 +122,7 @@ const History = () => {
                                                 </Dropdown.Toggle>
 
                                                 <Dropdown.Menu>
-                                                    <Dropdown.Item onClick={() => (deleteHistory(item.post._id))}>Delete</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => (deleteHistory(item?.post?._id))}>Delete</Dropdown.Item>
                                                 </Dropdown.Menu>
                                             </Dropdown>
                                         </div>
